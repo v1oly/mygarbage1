@@ -65,24 +65,6 @@
                                 <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntG-IJ-NJl">
-                                <rect key="frame" x="90" y="392" width="88" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <connections>
-                                    <action selector="mainButtonFunc:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZO5-uH-UHg"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jvd-AV-Pvl">
-                                <rect key="frame" x="237" y="392" width="88" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
-                                <connections>
-                                    <action selector="mainButtonFunc:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nfe-k3-qyU"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -93,8 +75,6 @@
                         <outletCollection property="emojiArray" destination="RNN-gx-wFs" collectionClass="NSMutableArray" id="NwK-lH-9Oq"/>
                         <outletCollection property="emojiArray" destination="C49-BG-OXj" collectionClass="NSMutableArray" id="oxm-yL-Rso"/>
                         <outletCollection property="emojiArray" destination="W0A-TR-EEb" collectionClass="NSMutableArray" id="gzG-40-FFJ"/>
-                        <outletCollection property="emojiArray" destination="Jvd-AV-Pvl" collectionClass="NSMutableArray" id="98d-gg-VZl"/>
-                        <outletCollection property="emojiArray" destination="ntG-IJ-NJl" collectionClass="NSMutableArray" id="Xn9-XW-K8C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

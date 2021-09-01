@@ -18,12 +18,14 @@ class ViewController: UIViewController {
     
     @IBOutlet var emojiArray: [UIButton]!
     
+    var arrayOfEmojiChoices = ["🤖","😎","🤖","😎"]
+    
     @IBOutlet weak var totalFlips: UILabel!
     
     @IBAction func mainButtonFunc(_ sender: UIButton) {
-        flipButton(withEmoji: "😎", on: sender)
         flipCount += 1
-        var cardNumber = emojiArray.index(of: <#T##UIButton#>)
+        let cardNumber = emojiArray.index(of: sender)!
+        flipButton(withEmoji: arrayOfEmojiChoices[cardNumber], on: sender)
     }
     
    
