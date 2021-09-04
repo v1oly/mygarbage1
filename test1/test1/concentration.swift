@@ -12,23 +12,23 @@ class concentration
 {
     var Cards = [Card]()
     
-    var indexOfOneAndOnlyFaceUoCard: Int?
+    var indexOfOneAndOnlyFaceUpCard: Int?
     
     func chooseCard(at index: Int){
-        if !Cards[index].isMatched{
-            if let matchIndex = indexOfOneAndOnlyFaceUoCard, matchIndex != index {
+        if !Cards[index].isMatched{ //если isMatched false
+            if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 if Cards[matchIndex].identifier == Cards[index].identifier {
                     Cards[matchIndex].isMatched = true
                     Cards[index].isMatched = true
                 }
                 Cards[index].isFacedUp = true
-                indexOfOneAndOnlyFaceUoCard = nil
-            } else {
+                indexOfOneAndOnlyFaceUpCard = nil
+            } else { // если isMatched true
                 for flipDownIndex in Cards.indices {
                     Cards[flipDownIndex].isFacedUp = false
                 }
                 Cards[index].isFacedUp = true
-                indexOfOneAndOnlyFaceUoCard = index
+                indexOfOneAndOnlyFaceUpCard = index
             }
         }
     }
@@ -36,7 +36,11 @@ class concentration
         for _ in 0..<numberOfPairsCards{
             let card = Card()
             Cards += [card, card]
-            
+        }
+        for _ in Cards.indices{
+            let randomIndex1 = Int (arc4random_uniform(UInt32(Cards.count)))
+            let randomIndex2 = Int (arc4random_uniform(UInt32(Cards.count)))
+            Cards.swapAt(randomIndex1, randomIndex2)
         }
     }
 }

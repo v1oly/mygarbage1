@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     
    
     @IBAction func Restart(_ sender: UIButton) {
+       restartGame()
     }
     
     @IBOutlet weak var totalFlips: UILabel!
@@ -60,6 +61,19 @@ class ViewController: UIViewController {
         
      return emoji[card.identifier] ?? "?"
     }
+    
+    func restartGame(){
+        for index in emojiArray.indices {
+            let button = emojiArray[index]
+            var card = game.Cards[index]
+            flipCount = 0
+            button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+            button.setTitle("", for: UIControlState.normal)
+            card.isFacedUp = false
+            card.isMatched = false
+        }
+    }
+    
     
     }
 
