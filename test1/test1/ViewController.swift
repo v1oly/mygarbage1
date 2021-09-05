@@ -35,11 +35,11 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel (){
+        totalScores.text = "Total Scrores: \(game.scores)"
+        totalFlips.text = "Flips: \(game.flipCount)"
         for index in emojiArray.indices {
             let button = emojiArray[index]
             let card = game.Cards[index]
-            totalScores.text = "Total Scrores: \(game.scores)"
-            totalFlips.text = "Flips: \(game.flipCount)"
             if card.isFacedUp {
                 button.setTitle(emoji(for: card), for: UIControlState.normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
