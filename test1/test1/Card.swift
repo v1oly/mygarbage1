@@ -22,7 +22,7 @@ struct Card {
         return identifierFactory
     }
     
-    init(){
+    init() {
         self.identifier = Card.getUniqueIdentifier()
     }
 }

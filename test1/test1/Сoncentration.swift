@@ -8,23 +8,23 @@
 
 import Foundation
 
-class concentration
-{
+class Сoncentration {
+    
     var сards = [Card]()
     var scores = 0
     var flipCount = 0
     var indexOfOneAndOnlyFaceUpCard: Int?
     
-    func chooseCard(at index: Int){
+    func chooseCard(at index: Int) {
         flipCount += 1
-        if !сards[index].isMatched{ //если isMatched false
+        if !сards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 if сards[matchIndex].identifier == сards[index].identifier {
                     сards[matchIndex].isMatched = true
                     сards[index].isMatched = true
                     scores += 2
-                } else{
-                    if  сards[matchIndex].isOpenedOnce ||  сards[index].isOpenedOnce {
+                } else {
+                    if  сards[matchIndex].isOpenedOnce || сards[index].isOpenedOnce {
                         scores -= 1
                     }
                 }
@@ -32,7 +32,7 @@ class concentration
                 сards[index].isOpenedOnce = true
                 сards[index].isFacedUp = true
                 indexOfOneAndOnlyFaceUpCard = nil
-            } else { // если isMatched true
+            } else { 
                 for flipDownIndex in сards.indices {
                     сards[flipDownIndex].isFacedUp = false
                 }
@@ -41,8 +41,8 @@ class concentration
             }
         }
     }
-    init(numberOfPairsCards: Int){
-        for _ in 0..<numberOfPairsCards{
+    init(numberOfPairsCards: Int) {
+        for _ in 0..<numberOfPairsCards {
             let card = Card()
             сards += [card, card]
         }

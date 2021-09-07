@@ -12,7 +12,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = concentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
+    lazy var game = Сoncentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
     var arrayOfEmojiChoices: [String] = []
     var countOfRngOperations = 0
     var emoji = [Int: String]()
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
-    func updateViewFromModel (){
+    func updateViewFromModel() {
         totalScores.text = "Total Scrores: \(game.scores)"
         totalFlips.text = "Flips: \(game.flipCount)"
         for index in emojiArray.indices {
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     
     func emoji(for card: Card) -> String {
         randomEmojiPack()
-        if emoji[card.identifier] == nil{
+        if emoji[card.identifier] == nil {
             if arrayOfEmojiChoices.count > 0 {
                 let randomIndex = Int (arc4random_uniform(UInt32(arrayOfEmojiChoices.count)))
                 emoji[card.identifier] = arrayOfEmojiChoices.remove(at: randomIndex)
@@ -60,10 +60,10 @@ class ViewController: UIViewController {
         return emoji[card.identifier] ?? "?"
     }
     
-    func restartGame(){
+    func restartGame() {
         countOfRngOperations = 0
         emoji = [:]
-        game = concentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
+        game = Сoncentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
         updateViewFromModel()
     }
     
@@ -81,6 +81,6 @@ class ViewController: UIViewController {
             }
         }
         countOfRngOperations += 1
-    }    
+    }
 }
 
