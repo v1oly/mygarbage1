@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     var countOfRngOperations = 0
     var emoji = [Int: String]()
     
-    
     @IBOutlet var emojiArray: [UIButton]!
     
     @IBAction func Restart(_ sender: UIButton) {
@@ -39,7 +38,7 @@ class ViewController: UIViewController {
         totalFlips.text = "Flips: \(game.flipCount)"
         for index in emojiArray.indices {
             let button = emojiArray[index]
-            let card = game.Cards[index]
+            let card = game.сards[index]
             if card.isFacedUp {
                 button.setTitle(emoji(for: card), for: UIControlState.normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -82,7 +81,6 @@ class ViewController: UIViewController {
             }
         }
         countOfRngOperations += 1
-    }
-    
+    }    
 }
 
