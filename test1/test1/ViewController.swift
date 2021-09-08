@@ -12,11 +12,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = concentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
+    lazy var game = Сoncentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
     var arrayOfEmojiChoices: [String] = []
     var countOfRngOperations = 0
     var emoji = [Int: String]()
-    
     
     @IBOutlet var emojiArray: [UIButton]!
     
@@ -34,12 +33,12 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
-    func updateViewFromModel (){
+    func updateViewFromModel() {
         totalScores.text = "Total Scrores: \(game.scores)"
         totalFlips.text = "Flips: \(game.flipCount)"
         for index in emojiArray.indices {
             let button = emojiArray[index]
-            let card = game.Cards[index]
+            let card = game.сards[index]
             if card.isFacedUp {
                 button.setTitle(emoji(for: card), for: UIControlState.normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -52,7 +51,7 @@ class ViewController: UIViewController {
     
     func emoji(for card: Card) -> String {
         randomEmojiPack()
-        if emoji[card.identifier] == nil{
+        if emoji[card.identifier] == nil {
             if arrayOfEmojiChoices.count > 0 {
                 let randomIndex = Int (arc4random_uniform(UInt32(arrayOfEmojiChoices.count)))
                 emoji[card.identifier] = arrayOfEmojiChoices.remove(at: randomIndex)
@@ -61,10 +60,10 @@ class ViewController: UIViewController {
         return emoji[card.identifier] ?? "?"
     }
     
-    func restartGame(){
+    func restartGame() {
         countOfRngOperations = 0
         emoji = [:]
-        game = concentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
+        game = Сoncentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
         updateViewFromModel()
     }
     
@@ -83,6 +82,5 @@ class ViewController: UIViewController {
         }
         countOfRngOperations += 1
     }
-    
 }
 

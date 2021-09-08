@@ -12,6 +12,7 @@ struct Card {
     
     var isFacedUp = false
     var isMatched = false
+    var isOpenedOnce = false
     var identifier: Int
     
     static var identifierFactory = 0
@@ -21,7 +22,7 @@ struct Card {
         return identifierFactory
     }
     
-    init(){
-    self.identifier = Card.getUniqueIdentifier()
+    init() {
+        self.identifier = Card.getUniqueIdentifier()
     }
 }
