@@ -19,6 +19,7 @@ class Сoncentration {
     var cardColor: String = ""
     var timeInterval = 0.0
     var count = 0
+    var buff = 0.0
     
     
     func randomEmojiPack() {
@@ -88,7 +89,6 @@ class Сoncentration {
     }
     
     func dateDiffernce() {
-        var buff = 0.0
         if count == 0 {
             let firstClick = Date().timeIntervalSinceReferenceDate
             buff = firstClick
