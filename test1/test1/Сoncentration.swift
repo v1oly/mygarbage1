@@ -66,8 +66,8 @@ class Сoncentration {
                         scores += 2
                         count = 0
                     }
-                } else {
                     
+                } else {
                     if  сards[matchIndex].isOpenedOnce || сards[index].isOpenedOnce {
                         scores -= 1
                         count = 0
@@ -77,6 +77,7 @@ class Сoncentration {
                 сards[index].isOpenedOnce = true
                 сards[index].isFacedUp = true
                 indexOfOneAndOnlyFaceUpCard = nil
+
             } else { 
                 for flipDownIndex in сards.indices {
                     сards[flipDownIndex].isFacedUp = false
@@ -92,6 +93,7 @@ class Сoncentration {
             let firstClick = Date().timeIntervalSinceReferenceDate
             buff = firstClick
         }
+        
         if count == 1 {
             let secondClick = Date().timeIntervalSinceReferenceDate
             timeInterval = secondClick - buff
