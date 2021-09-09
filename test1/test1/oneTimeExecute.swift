@@ -7,3 +7,6 @@
 //
 
 import Foundation
+
+var a: TimeInteval
+var b: TimeInteval

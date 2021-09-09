@@ -136,14 +136,14 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEC-2J-fff">
-                                <rect key="frame" x="112" y="671" width="190" height="60"/>
+                                <rect key="frame" x="112" y="580" width="190" height="151"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="New Game">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="Restart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kH9-Yo-OZ3"/>
+                                    <action selector="restart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kH9-Yo-OZ3"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Scrores: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTg-gJ-t1S">
@@ -166,6 +166,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="UEC-2J-fff" secondAttribute="bottom" constant="5" id="C81-w5-jBW"/>
                             <constraint firstItem="ZTg-gJ-t1S" firstAttribute="top" secondItem="ehZ-dv-9qD" secondAttribute="bottom" constant="8" id="Ck1-eP-LoM"/>
                             <constraint firstItem="UEC-2J-fff" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ehZ-dv-9qD" secondAttribute="bottom" constant="8" symbolic="YES" id="Dii-X0-tlL"/>
+                            <constraint firstItem="UEC-2J-fff" firstAttribute="top" relation="lessThanOrEqual" secondItem="ZTg-gJ-t1S" secondAttribute="bottom" constant="200" id="ScB-uB-Oph"/>
                             <constraint firstItem="ZQa-g6-QkR" firstAttribute="top" secondItem="ehZ-dv-9qD" secondAttribute="bottom" constant="53" id="VKD-1f-Cga"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZTg-gJ-t1S" secondAttribute="trailing" constant="20" symbolic="YES" id="WwN-8Y-3CI"/>
                             <constraint firstItem="ehZ-dv-9qD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="auH-Pr-0jn"/>
@@ -177,6 +178,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="backGround" destination="8bC-Xf-vdC" id="iOr-EU-PWw"/>
+                        <outlet property="restartLabel" destination="UEC-2J-fff" id="cz6-hY-hDR"/>
                         <outlet property="totalFlips" destination="ZQa-g6-QkR" id="Qwg-t8-ZeM"/>
                         <outlet property="totalScores" destination="ZTg-gJ-t1S" id="TqM-ii-zS7"/>
                         <outletCollection property="emojiArray" destination="RNN-gx-wFs" collectionClass="NSMutableArray" id="NwK-lH-9Oq"/>
