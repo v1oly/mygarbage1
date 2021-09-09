@@ -19,7 +19,6 @@ class Сoncentration {
     var cardColor: String = ""
     var timeInterval = 0.0
     var count = 0
-    var buff = 0.0
     
     
     func randomEmojiPack() {
@@ -52,9 +51,9 @@ class Сoncentration {
     }
     
     func chooseCard(at index: Int) {
-        flipCount += 1
         dateDiffernce()
         if !сards[index].isMatched {
+            flipCount += 1
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 if сards[matchIndex].identifier == сards[index].identifier {
                     сards[matchIndex].isMatched = true
@@ -89,6 +88,7 @@ class Сoncentration {
     }
     
     func dateDiffernce() {
+        var buff = 0.0
         if count == 0 {
             let firstClick = Date().timeIntervalSinceReferenceDate
             buff = firstClick
