@@ -1,4 +1,4 @@
 fail_on_violations: true
 
 swiftlint:
-  config_file: ./test1/.swiftlint.yml
+    config_file: /test1/.swiftlint.yml
