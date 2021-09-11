@@ -178,7 +178,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="backGround" destination="8bC-Xf-vdC" id="iOr-EU-PWw"/>
+                        <outlet property="background" destination="8bC-Xf-vdC" id="iOr-EU-PWw"/>
                         <outlet property="restartLabel" destination="UEC-2J-fff" id="cz6-hY-hDR"/>
                         <outlet property="totalFlips" destination="ZQa-g6-QkR" id="Qwg-t8-ZeM"/>
                         <outlet property="totalScores" destination="ZTg-gJ-t1S" id="TqM-ii-zS7"/>
