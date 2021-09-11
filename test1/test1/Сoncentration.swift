@@ -9,12 +9,10 @@ class Сoncentration {
     var arrayOfEmojiChoices: [String] = []
     var emoji = [Int: String]()
     var cardColor: String = ""
-    var timeInterval = 0.0
-    var countOperations = 0
-    var buff = 0.0
+    var timeIntervalBuffer = Date()
     
     init(numberOfPairsCards: Int) {
-        randomEmojiPack()
+        selectRandomEmojiPack()
         for _ in 0..<numberOfPairsCards {
             let card = Card()
             сards += [card, card]
@@ -26,7 +24,7 @@ class Сoncentration {
         }
     }
     
-    func randomEmojiPack() {
+    func selectRandomEmojiPack() {
         let randomIndex = Int(arc4random_uniform(6))
         switch randomIndex {
         case 0:
@@ -62,31 +60,32 @@ class Сoncentration {
     }
     
     func chooseCard(at index: Int) {
-        dateDiffernce()
         if !сards[index].isMatched {
             flipCount += 1
+            if indexOfOneAndOnlyFaceUpCard == nil {
+                let firstClick = Date()
+                timeIntervalBuffer = firstClick
+            }
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
+                let secondClick = Date().timeIntervalSince(timeIntervalBuffer)
                 if сards[matchIndex].identifier == сards[index].identifier {
                     сards[matchIndex].isMatched = true
                     сards[index].isMatched = true
-                    if timeInterval <= 3 {
+                    if secondClick < 3 {
                         scores += 3
-                        countOperations = 0
                     } else {
                         scores += 2
-                        countOperations = 0
                     }
                 } else {
                     if  сards[matchIndex].isOpenedOnce || сards[index].isOpenedOnce {
                         scores -= 1
-                        countOperations = 0
                     }
                 }
                 сards[matchIndex].isOpenedOnce = true
                 сards[index].isOpenedOnce = true
                 сards[index].isFacedUp = true
                 indexOfOneAndOnlyFaceUpCard = nil
-            } else { 
+            } else {
                 for flipDownIndex in сards.indices {
                     сards[flipDownIndex].isFacedUp = false
                 }
@@ -94,20 +93,5 @@ class Сoncentration {
                 indexOfOneAndOnlyFaceUpCard = index
             }
         }
-    }
-    
-    @discardableResult
-    func dateDiffernce() -> Double {
-        if countOperations == 0 {
-            let firstClick = Date().timeIntervalSinceReferenceDate
-            buff = firstClick
-        }
-        
-        if countOperations == 1 {
-            let secondClick = Date().timeIntervalSinceReferenceDate
-            timeInterval = secondClick - buff
-        }
-        countOperations += 1
-        return(timeInterval)
     }
 }
