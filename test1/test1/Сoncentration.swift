@@ -18,14 +18,14 @@ class Сoncentration {
             сards += [card, card]
         }
         for _ in сards.indices {
-            let randomIndex1 = Int(arc4random_uniform(UInt32(сards.count)))
-            let randomIndex2 = Int(arc4random_uniform(UInt32(сards.count)))
+            let randomIndex1 = Int.random(in: 0..<сards.count)
+            let randomIndex2 = Int.random(in: 0..<сards.count)
             сards.swapAt(randomIndex1, randomIndex2)
         }
     }
     
     func selectRandomEmojiPack() {
-        let randomIndex = Int(arc4random_uniform(6))
+        let randomIndex = Int.random(in: 0...6)
         switch randomIndex {
         case 0:
         arrayOfEmojiChoices = ["🐶", "🐱", "🐭", "🐹", "🦊", "🐸", "🦁"]
@@ -52,7 +52,7 @@ class Сoncentration {
     func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil {
             if !arrayOfEmojiChoices.isEmpty {
-                let randomIndex = Int(arc4random_uniform(UInt32(arrayOfEmojiChoices.count)))
+                let randomIndex = Int.random(in: 0..<arrayOfEmojiChoices.count)
                 emoji[card.identifier] = arrayOfEmojiChoices.remove(at: randomIndex)
             }
         }

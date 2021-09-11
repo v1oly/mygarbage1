@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func mainButtonFunc(_ sender: UIButton) {
-        let cardNumber = emojiArray.index(of: sender) ?? -1
+        let cardNumber = emojiArray.firstIndex(of: sender) ?? -1
         game.chooseCard(at: cardNumber)
         updateViewFromModel()
     }
@@ -38,10 +38,10 @@ class ViewController: UIViewController {
             let button = emojiArray[index]
             let card = game.сards[index]
             if card.isFacedUp {
-                button.setTitle(game.emoji(for: card), for: UIControlState.normal)
+                button.setTitle(game.emoji(for: card), for: .normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             } else {
-                button.setTitle("", for: UIControlState.normal)
+                button.setTitle("", for: .normal)
                 button.backgroundColor = card.isMatched ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) : cardColor
             }
         }
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         background.backgroundColor = backgroundColorGame
         totalFlips.textColor = cardColor
         totalScores.textColor = cardColor
-        restartLabel.setTitleColor(cardColor, for: UIControlState.normal)
+        restartLabel.setTitleColor(cardColor, for: .normal)
     }
     
     func restartGame() {
