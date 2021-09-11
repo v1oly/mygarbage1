@@ -62,15 +62,14 @@ class Сoncentration {
     func chooseCard(at index: Int) {
         if !сards[index].isMatched {
             flipCount += 1
-            if indexOfOneAndOnlyFaceUpCard == nil {
-                let firstClick = Date()
-                timeIntervalBuffer = firstClick
-            }
+            
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 let secondClick = Date().timeIntervalSince(timeIntervalBuffer)
+                
                 if сards[matchIndex].identifier == сards[index].identifier {
                     сards[matchIndex].isMatched = true
                     сards[index].isMatched = true
+                    
                     if secondClick < 3 {
                         scores += 3
                     } else {
@@ -81,14 +80,19 @@ class Сoncentration {
                         scores -= 1
                     }
                 }
+                
                 сards[matchIndex].isOpenedOnce = true
                 сards[index].isOpenedOnce = true
                 сards[index].isFacedUp = true
                 indexOfOneAndOnlyFaceUpCard = nil
             } else {
+                let firstClick = Date()
+                timeIntervalBuffer = firstClick
+                
                 for flipDownIndex in сards.indices {
                     сards[flipDownIndex].isFacedUp = false
                 }
+                
                 сards[index].isFacedUp = true
                 indexOfOneAndOnlyFaceUpCard = index
             }

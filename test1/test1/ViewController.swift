@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func mainButtonFunc(_ sender: UIButton) {
-        let cardNumber = emojiArray.index(of: sender)!
+        let cardNumber = emojiArray.index(of: sender) ?? -1
         game.chooseCard(at: cardNumber)
         updateViewFromModel()
     }

@@ -38,7 +38,6 @@ opt_in_rules:
   - first_where
   - force_unwrapping
   - identical_operands
-  - implicit_return
   - implicitly_unwrapped_optional
   - indentation_width
   - inert_defer
