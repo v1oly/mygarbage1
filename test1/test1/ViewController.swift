@@ -2,9 +2,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = Сoncentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
+    private lazy var game = Сoncentration(numberOfPairsCards: numberOfPairOfCards)
     var cardColor: UIColor?
     var backgroundColorGame: UIColor?
+    var numberOfPairOfCards: Int {
+        return (emojiArray.count + 1) / 2
+    }
     
     @IBOutlet private var emojiArray: [UIButton]!
     
@@ -47,7 +50,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func chooseColorTheme () {
+    private func chooseColorTheme () {
         switch game.cardColor {
         case "Orange":
             cardColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
@@ -80,7 +83,7 @@ class ViewController: UIViewController {
         restartLabel.setTitleColor(cardColor, for: .normal)
     }
     
-    func restartGame() {
+    private func restartGame() {
         game = Сoncentration(numberOfPairsCards: (emojiArray.count + 1) / 2)
         updateViewFromModel()
         chooseColorTheme()

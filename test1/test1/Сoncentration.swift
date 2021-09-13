@@ -3,13 +3,32 @@ import Foundation
 class Сoncentration {
     
     var сards = [Card]()
-    var scores = 0
-    var flipCount = 0
-    var indexOfOneAndOnlyFaceUpCard: Int?
-    var arrayOfEmojiChoices: [String] = []
+    private(set) var scores = 0
+    private(set) var flipCount = 0
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
+        get {
+            var foundIndex: Int?
+            for index in сards.indices {
+                if сards[index].isFacedUp {
+                    if foundIndex == nil {
+                        foundIndex = index
+                    } else {
+                        return nil
+                    }
+                }
+            }
+            return foundIndex
+        }
+        set {
+            for index in сards.indices {
+                сards[index].isFacedUp = (index == newValue)
+            }
+        }
+    }
+    private var arrayOfEmojiChoices: [String] = []
     var emoji = [Int: String]()
-    var cardColor: String = ""
-    var timeIntervalBuffer = Date()
+    private(set)  var cardColor: String = ""
+    private var timeIntervalBuffer = Date()
     
     init(numberOfPairsCards: Int) {
         selectRandomEmojiPack()
@@ -24,27 +43,27 @@ class Сoncentration {
         }
     }
     
-    func selectRandomEmojiPack() {
+    private func selectRandomEmojiPack() {
         let randomIndex = Int.random(in: 0...6)
         switch randomIndex {
         case 0:
-        arrayOfEmojiChoices = ["🐶", "🐱", "🐭", "🐹", "🦊", "🐸", "🦁"]
-        cardColor = "Orange"
+            arrayOfEmojiChoices = ["🐶", "🐱", "🐭", "🐹", "🦊", "🐸", "🦁"]
+            cardColor = "Orange"
         case 1:
-        arrayOfEmojiChoices = ["🍑", "🥥", "🍉", "🍒", "🥝", "🍅", "🍓"]
-        cardColor = "Light Green"
+            arrayOfEmojiChoices = ["🍑", "🥥", "🍉", "🍒", "🥝", "🍅", "🍓"]
+            cardColor = "Light Green"
         case 2:
-        arrayOfEmojiChoices = ["🥐", "🍔", "🍟", "🍕", "🥪", "🥙", "🍱"]
-        cardColor = "Light Red"
+            arrayOfEmojiChoices = ["🥐", "🍔", "🍟", "🍕", "🥪", "🥙", "🍱"]
+            cardColor = "Light Red"
         case 3:
-        arrayOfEmojiChoices = ["⚽️", "🏀", "🏈", "⚾️", "🎾", "🏐", "🎱"]
-        cardColor = "Yellow"
+            arrayOfEmojiChoices = ["⚽️", "🏀", "🏈", "⚾️", "🎾", "🏐", "🎱"]
+            cardColor = "Yellow"
         case 4:
-        arrayOfEmojiChoices = ["🇺🇸", "🇺🇦", "🇫🇷", "🇷🇺", "🇵🇱", "🇨🇦", "🇧🇾"]
-        cardColor = "Purple"
+            arrayOfEmojiChoices = ["🇺🇸", "🇺🇦", "🇫🇷", "🇷🇺", "🇵🇱", "🇨🇦", "🇧🇾"]
+            cardColor = "Purple"
         case 5:
-        arrayOfEmojiChoices = ["😀", "😎", "😇", "🤢", "🤓", "🤪", "😍"]
-        cardColor = "Pink"
+            arrayOfEmojiChoices = ["😀", "😎", "😇", "🤢", "🤓", "🤪", "😍"]
+            cardColor = "Pink"
         default:()
         }
     }
@@ -84,16 +103,9 @@ class Сoncentration {
                 сards[matchIndex].isOpenedOnce = true
                 сards[index].isOpenedOnce = true
                 сards[index].isFacedUp = true
-                indexOfOneAndOnlyFaceUpCard = nil
             } else {
                 let firstClick = Date()
                 timeIntervalBuffer = firstClick
-                
-                for flipDownIndex in сards.indices {
-                    сards[flipDownIndex].isFacedUp = false
-                }
-                
-                сards[index].isFacedUp = true
                 indexOfOneAndOnlyFaceUpCard = index
             }
         }
