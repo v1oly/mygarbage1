@@ -1,6 +1,6 @@
 import Foundation
 
-struct Card {
+struct Card: Hashable {
     
     private static var identifierFactory = 0
     
