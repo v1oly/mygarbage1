@@ -7,17 +7,10 @@ class Сoncentration {
     private(set) var flipCount = 0
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
-            var foundIndex: Int?
-            for index in сards.indices {
-                if сards[index].isFacedUp {
-                    if foundIndex == nil {
-                        foundIndex = index
-                    } else {
-                        return nil
-                    }
-                }
-            }
-            return foundIndex
+            
+            let faceUpCardIndices = сards.indices.filter { сards[$0].isFacedUp }
+            return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
+            
         }
         set {
             for index in сards.indices {
@@ -26,8 +19,8 @@ class Сoncentration {
         }
     }
     private var arrayOfEmojiChoices: [String] = []
-    var emoji = [Card: String]()
-    private(set)  var cardColor: String = ""
+    private(set) var emoji = [Card: String]()
+    private(set) var cardColor: String = ""
     private var timeIntervalBuffer = Date()
     
     init(numberOfPairsCards: Int) {
@@ -111,3 +104,5 @@ class Сoncentration {
         }
     }
 }
+
+
