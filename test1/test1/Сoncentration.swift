@@ -7,10 +7,7 @@ class Сoncentration {
     private(set) var flipCount = 0
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
-            
-            let faceUpCardIndices = сards.indices.filter { сards[$0].isFacedUp }
-            return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
-            
+            return сards.indices.filter { сards[$0].isFacedUp }.oneAndOnly
         }
         set {
             for index in сards.indices {
@@ -18,10 +15,10 @@ class Сoncentration {
             }
         }
     }
-    private var arrayOfEmojiChoices: [String] = []
-    private(set) var emoji = [Card: String]()
-    private(set) var cardColor: String = ""
-    private var timeIntervalBuffer = Date()
+    var arrayOfEmojiChoices: [String] = []
+    var emoji = [Int: String]()
+    var cardColor: String = ""
+    var timeIntervalBuffer = Date()
     
     init(numberOfPairsCards: Int) {
         selectRandomEmojiPack()
@@ -36,7 +33,7 @@ class Сoncentration {
         }
     }
     
-    private func selectRandomEmojiPack() {
+    func selectRandomEmojiPack() {
         let randomIndex = Int.random(in: 0...6)
         switch randomIndex {
         case 0:
@@ -62,13 +59,13 @@ class Сoncentration {
     }
     
     func emoji(for card: Card) -> String {
-        if emoji[card] == nil {
+        if emoji[card.identifier] == nil {
             if !arrayOfEmojiChoices.isEmpty {
                 let randomIndex = Int.random(in: 0..<arrayOfEmojiChoices.count)
-                emoji[card] = arrayOfEmojiChoices.remove(at: randomIndex)
+                emoji[card.identifier] = arrayOfEmojiChoices.remove(at: randomIndex)
             }
         }
-        return emoji[card] ?? "?"
+        return emoji[card.identifier] ?? "?"
     }
     
     func chooseCard(at index: Int) {
@@ -78,7 +75,7 @@ class Сoncentration {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 let secondClick = Date().timeIntervalSince(timeIntervalBuffer)
                 
-                if сards[matchIndex] == сards[index] {
+                if сards[matchIndex].identifier == сards[index].identifier {
                     сards[matchIndex].isMatched = true
                     сards[index].isMatched = true
                     
@@ -105,4 +102,8 @@ class Сoncentration {
     }
 }
 
-
+extension Collection {
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil
+    }
+}
