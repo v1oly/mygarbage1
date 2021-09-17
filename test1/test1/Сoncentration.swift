@@ -59,7 +59,7 @@ class Сoncentration {
         }
     }
     
-    private func emoji(for card: Card) -> String {
+    func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil {
             if !arrayOfEmojiChoices.isEmpty {
                 let randomIndex = Int.random(in: 0..<arrayOfEmojiChoices.count)
