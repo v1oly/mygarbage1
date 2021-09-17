@@ -2,7 +2,7 @@ import Foundation
 
 class Сoncentration {
     
-    var сards = [Card]()
+    private(set) var сards = [Card]()
     private(set) var scores = 0
     private(set) var flipCount = 0
     private var indexOfOneAndOnlyFaceUpCard: Int? {
@@ -15,10 +15,10 @@ class Сoncentration {
             }
         }
     }
-    var arrayOfEmojiChoices: [String] = []
-    var emoji = [Int: String]()
-    var cardColor: String = ""
-    var timeIntervalBuffer = Date()
+    private(set) var arrayOfEmojiChoices: [String] = []
+    private(set) var emoji = [Int: String]()
+    private(set) var cardColor: String = ""
+    private(set) var timeIntervalBuffer = Date()
     
     init(numberOfPairsCards: Int) {
         selectRandomEmojiPack()
@@ -54,11 +54,12 @@ class Сoncentration {
         case 5:
             arrayOfEmojiChoices = ["😀", "😎", "😇", "🤢", "🤓", "🤪", "😍"]
             cardColor = "Pink"
-        default:()
+        default:
+            break
         }
     }
     
-    func emoji(for card: Card) -> String {
+    private func emoji(for card: Card) -> String {
         if emoji[card.identifier] == nil {
             if !arrayOfEmojiChoices.isEmpty {
                 let randomIndex = Int.random(in: 0..<arrayOfEmojiChoices.count)
