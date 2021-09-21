@@ -16,7 +16,7 @@ class Сoncentration {
         }
     }
     private(set) var arrayOfEmojiChoices: [String] = []
-    private(set) var emoji = [Int: String]()
+    private(set) var emoji = [Card: String]()
     private(set) var cardColor: String = ""
     private(set) var timeIntervalBuffer = Date()
     
@@ -59,14 +59,14 @@ class Сoncentration {
         }
     }
     
-    func emoji(for card: Card) -> String {
-        if emoji[card.identifier] == nil {
+     func emoji(for card: Card) -> String {
+        if emoji[card] == nil {
             if !arrayOfEmojiChoices.isEmpty {
                 let randomIndex = Int.random(in: 0..<arrayOfEmojiChoices.count)
-                emoji[card.identifier] = arrayOfEmojiChoices.remove(at: randomIndex)
+                emoji[card] = arrayOfEmojiChoices.remove(at: randomIndex)
             }
         }
-        return emoji[card.identifier] ?? "?"
+        return emoji[card] ?? "?"
     }
     
     func chooseCard(at index: Int) {
@@ -76,7 +76,7 @@ class Сoncentration {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
                 let secondClick = Date().timeIntervalSince(timeIntervalBuffer)
                 
-                if сards[matchIndex].identifier == сards[index].identifier {
+                if сards[matchIndex] == сards[index] {
                     сards[matchIndex].isMatched = true
                     сards[index].isMatched = true
                     
