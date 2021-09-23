@@ -12,16 +12,25 @@ class Card {
     
     private static var identifierFactory = 0
     
-    var shape: CardShape?
-    var color: CardColor?
-    var count: CardCount?
-    var hatching: CardHatching?
+    var shape: CardShape
+    var color: CardColor
+    var count: CardCount
+    var hatching: CardHatching
     
     var isCardAlreadyOpen = false
     var isEnabled = true
     var identifier = Int()
     
-    init() {
+    init(
+        shape: CardShape,
+        color: CardColor,
+        count: CardCount,
+        hatching: CardHatching
+        ){
+        self.shape = shape
+        self.color = color
+        self.count = count
+        self.hatching = hatching
         self.identifier = Card.getCardIdentifier()
     }
     
@@ -32,24 +41,25 @@ class Card {
     }
 }
 
-enum CardShape {
+enum CardShape: CaseIterable {
     case triangle
     case circle
     case square
 }
-enum CardColor {
+enum CardColor: CaseIterable {
     case red
     case green
     case purple
 }
-enum CardCount {
+enum CardCount: CaseIterable {
     case one
     case two
     case three
 }
-enum CardHatching{
+enum CardHatching: CaseIterable {
     case none
     case half
     case full
+    
 }
 
