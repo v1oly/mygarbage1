@@ -12,9 +12,13 @@ class ViewController: UIViewController {
     
 lazy var game = SetGame()
 var countOfAvaibleCards = 12
+
     
     
     @IBAction func buttonCard(_ sender: UIButton) {
+        let cardNumber = arrayOfButtons.firstIndex(of: sender) ?? -1
+        game.choosing3Cards(for: cardNumber)
+        game.compareCards()
         updateViewFromModel()
     }
     
@@ -31,7 +35,9 @@ var countOfAvaibleCards = 12
     }
 
  
-  
+    
+    
+    
     
     func updateViewFromModel() {
         for index in arrayOfButtons.indices {
@@ -39,12 +45,10 @@ var countOfAvaibleCards = 12
                 drawShape(index: index, buttons: arrayOfButtons)
                 let card = game.cards[index]
                 let button = arrayOfButtons[index]
-                if card.isEnabled && !card.isCardAlreadyOpen {
+                if card.isEnabled && card.isChosen {
                     button.backgroundColor =  #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
-                    card.isCardAlreadyOpen = true
                 } else {
                     button.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    card.isCardAlreadyOpen = false
                 }
             }
         }
@@ -58,6 +62,7 @@ var countOfAvaibleCards = 12
         for index in 0...11 {
             drawShape(index: index, buttons: arrayOfButtons)
         }
+        
     }
     
     func add3MoreCards() {

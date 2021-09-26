@@ -8,17 +8,17 @@
 
 import Foundation
 
-class Card {
+class Card: Equatable {
     
-    private static var identifierFactory = 0
+    private static var identifierFactory = -1
     
     var shape: CardShape
     var color: CardColor
     var count: CardCount
     var hatching: CardHatching
-    
-    var isCardAlreadyOpen = false
+
     var isEnabled = true
+    var isChosen = false
     var identifier = Int()
     
     init(
@@ -34,6 +34,13 @@ class Card {
         self.identifier = Card.getCardIdentifier()
     }
     
+    
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return lhs.shape == rhs.shape &&
+            lhs.color == rhs.color &&
+            lhs.count == rhs.count &&
+            lhs.hatching == rhs.hatching }
+        
     
     private static func getCardIdentifier () -> Int {
         identifierFactory += 1
