@@ -11,6 +11,10 @@ import Foundation
 class SetGame {
     
     var cards = [Card]()
+    var dinamicalSwapValue = 0
+    var countOfDeleting = 0
+    var arrayOfPressedButtonsIndexes: [Int] = []
+
 
     
     
@@ -26,6 +30,15 @@ class SetGame {
         guard card.isEnabled else { return }
         
         card.isChosen = !card.isChosen
+        
+        if  card.isChosen{
+        arrayOfPressedButtonsIndexes += [index]
+        }
+        if !card.isChosen {
+            arrayOfPressedButtonsIndexes.removeLast()
+        }
+        
+      
     }
         
         
@@ -34,6 +47,9 @@ class SetGame {
         let chosenCards = cards.filter { $0.isChosen }
         
         guard chosenCards.count == 3 else { return }
+        
+        let array = arrayOfPressedButtonsIndexes
+        arrayOfPressedButtonsIndexes = []
         
         let isColorMatch = Set(chosenCards.map { $0.color }).count == 3
         let isShapeMatch = Set(chosenCards.map { $0.shape }).count == 3
@@ -45,36 +61,34 @@ class SetGame {
         let matchesCount = matches.filter { $0 }.count
         
         if matchesCount >= 3 {
-            cards.remove(at: chosenCards[0].identifier)
-            if chosenCards[0].identifier != cards.last!.identifier {
-                for index in stride(from: chosenCards[0].identifier + 1, to: cards.last!.identifier, by: 1) {
-                    cards[index].identifier -= 1
+            deletedCardsSwapping(for: array)
+        }
+        for index in cards.indices {
+            cards[index].isChosen = false
+        }
+        
+    }
+    
+
+    func deletedCardsSwapping (for array: [Int]) {
+        for index in 0...2 {
+            if dinamicalSwapValue > 57 {
+                cards[80 - dinamicalSwapValue].isEnabled = true
+                cards[array[index]].isEnabled = false
+                cards.swapAt(array[index], 80 - dinamicalSwapValue)
+                dinamicalSwapValue += 1
+            } else {
+                if countOfDeleting != 1 {
+                    countOfDeleting += 1
+                    cards.removeSubrange(24...80)
+                } else {
+                    cards[array[index]].isEnabled = false
                 }
-            }
-            cards.remove(at: chosenCards[1].identifier)
-            if chosenCards[1].identifier != cards.last!.identifier {
-                for index in stride(from: chosenCards[1].identifier + 1, to: cards.last!.identifier, by: 1) {
-                    cards[index].identifier -= 1
-                }
-            }
-            cards.remove(at: chosenCards[2].identifier)
-            if chosenCards[2].identifier != cards.last!.identifier {
-                for index in stride(from: chosenCards[2].identifier + 1, to: cards.last!.identifier, by: 1) {
-                    cards[index].identifier -= 1
-                }
-            }
-            for index in cards.indices {
-                cards[index].isChosen = false
-            }
-            
-        } else {
-            for index in cards.indices {
-                cards[index].isChosen = false
+                
             }
         }
     }
     
-
     
     
     

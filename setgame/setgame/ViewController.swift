@@ -41,10 +41,15 @@ var countOfAvaibleCards = 12
     
     func updateViewFromModel() {
         for index in arrayOfButtons.indices {
+            let card = game.cards[index]
+            let button = arrayOfButtons[index]
+            if !game.cards[index].isEnabled {
+                button.setTitle("", for: .normal)
+                button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+            }
             if game.cards[index].isEnabled {
                 drawShape(index: index, buttons: arrayOfButtons)
-                let card = game.cards[index]
-                let button = arrayOfButtons[index]
+            }
                 if card.isEnabled && card.isChosen {
                     button.backgroundColor =  #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
                 } else {
@@ -52,7 +57,7 @@ var countOfAvaibleCards = 12
                 }
             }
         }
-    }
+    
     
     func startSettings() {
         for index in 12...23 {
@@ -79,7 +84,6 @@ var countOfAvaibleCards = 12
     
     func drawShape (index: Int, buttons: [UIButton]) {
     
-       
         var shape = self.chooseShape(for: game.cards[index])
         let color = self.chooseColor(for: game.cards[index])
         let hatching = self.chooseHatching(for: game.cards[index])
