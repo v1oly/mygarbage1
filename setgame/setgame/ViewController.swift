@@ -43,20 +43,21 @@ var countOfAvaibleCards = 12
         for index in arrayOfButtons.indices {
             let card = game.cards[index]
             let button = arrayOfButtons[index]
-            if !game.cards[index].isEnabled {
-                button.setTitle("", for: .normal)
-                button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-            }
-            if game.cards[index].isEnabled {
+            if card.isEnabled && !card.isDeleted {
                 drawShape(index: index, buttons: arrayOfButtons)
             }
                 if card.isEnabled && card.isChosen {
                     button.backgroundColor =  #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
                 } else {
-                    button.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                }
+                    if card.isDeleted {
+                    button.setTitle("", for: .normal)
+                    button.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                    } else {
+                        button.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    }
             }
         }
+    }
     
     
     func startSettings() {
@@ -75,6 +76,7 @@ var countOfAvaibleCards = 12
             for index in countOfAvaibleCards...countOfAvaibleCards + 2 {
                 arrayOfButtons[index].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 game.cards[index].isEnabled = true
+                drawShape(index: index, buttons: arrayOfButtons)
             }
             countOfAvaibleCards += 3
         }
@@ -84,10 +86,12 @@ var countOfAvaibleCards = 12
     
     func drawShape (index: Int, buttons: [UIButton]) {
     
-        var shape = self.chooseShape(for: game.cards[index])
-        let color = self.chooseColor(for: game.cards[index])
-        let hatching = self.chooseHatching(for: game.cards[index])
-        let count = self.chooseCount(for: game.cards[index] )
+        let card = game.cards[index]
+        
+        var shape = self.chooseShape(for: card)
+        let color = self.chooseColor(for: card)
+        let hatching = self.chooseHatching(for: card)
+        let count = self.chooseCount(for: card)
         if count == 2 { shape = shape + shape }
         if count == 3 { shape = shape + shape + shape }
         

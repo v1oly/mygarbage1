@@ -81,14 +81,16 @@ class SetGame {
                 if countOfDeleting != 1 {
                     countOfDeleting += 1
                     cards.removeSubrange(24...80)
-                } else {
-                    cards[array[index]].isEnabled = false
                 }
-                
+            }
+        }
+        if countOfDeleting == 1 {
+            for index in 0...2 {
+                cards[array[index]].isEnabled = false
+                cards[array[index]].isDeleted = true
             }
         }
     }
-    
     
     
     

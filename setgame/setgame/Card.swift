@@ -19,7 +19,6 @@ class Card: Equatable {
 
     var isEnabled = true
     var isDeleted = false
-    var isAlreadyOnField = false
     var isChosen = false
     var identifier = Int()
     
