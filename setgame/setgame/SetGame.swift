@@ -35,7 +35,7 @@ class SetGame {
         arrayOfPressedButtonsIndexes += [index]
         }
         if !card.isChosen {
-            arrayOfPressedButtonsIndexes.removeLast()
+            arrayOfPressedButtonsIndexes.removeAll(where: {$0 == index})
         }
         
       
