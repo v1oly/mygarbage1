@@ -1,91 +1,88 @@
-//
-//  ViewController.swift
-//  setgame
-//
-//  Created by Марк Некрашевич on 18.09.2021.
-//  Copyright © 2021 Mark Nekrashevich. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
     
-lazy var game = SetGame()
-var countOfAvaibleCards = 12
-
+    lazy var game = SetGame()
     
+    @IBOutlet private var arrayOfButtons: [UIButton]!
     
-    @IBAction func buttonCard(_ sender: UIButton) {
+    @IBOutlet private var scoresLabel: UILabel!
+    
+    @IBOutlet private var cardsLeftLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViewFromModel()
+        
+        /* Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            if self.game.randomMatchForDebug() {
+                print("match!")
+                self.updateViewFromModel()
+            } else {
+                print("stop timer")
+                timer.invalidate()
+            }
+        } */
+    }
+    
+    @IBAction private func buttonCard(_ sender: UIButton) {
         let cardNumber = arrayOfButtons.firstIndex(of: sender) ?? -1
         game.choosing3Cards(for: cardNumber)
         game.compareCards()
         updateViewFromModel()
     }
     
-    @IBAction func buttonOfAddCards(_ sender: UIButton) {
+    @IBAction private func showAvaibleCards(_ sender: UIButton) {
+        game.randomMatchEvaible()
+        updateViewFromModel()
+    }
+    
+    @IBAction private func buttonOfAddCards(_ sender: UIButton) {
         add3MoreCards()
+        updateViewFromModel()
     }
     
-    @IBOutlet var arrayOfButtons: [UIButton]!
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        startSettings()
+    @IBAction private func restartGameButton(_ sender: UIButton) {
+        game = SetGame()
+        updateViewFromModel()
     }
-
- 
-    
-    
-    
     
     func updateViewFromModel() {
-        for index in arrayOfButtons.indices {
-            let card = game.cards[index]
+        scoresLabel.text = "Scores: \(game.scores)"
+        cardsLeftLabel.text = "Cards left: \(game.totalCards)"
+        for (index, card) in game.cards.enumerated() {
             let button = arrayOfButtons[index]
-            if card.isEnabled && !card.isDeleted {
-                drawShape(index: index, buttons: arrayOfButtons)
-            }
-                if card.isEnabled && card.isChosen {
-                    button.backgroundColor =  #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+            
+            if card.isEnabled {
+                button.setAttributedTitle(shapeString(for: index), for: .normal)
+                
+                if card.isChosen {
+                    button.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
                 } else {
-                    if card.isDeleted {
-                    button.setTitle("", for: .normal)
-                    button.backgroundColor =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                    } else {
-                        button.backgroundColor =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    }
+                if card.isHelped {
+                    button.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+                } else {
+                    button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                }
+                }
+            } else {
+                button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                button.setAttributedTitle(nil, for: .normal)
             }
         }
-    }
-    
-    
-    func startSettings() {
-        for index in 12...23 {
+
+        for index in stride(from: game.cards.count, to: arrayOfButtons.count, by: 1) {
             arrayOfButtons[index].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-            game.cards[index].isEnabled = false
+            arrayOfButtons[index].setAttributedTitle(nil, for: .normal)
         }
-        for index in 0...11 {
-            drawShape(index: index, buttons: arrayOfButtons)
-        }
-        
     }
     
     func add3MoreCards() {
-        if countOfAvaibleCards != 24 {
-            for index in countOfAvaibleCards...countOfAvaibleCards + 2 {
-                arrayOfButtons[index].backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                game.cards[index].isEnabled = true
-                drawShape(index: index, buttons: arrayOfButtons)
-            }
-            countOfAvaibleCards += 3
-        }
+        game.add3MoreCards()
     }
     
-    
-    
-    func drawShape (index: Int, buttons: [UIButton]) {
-    
+    func shapeString(for index: Int) -> NSAttributedString {
+        
         let card = game.cards[index]
         
         var shape = self.chooseShape(for: card)
@@ -94,19 +91,14 @@ var countOfAvaibleCards = 12
         let count = self.chooseCount(for: card)
         if count == 2 { shape = shape + shape }
         if count == 3 { shape = shape + shape + shape }
-        
-        let string = NSAttributedString (
-        string: shape,
-            attributes:  [
+        return NSAttributedString(
+            string: shape,
+            attributes: [
                 NSAttributedString.Key.foregroundColor: color,
                 NSAttributedString.Key.backgroundColor: hatching
             ]
         )
-        buttons[index].setAttributedTitle(string, for: .normal)
-        
     }
-    
-    
     
     func chooseShape (for card: Card) -> String {
         switch card.shape {
@@ -148,8 +140,6 @@ var countOfAvaibleCards = 12
             return 2
         case .three:
             return 3
+        }
     }
-    }
-    
 }
-
