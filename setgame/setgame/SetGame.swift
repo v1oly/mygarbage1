@@ -9,7 +9,7 @@ class SetGame {
     var funcCounter = 0
     var progressiveMinus = 1
     var firstClickTime = Date()
-
+    
     init() {
         createArrayOfCards()
     }
@@ -28,7 +28,7 @@ class SetGame {
         card.isChosen = !card.isChosen
     }
         @discardableResult
-        func randomMatchEvaible() -> Bool {
+        func randomMatchEvaible(silentmode: Bool) -> Bool {
         var attempts = 0
         var randomCards = [Card]()
         var isMatchFound = false
@@ -48,8 +48,9 @@ class SetGame {
         
         guard isMatchFound && randomCards.count == 3 else {
             return false }
-    
-        randomCards.forEach { $0.isHelped = true }
+            if !silentmode {
+                randomCards.forEach { $0.isHelped = true }
+            }
       
         return true
     }
@@ -97,7 +98,7 @@ class SetGame {
     }
     
     func add3MoreCards() {
-        if randomMatchEvaible == true {
+        if randomMatchEvaible(silentmode: true) == true {
             scores -= 3
         }
         for _ in 1...3 {

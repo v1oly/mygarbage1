@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func showAvaibleCards(_ sender: UIButton) {
-        game.randomMatchEvaible()
+        game.randomMatchEvaible(silentmode: false)
         updateViewFromModel()
     }
     
