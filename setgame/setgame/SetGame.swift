@@ -27,8 +27,8 @@ class SetGame {
         
         card.isChosen = !card.isChosen
     }
-        @discardableResult
-        func randomMatchEvaible(silentmode: Bool) -> Bool {
+    @discardableResult
+    func randomMatchEvaible(silentmode: Bool, vsGameMode: Bool) -> Bool {
         var attempts = 0
         var randomCards = [Card]()
         var isMatchFound = false
@@ -50,6 +50,9 @@ class SetGame {
             return false }
             if !silentmode {
                 randomCards.forEach { $0.isHelped = true }
+            }
+            if vsGameMode {
+                randomCards.forEach { $0.isChosen = true }
             }
       
         return true
@@ -98,7 +101,7 @@ class SetGame {
     }
     
     func add3MoreCards() {
-        if randomMatchEvaible(silentmode: true) == true {
+        if randomMatchEvaible(silentmode: true, vsGameMode: false) == true {
             scores -= 3
         }
         for _ in 1...3 {

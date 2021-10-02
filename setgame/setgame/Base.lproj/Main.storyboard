@@ -360,28 +360,41 @@
                                     <action selector="showAvaibleCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nD8-71-igJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Is3-hm-74c">
+                                <rect key="frame" x="57" y="613" width="302" height="54"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Play vs Phone mode">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="playVsPcMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qBd-TA-85E"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kfe-IL-6D2" secondAttribute="trailing" constant="74" id="17D-U3-m9G"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fZl-d2-e7g" secondAttribute="trailing" constant="74" id="1k2-Hi-Ais"/>
                             <constraint firstItem="fZl-d2-e7g" firstAttribute="trailing" secondItem="kfe-IL-6D2" secondAttribute="trailing" id="2Os-1k-Ym1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Is3-hm-74c" secondAttribute="trailing" constant="55" id="44t-mW-S2M"/>
                             <constraint firstItem="fZl-d2-e7g" firstAttribute="leading" secondItem="kfe-IL-6D2" secondAttribute="leading" id="6B8-hj-brO"/>
                             <constraint firstItem="Dlq-9t-86n" firstAttribute="top" secondItem="Jq1-ct-7Gm" secondAttribute="bottom" constant="46" id="7cT-yQ-f3l"/>
                             <constraint firstItem="Dlq-9t-86n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="7jP-Qm-nT4"/>
+                            <constraint firstItem="Is3-hm-74c" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="57" id="82U-X3-PGM"/>
                             <constraint firstItem="kfe-IL-6D2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="74" id="9nt-vC-hav"/>
                             <constraint firstItem="fZl-d2-e7g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="74" id="Bdj-p4-M9R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dlq-9t-86n" secondAttribute="trailing" constant="281" id="Bzu-IR-bkV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kfe-IL-6D2" secondAttribute="bottom" constant="71" id="CNA-hg-PAp"/>
+                            <constraint firstItem="Is3-hm-74c" firstAttribute="top" relation="lessThanOrEqual" secondItem="o9A-SH-gaW" secondAttribute="bottom" constant="113" id="GXw-wZ-dL6"/>
                             <constraint firstItem="Jq1-ct-7Gm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="IPh-SQ-lHW"/>
                             <constraint firstItem="Xla-Lh-J5C" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="IpQ-jf-LwC"/>
                             <constraint firstItem="fZl-d2-e7g" firstAttribute="top" secondItem="kfe-IL-6D2" secondAttribute="bottom" constant="16" id="JyN-xx-YA5"/>
                             <constraint firstItem="Xla-Lh-J5C" firstAttribute="top" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="631" id="JyX-xP-tzk"/>
-                            <constraint firstItem="Xla-Lh-J5C" firstAttribute="top" relation="lessThanOrEqual" secondItem="o9A-SH-gaW" secondAttribute="bottom" constant="175" id="Lbq-Ax-4eK"/>
                             <constraint firstItem="o9A-SH-gaW" firstAttribute="top" secondItem="Dlq-9t-86n" secondAttribute="bottom" constant="8" symbolic="YES" id="QDx-co-g7m"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xla-Lh-J5C" secondAttribute="trailing" constant="39" id="T88-80-HjJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="o9A-SH-gaW" secondAttribute="trailing" constant="240" id="alb-FV-JJM"/>
                             <constraint firstItem="kfe-IL-6D2" firstAttribute="top" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="693" id="aoy-gE-0j6"/>
+                            <constraint firstItem="Xla-Lh-J5C" firstAttribute="top" secondItem="Is3-hm-74c" secondAttribute="bottom" constant="8" id="cJU-xU-dyy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jq1-ct-7Gm" secondAttribute="trailing" constant="20" id="cgS-kF-f2m"/>
                             <constraint firstItem="o9A-SH-gaW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ckS-Sp-Iik"/>
                             <constraint firstItem="fZl-d2-e7g" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-1" id="cy7-HT-6TU"/>

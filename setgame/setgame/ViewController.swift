@@ -13,16 +13,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViewFromModel()
-        
-        /* Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            if self.game.randomMatchForDebug() {
-                print("match!")
+    }
+    
+    @IBAction private func playVsPcMode(_ sender: UIButton) {
+        var randomTime = Int.random(in: 10...40)
+        Timer.scheduledTimer(withTimeInterval: TimeInterval(randomTime), repeats: true) { timer in
+            if self.game.randomMatchEvaible(silentmode: true, vsGameMode: true) {
+                self.game.swapSelectedCards()
+                self.game.totalCards -= 3
+                randomTime = Int.random(in: 10...40)
                 self.updateViewFromModel()
+                print(randomTime)
             } else {
-                print("stop timer")
                 timer.invalidate()
             }
-        } */
+        }
     }
     
     @IBAction private func buttonCard(_ sender: UIButton) {
@@ -33,7 +38,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func showAvaibleCards(_ sender: UIButton) {
-        game.randomMatchEvaible(silentmode: false)
+        game.randomMatchEvaible(silentmode: false, vsGameMode: false)
         updateViewFromModel()
     }
     
