@@ -10,7 +10,7 @@ class Card: Equatable {
     var hatching: CardHatching
     
     var isEnabled = true
-    var isHelped = false
+    var isHinted = false
     var isChosen = false
     var identifier = Int()
     
@@ -24,7 +24,6 @@ class Card: Equatable {
         self.color = color
         self.count = count
         self.hatching = hatching
-        self.identifier = Card.getCardIdentifier()
     }
     
     static func == (lhs: Card, rhs: Card) -> Bool {
@@ -32,11 +31,6 @@ class Card: Equatable {
             lhs.color == rhs.color &&
             lhs.count == rhs.count &&
             lhs.hatching == rhs.hatching }
-    
-    private static func getCardIdentifier () -> Int {
-        identifierFactory += 1
-        return identifierFactory
-    }
 }
 
 enum CardShape: CaseIterable {
