@@ -3,6 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     
     lazy var game = SetGame()
+    var randomTime = Int.random(in: 10...40)
     
     @IBOutlet private var arrayOfButtons: [UIButton]!
     
@@ -20,9 +21,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for index in 12...23 {
-            arrayOfButtons[index].isEnabled = false
-        }
         disableButtons()
         updateViewFromModel()
         
@@ -34,15 +32,15 @@ class ViewController: UIViewController {
         addBorderTo(restartOutlet)
     }
     
-    @IBAction private func playVsPcMode(_ sender: UIButton) {
-        var randomTime = Int.random(in: 10...40)
+    @IBAction private func pvPhone(_ sender: UIButton) {
         Timer.scheduledTimer(withTimeInterval: TimeInterval(randomTime), repeats: true) { timer in
-            if self.game.randomMatchEvaible() {
+            if self.game.randomMatchAvaible() {
+                self.game.setMatchedCardsChosen()
                 self.game.swapSelectedCards()
                 self.game.totalCards -= 3
-                randomTime = Int.random(in: 10...40)
+                self.randomTime = Int.random(in: 10...40)
                 self.updateViewFromModel()
-                print(randomTime)
+                print(self.randomTime)
             } else {
                 timer.invalidate()
             }
@@ -58,6 +56,7 @@ class ViewController: UIViewController {
         game.choosing3Cards(for: cardNumber)
         game.compareCards()
         updateViewFromModel()
+        matchDismatchEffects()
     }
     
     @IBAction private func showAvaibleCards(_ sender: UIButton) {
@@ -77,7 +76,6 @@ class ViewController: UIViewController {
         game = SetGame()
         addLineOutlet.isEnabled = true
         disableButtons()
-        updateViewFromModel()
     }
     
     func disableButtons() {
@@ -94,7 +92,7 @@ class ViewController: UIViewController {
     
     func updateViewFromModel() {
         scoresLabel.text = " Scores: \(game.scores)"
-        cardsLeftLabel.text = " Cards left: \(game.totalCards)"
+        cardsLeftLabel.text = " Cards: \(game.totalCards)"
         for (index, card) in game.cards.enumerated() {
             guard let button = arrayOfButtons.first(where: { $0.tag == index + 1 }) else {
                 print("cant find button with tag \(index + 1)")
@@ -143,8 +141,8 @@ class ViewController: UIViewController {
         print(game.cards.count)
         
         for index in game.cards.count - 3...game.cards.count {
-            let button = arrayOfButtons.first(where: { $0.tag == index })
-            button!.isEnabled = true
+            let button = arrayOfButtons.first { $0.tag == index }
+            button?.isEnabled = true
         }
         if game.cards.count == 24 {
             addLineOutlet.isEnabled = false
@@ -171,6 +169,29 @@ class ViewController: UIViewController {
                 NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 35)
             ]
         )
+    }
+    
+    func matchDismatchEffects() {
+        if game.cards[0].isMatch {
+            for index in 0...game.cards.count {
+                let button = arrayOfButtons.first { $0.tag == index }
+                button?.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.updateViewFromModel()
+            }
+        }
+        if game.cards[0].isDismatch {
+            for index in 0...game.cards.count {
+                let button = arrayOfButtons.first(where: { $0.tag == index })
+                button?.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.updateViewFromModel()
+            }
+        }
+        game.cards.forEach { $0.isMatch = false }
+        game.cards.forEach { $0.isDismatch = false }
     }
     
     func chooseShape (for card: Card) -> String {

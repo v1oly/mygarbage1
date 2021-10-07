@@ -4,22 +4,23 @@ class Card: Equatable {
     
     private static var identifierFactory = -1
     
-    var shape: CardShape
-    var color: CardColor
-    var count: CardCount
-    var hatching: CardHatching
+    let shape: CardShape
+    let color: CardColor
+    let count: CardCount
+    let hatching: CardHatching
     
     var isEnabled = true
     var isHinted = false
     var isChosen = false
-    var identifier = Int()
+    var isMatch = false
+    var isDismatch = false
     
     init(
         shape: CardShape,
         color: CardColor,
         count: CardCount,
         hatching: CardHatching
-        ) {
+    ) {
         self.shape = shape
         self.color = color
         self.count = count

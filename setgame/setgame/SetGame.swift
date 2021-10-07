@@ -27,16 +27,13 @@ class SetGame {
             firstClickTime = Date()
             funcCounterOfChoosing3Cards += 1
         }
-        
         card.isChosen = !card.isChosen
     }
     
     @discardableResult
-    func randomMatchEvaible() -> Bool {
+    func randomMatchAvaible() -> Bool {
         var attempts = 0
         var isMatchFound = false
-        cards.forEach { $0.isHinted = false }
-        cards.forEach { $0.isChosen = false }
         
         while !isMatchFound {
             attempts += 1
@@ -50,18 +47,20 @@ class SetGame {
         }
         
         guard isMatchFound && randomCards.count == 3 else {
-        return false }
+            return false
+        }
+        
         return true
     }
     
     func setMatchedCardsChosen() {
-        if randomMatchEvaible() {
+        if randomMatchAvaible() {
         randomCards.forEach { $0.isChosen = true }
         }
     }
     
     func setMatchedCardsHinted() {
-        if randomMatchEvaible() {
+        if randomMatchAvaible() {
             randomCards.forEach { $0.isHinted = true }
         }
     }
@@ -75,7 +74,7 @@ class SetGame {
         return [isColorMatch, isShapeMatch, isHatchingMatch, isCountMatch].filter { $0 }.count >= 3
     }
     
-    func compareCards () {
+    func compareCards() {
         let chosenCardsBuffer = cards.filter { $0.isChosen }
         if chosenCardsBuffer.count == 3 {
             choosenCards = chosenCardsBuffer
@@ -95,10 +94,12 @@ class SetGame {
         if isMatch(inputCards: choosenCards) {
             swapSelectedCards()
             calculateScoresByTime()
+            cards.forEach { $0.isMatch = true }
             totalCards -= 3
         } else {
             scores -= progressiveMinus
             progressiveMinus += 1
+            cards.forEach { $0.isDismatch = true }
         }
         cards.forEach { $0.isChosen = false }
     }
@@ -120,7 +121,7 @@ class SetGame {
     }
     
     func add3MoreCards() {
-        if randomMatchEvaible() {
+        if randomMatchAvaible() {
             scores -= 3
         }
         for _ in 1...3 {
