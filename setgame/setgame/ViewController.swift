@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         for index in 12...23 {
             arrayOfButtons[index].isEnabled = false
         }
-       
+        disableButtons()
         updateViewFromModel()
         
         addBorderTo(scoresLabel)
@@ -76,7 +76,14 @@ class ViewController: UIViewController {
         updateViewFromModel()
         game = SetGame()
         addLineOutlet.isEnabled = true
+        disableButtons()
         updateViewFromModel()
+    }
+    
+    func disableButtons() {
+        for index in 12...23 {
+            arrayOfButtons[index].isEnabled = false
+        }
     }
     
     func addBorderTo(_ view: UIView) {
