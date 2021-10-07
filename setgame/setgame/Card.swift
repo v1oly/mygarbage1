@@ -12,8 +12,6 @@ class Card: Equatable {
     var isEnabled = true
     var isHinted = false
     var isChosen = false
-    var isMatch = false
-    var isDismatch = false
     
     init(
         shape: CardShape,

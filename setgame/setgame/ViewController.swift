@@ -7,9 +7,9 @@ class ViewController: UIViewController {
     
     @IBOutlet private var arrayOfButtons: [UIButton]!
     
-    @IBOutlet private var scoresLabel: UILabel!
+    @IBOutlet private var scoreLabel: UILabel!
     
-    @IBOutlet private var cardsLeftLabel: UILabel!
+    @IBOutlet private var cardsInDeckLabel: UILabel!
     
     @IBOutlet private var addLineOutlet: UIButton!
     
@@ -24,8 +24,8 @@ class ViewController: UIViewController {
         disableButtons()
         updateViewFromModel()
         
-        addBorderTo(scoresLabel)
-        addBorderTo(cardsLeftLabel)
+        addBorderTo(scoreLabel)
+        addBorderTo(cardsInDeckLabel)
         addBorderTo(addLineOutlet)
         addBorderTo(hintOutlet)
         addBorderTo(pvPhoneOutlet)
@@ -37,7 +37,6 @@ class ViewController: UIViewController {
             if self.game.randomMatchAvaible() {
                 self.game.setMatchedCardsChosen()
                 self.game.swapSelectedCards()
-                self.game.totalCards -= 3
                 self.randomTime = Int.random(in: 10...40)
                 self.updateViewFromModel()
                 print(self.randomTime)
@@ -48,18 +47,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func buttonCard(_ sender: UIButton) {
-        guard sender.isEnabled else {
-            return
-        }
         let cardNumber = sender.tag - 1
         print("button pressed \(cardNumber)")
         game.choosing3Cards(for: cardNumber)
         game.compareCards()
         updateViewFromModel()
-        matchDismatchEffects()
+        game.isMatch = nil
     }
     
-    @IBAction private func showAvaibleCards(_ sender: UIButton) {
+    @IBAction private func showAvailableCards(_ sender: UIButton) {
         game.setMatchedCardsHinted()
         updateViewFromModel()
     }
@@ -69,7 +65,7 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
-    @IBAction private func restartGameButton(_ sender: UIButton) {
+    @IBAction private func restartGame(_ sender: UIButton) {
         game.cards.forEach { $0.isHinted = false }
         game.cards.forEach { $0.isChosen = false }
         updateViewFromModel()
@@ -91,8 +87,8 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel() {
-        scoresLabel.text = " Scores: \(game.scores)"
-        cardsLeftLabel.text = " Cards: \(game.totalCards)"
+        scoreLabel.text = " Scores: \(game.scores)"
+        cardsInDeckLabel.text = " Deck: \(game.deck.count)"
         for (index, card) in game.cards.enumerated() {
             guard let button = arrayOfButtons.first(where: { $0.tag == index + 1 }) else {
                 print("cant find button with tag \(index + 1)")
@@ -107,31 +103,46 @@ class ViewController: UIViewController {
                     button.layer.borderWidth = 8.0
                     button.layer.cornerRadius = 5
                 } else {
-                if card.isHinted {
-                    button.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-                    button.layer.borderWidth = 8.0
-                    button.layer.cornerRadius = 5
-                } else {
-                    button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    button.layer.borderWidth = 0
-                    button.layer.cornerRadius = 5
-                }
+                    if card.isHinted {
+                        button.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+                        button.layer.borderWidth = 8.0
+                        button.layer.cornerRadius = 5
+                    } else {
+                        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        button.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        button.layer.borderWidth = 0
+                        button.layer.cornerRadius = 5
+                    }
                 }
             } else {
                 button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
                 button.setAttributedTitle(nil, for: .normal)
             }
         }
-
+        
         for index in stride(from: game.cards.count, to: arrayOfButtons.count, by: 1) {
             guard let button = arrayOfButtons.first(where: { $0.tag == index + 1 }) else {
-                print("cant find button with tag \(index + 1)")
+                print("cant find butBton with tag \(index + 1)")
                 return
             }
             
             button.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
             button.setAttributedTitle(nil, for: .normal)
+        }
+        
+        if game.isMatch == true {
+            self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1) } }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) } }
+                
+            }
+        } else {
+            if game.isMatch == false {
+                self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1) } }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) } }
+                }
+            }
         }
     }
     
@@ -144,6 +155,7 @@ class ViewController: UIViewController {
             let button = arrayOfButtons.first { $0.tag == index }
             button?.isEnabled = true
         }
+        
         if game.cards.count == 24 {
             addLineOutlet.isEnabled = false
         }
@@ -160,38 +172,15 @@ class ViewController: UIViewController {
         let count = self.chooseCount(for: card)
         if count == 2 { shape = shape + shape }
         if count == 3 { shape = shape + shape + shape }
-        if hatching == 0.251 { strokeWidth = -12 }
+        if hatching == 0.3 { strokeWidth = 12 }
         return NSAttributedString(
             string: shape,
             attributes: [
                 NSAttributedString.Key.foregroundColor: color.withAlphaComponent(hatching),
                 NSAttributedString.Key.strokeWidth: strokeWidth,
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 35)
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25)
             ]
         )
-    }
-    
-    func matchDismatchEffects() {
-        if game.cards[0].isMatch {
-            for index in 0...game.cards.count {
-                let button = arrayOfButtons.first { $0.tag == index }
-                button?.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.updateViewFromModel()
-            }
-        }
-        if game.cards[0].isDismatch {
-            for index in 0...game.cards.count {
-                let button = arrayOfButtons.first(where: { $0.tag == index })
-                button?.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.updateViewFromModel()
-            }
-        }
-        game.cards.forEach { $0.isMatch = false }
-        game.cards.forEach { $0.isDismatch = false }
     }
     
     func chooseShape (for card: Card) -> String {
@@ -221,7 +210,7 @@ class ViewController: UIViewController {
         case .full:
             return 1
         case .half:
-            return 0.251
+            return 0.3
         case .none:
             return 0.25
         }

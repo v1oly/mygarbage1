@@ -374,7 +374,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="showAvaibleCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nD8-71-igJ"/>
+                                                    <action selector="showAvailableCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nD8-71-igJ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZl-d2-e7g">
@@ -384,7 +384,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="restartGameButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rxu-4k-Kok"/>
+                                                    <action selector="restartGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rxu-4k-Kok"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -414,11 +414,11 @@
                     </view>
                     <connections>
                         <outlet property="addLineOutlet" destination="kfe-IL-6D2" id="eXf-gn-nsB"/>
-                        <outlet property="cardsLeftLabel" destination="o9A-SH-gaW" id="LVH-7V-5Xi"/>
+                        <outlet property="cardsInDeckLabel" destination="o9A-SH-gaW" id="LVH-7V-5Xi"/>
                         <outlet property="hintOutlet" destination="Xla-Lh-J5C" id="XhH-fd-Pi7"/>
                         <outlet property="pvPhoneOutlet" destination="Is3-hm-74c" id="ygM-1r-Ynp"/>
                         <outlet property="restartOutlet" destination="fZl-d2-e7g" id="cJq-uh-VhJ"/>
-                        <outlet property="scoresLabel" destination="Dlq-9t-86n" id="D97-fc-a6y"/>
+                        <outlet property="scoreLabel" destination="Dlq-9t-86n" id="D97-fc-a6y"/>
                         <outletCollection property="arrayOfButtons" destination="1eg-pw-RQN" collectionClass="NSMutableArray" id="DaE-6m-DxF"/>
                         <outletCollection property="arrayOfButtons" destination="UhK-ag-ba5" collectionClass="NSMutableArray" id="pR1-xe-NN2"/>
                         <outletCollection property="arrayOfButtons" destination="BqH-oo-Yc5" collectionClass="NSMutableArray" id="HUF-Gb-gLj"/>

@@ -4,14 +4,13 @@ class SetGame {
     
     var deck = [Card]()
     var cards = [Card]()
-    var totalCards = 81
     var scores = 0
     var funcCounterOfChoosing3Cards = 0
     var progressiveMinus = 1
     var firstClickTime = Date()
     var randomCards = [Card]()
-    var choosenCards = [Card]()
-    var buttonsLimit = 12
+    var forthCardBuffer = [Card]()
+    var isMatch: Bool?
     
     init() {
         createArrayOfCards()
@@ -21,13 +20,15 @@ class SetGame {
         let card = cards[index]
         
         guard card.isEnabled else {
-            return }
+            return
+        }
         
         if funcCounterOfChoosing3Cards != 1 {
             firstClickTime = Date()
             funcCounterOfChoosing3Cards += 1
         }
         card.isChosen = !card.isChosen
+        forthCardBuffer = [card]
     }
     
     @discardableResult
@@ -55,11 +56,12 @@ class SetGame {
     
     func setMatchedCardsChosen() {
         if randomMatchAvaible() {
-        randomCards.forEach { $0.isChosen = true }
+            randomCards.forEach { $0.isChosen = true }
         }
     }
     
     func setMatchedCardsHinted() {
+        cards.forEach { $0.isHinted = false }
         if randomMatchAvaible() {
             randomCards.forEach { $0.isHinted = true }
         }
@@ -75,33 +77,25 @@ class SetGame {
     }
     
     func compareCards() {
-        let chosenCardsBuffer = cards.filter { $0.isChosen }
-        if chosenCardsBuffer.count == 3 {
-            choosenCards = chosenCardsBuffer
-        }
+        var chosenCardsBuffer = cards.filter { $0.isChosen }
         
         guard chosenCardsBuffer.count == 4 else {
             return }
         
-        for card in chosenCardsBuffer {
-            if card == choosenCards[0] || card == choosenCards[1] || card == choosenCards[2] {
-                card.isChosen = true
-            } else {
-            card.isChosen = false
-            }
-        }
+        chosenCardsBuffer.removeAll { $0 == forthCardBuffer.first }
+        forthCardBuffer.first?.isChosen = false
         
-        if isMatch(inputCards: choosenCards) {
+        if isMatch(inputCards: chosenCardsBuffer) {
             swapSelectedCards()
             calculateScoresByTime()
-            cards.forEach { $0.isMatch = true }
-            totalCards -= 3
+            isMatch = true
         } else {
             scores -= progressiveMinus
             progressiveMinus += 1
-            cards.forEach { $0.isDismatch = true }
+            isMatch = false
         }
         cards.forEach { $0.isChosen = false }
+        forthCardBuffer.first?.isChosen = true
     }
     
     func swapSelectedCards() {
@@ -124,11 +118,12 @@ class SetGame {
         if randomMatchAvaible() {
             scores -= 3
         }
+        
         for _ in 1...3 {
             if cards.count < 24, let newCard = deck.popLast() {
                 cards.append(newCard)
-                }
             }
+        }
     }
     
     func createArrayOfCards() {
@@ -150,8 +145,8 @@ class SetGame {
     }
     
     func calculateScoresByTime() {
-        let finaMatchTime = Date().timeIntervalSince(firstClickTime)
-        switch finaMatchTime {
+        let finalMatchTime = Date().timeIntervalSince(firstClickTime)
+        switch finalMatchTime {
         case 0...10:
             scores += 5
         case 10...15:
