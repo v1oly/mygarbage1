@@ -3,7 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     
     lazy var game = SetGame()
-    var randomTime = Int.random(in: 10...40)
+    var timer: Timer?
     
     @IBOutlet private var arrayOfButtons: [UIButton]!
     
@@ -15,10 +15,10 @@ class ViewController: UIViewController {
     
     @IBOutlet private var hintOutlet: UIButton!
     
-    @IBOutlet private var pvPhoneOutlet: UIButton!
+    @IBOutlet private var playerVersusPhoneOutlet: UIButton!
     
     @IBOutlet private var restartOutlet: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         disableButtons()
@@ -28,30 +28,26 @@ class ViewController: UIViewController {
         addBorderTo(cardsInDeckLabel)
         addBorderTo(addLineOutlet)
         addBorderTo(hintOutlet)
-        addBorderTo(pvPhoneOutlet)
+        addBorderTo(playerVersusPhoneOutlet)
         addBorderTo(restartOutlet)
     }
     
-    @IBAction private func pvPhone(_ sender: UIButton) {
-        Timer.scheduledTimer(withTimeInterval: TimeInterval(randomTime), repeats: true) { timer in
-            if self.game.randomMatchAvaible() {
-                self.game.setMatchedCardsChosen()
-                self.game.swapSelectedCards()
-                self.randomTime = Int.random(in: 10...40)
-                self.updateViewFromModel()
-                print(self.randomTime)
-            } else {
-                timer.invalidate()
-            }
-        }
+    @IBAction private func playerVersusPhone(_ sender: UIButton) {
+        self.playerVersusPhoneOutlet.isEnabled = false
+        self.updateViewFromModel()
+        self.setTimerForPVPhone()
     }
     
-    @IBAction private func buttonCard(_ sender: UIButton) {
+    @IBAction private func cardClickFunc(_ sender: UIButton) {
         let cardNumber = sender.tag - 1
         print("button pressed \(cardNumber)")
         game.choosing3Cards(for: cardNumber)
         game.compareCards()
         updateViewFromModel()
+        if game.isMatch == true && !playerVersusPhoneOutlet.isEnabled {
+            timer?.invalidate()
+            setTimerForPVPhone()
+        }
         game.isMatch = nil
     }
     
@@ -68,9 +64,11 @@ class ViewController: UIViewController {
     @IBAction private func restartGame(_ sender: UIButton) {
         game.cards.forEach { $0.isHinted = false }
         game.cards.forEach { $0.isChosen = false }
-        updateViewFromModel()
         game = SetGame()
         addLineOutlet.isEnabled = true
+        playerVersusPhoneOutlet.isEnabled = true
+        playerVersusPhoneOutlet.setTitle("PvPhone", for: .normal)
+        updateViewFromModel()
         disableButtons()
     }
     
@@ -87,6 +85,9 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel() {
+        if !playerVersusPhoneOutlet.isEnabled {
+            self.playerVersusPhoneOutlet.setTitle("🤖: \(game.phoneScores) ", for: .normal)
+        }
         scoreLabel.text = " Scores: \(game.scores)"
         cardsInDeckLabel.text = " Deck: \(game.deck.count)"
         for (index, card) in game.cards.enumerated() {
@@ -183,6 +184,30 @@ class ViewController: UIViewController {
         )
     }
     
+    func setTimerForPVPhone() {
+    var randomTime = Int.random(in: 10...50)
+       timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
+            if !self.playerVersusPhoneOutlet.isEnabled {
+                if self.game.randomMatchAvaible() {
+                    print(randomTime)
+                    self.game.setMatchedCardsChosen()
+                    self.game.swapSelectedCards()
+                    self.game.calculateIphoneScoresByTime(for: randomTime)
+                    randomTime = Int.random(in: 10...50)
+                    self.updateViewFromModel()
+                } else {
+                    if !self.game.deck.isEmpty {
+                        self.add3MoreCards()
+                    } else {
+                        timer.invalidate()
+                    }
+                }
+            } else {
+                timer.invalidate()
+            }
+        }
+    }
+
     func chooseShape (for card: Card) -> String {
         switch card.shape {
         case .triangle:

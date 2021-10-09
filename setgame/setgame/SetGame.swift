@@ -5,11 +5,12 @@ class SetGame {
     var deck = [Card]()
     var cards = [Card]()
     var scores = 0
-    var funcCounterOfChoosing3Cards = 0
-    var progressiveMinus = 1
-    var firstClickTime = Date()
-    var randomCards = [Card]()
-    var forthCardBuffer = [Card]()
+    var phoneScores = 0
+    private var funcCounterOfChoosing3Cards = 0
+    private var progressiveMinus = 1
+    private var firstClickTime = Date()
+    private var randomCards = [Card]()
+    private var forthCardBuffer = [Card]()
     var isMatch: Bool?
     
     init() {
@@ -87,8 +88,8 @@ class SetGame {
         
         if isMatch(inputCards: chosenCardsBuffer) {
             swapSelectedCards()
-            calculateScoresByTime()
             isMatch = true
+            calculateScoresByTime()
         } else {
             scores -= progressiveMinus
             progressiveMinus += 1
@@ -109,6 +110,7 @@ class SetGame {
                     newCard.isEnabled = true
                     newCard.isChosen = false
                 } else {
+                    print($0)
                     cards.remove(at: $0)
                 }
             }
@@ -146,18 +148,35 @@ class SetGame {
     
     func calculateScoresByTime() {
         let finalMatchTime = Date().timeIntervalSince(firstClickTime)
-        switch finalMatchTime {
-        case 0...10:
-            scores += 5
-        case 10...15:
-            scores += 4
-        case 15...25:
-            scores += 3
-        case 25...45:
-            scores += 2
-        default:
-            scores += 1
+        if isMatch == true {
+            switch finalMatchTime {
+            case 0...10:
+                scores += 5
+            case 10...15:
+                scores += 4
+            case 15...25:
+                scores += 3
+            case 25...45:
+                scores += 2
+            default:
+                scores += 1
+            }
+            funcCounterOfChoosing3Cards = 0
         }
-        funcCounterOfChoosing3Cards = 0
+    }
+    
+    func calculateIphoneScoresByTime (for timeInterval: Int) {
+        switch timeInterval {
+        case 0...10:
+            phoneScores += 5
+        case 10...15:
+            phoneScores += 4
+        case 15...25:
+            phoneScores += 3
+        case 25...45:
+            phoneScores += 2
+        default:
+            phoneScores += 1
+        }
     }
 }
