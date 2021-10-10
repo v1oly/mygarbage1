@@ -188,7 +188,7 @@ class ViewController: UIViewController {
     
     func setTimerForPVPhone() {
     var randomTime = Double.random(in: 10...50)
-        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: randomTime, repeats: true) { timer in
             if !self.playerVersusPhoneButton.isEnabled {
                 if self.game.randomMatchAvaible() {
                     print(randomTime)
