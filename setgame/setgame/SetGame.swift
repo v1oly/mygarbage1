@@ -6,11 +6,11 @@ class SetGame {
     var cards = [Card]()
     var scores = 0
     var phoneScores = 0
-    private var funcCounterOfChoosing3Cards = 0
-    private var progressiveMinus = 1
-    private var firstClickTime = Date()
-    private var randomCards = [Card]()
-    private var forthCardBuffer = [Card]()
+    private (set) var funcCounterOfChoosing3Cards = 0
+    private (set) var progressiveMinus = 1
+    private (set) var firstClickTime = Date()
+    private (set) var randomCards = [Card]()
+    private (set) var forthCardBuffer = [Card]()// swiftlint:disable:next discouraged_optional_boolean
     var isMatch: Bool?
     
     init() {
@@ -104,13 +104,13 @@ class SetGame {
             .enumerated()
             .filter { $0.element.isChosen }
             .map { $0.offset }
+            .sorted(by: >)
             .forEach {
                 if let newCard = deck.popLast() {
                     cards[$0] = newCard
                     newCard.isEnabled = true
                     newCard.isChosen = false
                 } else {
-                    print($0)
                     cards.remove(at: $0)
                 }
             }
@@ -136,8 +136,9 @@ class SetGame {
                         return Card(shape: shape, color: color, count: count, hatching: hatching)
                     }
                 }
-            } // swiftlint:disable:next multiline_function_chains
-        }.shuffled()
+            }
+        }
+    .shuffled()
         
         for _ in 0...11 {
             if let newCard = deck.popLast() {

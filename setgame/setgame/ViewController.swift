@@ -11,48 +11,54 @@ class ViewController: UIViewController {
     
     @IBOutlet private var cardsInDeckLabel: UILabel!
     
-    @IBOutlet private var addLineOutlet: UIButton!
+    @IBOutlet private var addLineButton: UIButton!
     
-    @IBOutlet private var hintOutlet: UIButton!
+    @IBOutlet private var hintButton: UIButton!
     
-    @IBOutlet private var playerVersusPhoneOutlet: UIButton!
+    @IBOutlet private var playerVersusPhoneButton: UIButton!
     
-    @IBOutlet private var restartOutlet: UIButton!
+    @IBOutlet private var restartButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        disableButtons()
+        startButtonsPermits()
         updateViewFromModel()
         
         addBorderTo(scoreLabel)
         addBorderTo(cardsInDeckLabel)
-        addBorderTo(addLineOutlet)
-        addBorderTo(hintOutlet)
-        addBorderTo(playerVersusPhoneOutlet)
-        addBorderTo(restartOutlet)
+        addBorderTo(addLineButton)
+        addBorderTo(hintButton)
+        addBorderTo(playerVersusPhoneButton)
+        addBorderTo(restartButton)
     }
     
-    @IBAction private func playerVersusPhone(_ sender: UIButton) {
-        self.playerVersusPhoneOutlet.isEnabled = false
+    @IBAction private func setPlayerVersusPhoneMode(_ sender: UIButton) {
+        self.playerVersusPhoneButton.isEnabled = false
         self.updateViewFromModel()
         self.setTimerForPVPhone()
     }
     
-    @IBAction private func cardClickFunc(_ sender: UIButton) {
+    @IBAction private func selectCard(_ sender: UIButton) {
         let cardNumber = sender.tag - 1
         print("button pressed \(cardNumber)")
         game.choosing3Cards(for: cardNumber)
         game.compareCards()
         updateViewFromModel()
-        if game.isMatch == true && !playerVersusPhoneOutlet.isEnabled {
+        if game.isMatch == true && !playerVersusPhoneButton.isEnabled {
             timer?.invalidate()
             setTimerForPVPhone()
         }
         game.isMatch = nil
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            self.updateViewFromModel()
+            self.emptyCardsDisable()
+        }
     }
     
     @IBAction private func showAvailableCards(_ sender: UIButton) {
         game.setMatchedCardsHinted()
+        game.scores -= 3
         updateViewFromModel()
     }
     
@@ -64,15 +70,19 @@ class ViewController: UIViewController {
     @IBAction private func restartGame(_ sender: UIButton) {
         game.cards.forEach { $0.isHinted = false }
         game.cards.forEach { $0.isChosen = false }
-        game = SetGame()
-        addLineOutlet.isEnabled = true
-        playerVersusPhoneOutlet.isEnabled = true
-        playerVersusPhoneOutlet.setTitle("PvPhone", for: .normal)
         updateViewFromModel()
-        disableButtons()
+        game = SetGame()
+        addLineButton.isEnabled = true
+        playerVersusPhoneButton.isEnabled = true
+        playerVersusPhoneButton.setTitle("PvPhone", for: .normal)
+        updateViewFromModel()
+        startButtonsPermits()
     }
     
-    func disableButtons() {
+    func startButtonsPermits() {
+        for index in 0...11 {
+            arrayOfButtons[index].isEnabled = true
+        }
         for index in 12...23 {
             arrayOfButtons[index].isEnabled = false
         }
@@ -85,8 +95,8 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel() {
-        if !playerVersusPhoneOutlet.isEnabled {
-            self.playerVersusPhoneOutlet.setTitle("🤖: \(game.phoneScores) ", for: .normal)
+        if !playerVersusPhoneButton.isEnabled {
+            self.playerVersusPhoneButton.setTitle("🤖: \(game.phoneScores) ", for: .normal)
         }
         scoreLabel.text = " Scores: \(game.scores)"
         cardsInDeckLabel.text = " Deck: \(game.deck.count)"
@@ -131,18 +141,11 @@ class ViewController: UIViewController {
             button.setAttributedTitle(nil, for: .normal)
         }
         
-        if game.isMatch == true {
-            self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1) } }
+        if let isMatch = game.isMatch {
+            let matchtColor = isMatch ? #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1) : #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            self.arrayOfButtons.forEach { if $0.isEnabled { $0.backgroundColor = matchtColor } }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) } }
-                
-            }
-        } else {
-            if game.isMatch == false {
-                self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1) } }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.arrayOfButtons.forEach { if $0.isEnabled  { $0.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) } }
-                }
+                self.arrayOfButtons.forEach { if $0.isEnabled { $0.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) } }
             }
         }
     }
@@ -158,7 +161,7 @@ class ViewController: UIViewController {
         }
         
         if game.cards.count == 24 {
-            addLineOutlet.isEnabled = false
+            addLineButton.isEnabled = false
         }
     }
     
@@ -166,14 +169,13 @@ class ViewController: UIViewController {
         
         let card = game.cards[index]
         
-        var strokeWidth = 0
         var shape = self.chooseShape(for: card)
         let color = self.chooseColor(for: card)
+        let strokeWidth = self.chooseStrokeWidth(for: card)
         let hatching = self.chooseHatching(for: card)
         let count = self.chooseCount(for: card)
         if count == 2 { shape = shape + shape }
         if count == 3 { shape = shape + shape + shape }
-        if hatching == 0.3 { strokeWidth = 12 }
         return NSAttributedString(
             string: shape,
             attributes: [
@@ -185,16 +187,17 @@ class ViewController: UIViewController {
     }
     
     func setTimerForPVPhone() {
-    var randomTime = Int.random(in: 10...50)
-       timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(randomTime), repeats: true) { timer in
-            if !self.playerVersusPhoneOutlet.isEnabled {
+    var randomTime = Double.random(in: 10...50)
+        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
+            if !self.playerVersusPhoneButton.isEnabled {
                 if self.game.randomMatchAvaible() {
                     print(randomTime)
                     self.game.setMatchedCardsChosen()
                     self.game.swapSelectedCards()
-                    self.game.calculateIphoneScoresByTime(for: randomTime)
-                    randomTime = Int.random(in: 10...50)
+                    self.game.calculateIphoneScoresByTime(for: Int(randomTime))
+                    randomTime = Double.random(in: 10...50)
                     self.updateViewFromModel()
+                    self.emptyCardsDisable()
                 } else {
                     if !self.game.deck.isEmpty {
                         self.add3MoreCards()
@@ -207,7 +210,18 @@ class ViewController: UIViewController {
             }
         }
     }
-
+    
+    func emptyCardsDisable() {
+        guard game.deck.isEmpty else {
+            return
+        }
+            for button in arrayOfButtons {
+                if button.backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) {
+                    button.isEnabled = false
+                }
+            }
+        }
+    
     func chooseShape (for card: Card) -> String {
         switch card.shape {
         case .triangle:
@@ -230,12 +244,23 @@ class ViewController: UIViewController {
         }
     }
     
+    func chooseStrokeWidth (for card: Card) -> CGFloat {
+        switch card.hatching {
+        case .full:
+            return -10
+        case .half:
+            return 10
+        case .none:
+            return -10
+        }
+    }
+    
     func chooseHatching (for card: Card) -> CGFloat {
         switch card.hatching {
         case .full:
             return 1
         case .half:
-            return 0.3
+            return 0.25
         case .none:
             return 0.25
         }
