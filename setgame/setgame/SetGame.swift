@@ -4,7 +4,7 @@ class SetGame {
     
     var deck = [Card]()
     var cards = [Card]()
-    var scores = 0
+    var score = 0
     var phoneScores = 0
     private (set) var funcCounterOfChoosing3Cards = 0
     private (set) var progressiveMinus = 1
@@ -91,10 +91,11 @@ class SetGame {
             isMatch = true
             calculateScoresByTime()
         } else {
-            scores -= progressiveMinus
+            score -= progressiveMinus
             progressiveMinus += 1
             isMatch = false
         }
+        
         cards.forEach { $0.isChosen = false }
         forthCardBuffer.first?.isChosen = true
     }
@@ -118,7 +119,7 @@ class SetGame {
     
     func add3MoreCards() {
         if randomMatchAvaible() {
-            scores -= 3
+            score -= 3
         }
         
         for _ in 1...3 {
@@ -138,7 +139,7 @@ class SetGame {
                 }
             }
         }
-    .shuffled()
+            .shuffled()
         
         for _ in 0...11 {
             if let newCard = deck.popLast() {
@@ -152,21 +153,22 @@ class SetGame {
         if isMatch == true {
             switch finalMatchTime {
             case 0...10:
-                scores += 5
+                score += 5
             case 10...15:
-                scores += 4
+                score += 4
             case 15...25:
-                scores += 3
+                score += 3
             case 25...45:
-                scores += 2
+                score += 2
             default:
-                scores += 1
+                score += 1
             }
+            
             funcCounterOfChoosing3Cards = 0
         }
     }
     
-    func calculateIphoneScoresByTime (for timeInterval: Int) {
+    func calculateIphoneScoresByTime(for timeInterval: Int) {
         switch timeInterval {
         case 0...10:
             phoneScores += 5

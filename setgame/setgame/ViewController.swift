@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet private var playerVersusPhoneButton: UIButton!
     
     @IBOutlet private var restartButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         startButtonsPermits()
@@ -49,16 +49,11 @@ class ViewController: UIViewController {
             setTimerForPVPhone()
         }
         game.isMatch = nil
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            self.updateViewFromModel()
-            self.emptyCardsDisable()
-        }
     }
     
     @IBAction private func showAvailableCards(_ sender: UIButton) {
         game.setMatchedCardsHinted()
-        game.scores -= 3
+        game.score -= 3
         updateViewFromModel()
     }
     
@@ -98,7 +93,7 @@ class ViewController: UIViewController {
         if !playerVersusPhoneButton.isEnabled {
             self.playerVersusPhoneButton.setTitle("🤖: \(game.phoneScores) ", for: .normal)
         }
-        scoreLabel.text = " Scores: \(game.scores)"
+        scoreLabel.text = " Scores: \(game.score)"
         cardsInDeckLabel.text = " Deck: \(game.deck.count)"
         for (index, card) in game.cards.enumerated() {
             guard let button = arrayOfButtons.first(where: { $0.tag == index + 1 }) else {
@@ -146,14 +141,15 @@ class ViewController: UIViewController {
             self.arrayOfButtons.forEach { if $0.isEnabled { $0.backgroundColor = matchtColor } }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.arrayOfButtons.forEach { if $0.isEnabled { $0.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) } }
+                self.updateViewFromModel()
+                self.emptyCardsDisable()
             }
         }
     }
     
     func add3MoreCards() {
-       
+        
         game.add3MoreCards()
-        print(game.cards.count)
         
         for index in game.cards.count - 3...game.cards.count {
             let button = arrayOfButtons.first { $0.tag == index }
@@ -187,7 +183,7 @@ class ViewController: UIViewController {
     }
     
     func setTimerForPVPhone() {
-    var randomTime = Double.random(in: 10...50)
+        var randomTime = Double.random(in: 10...50)
         timer = Timer.scheduledTimer(withTimeInterval: randomTime, repeats: true) { timer in
             if !self.playerVersusPhoneButton.isEnabled {
                 if self.game.randomMatchAvaible() {
@@ -215,14 +211,14 @@ class ViewController: UIViewController {
         guard game.deck.isEmpty else {
             return
         }
-            for button in arrayOfButtons {
-                if button.backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) {
-                    button.isEnabled = false
-                }
+        for button in arrayOfButtons {
+            if button.backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) {
+                button.isEnabled = false
             }
         }
+    }
     
-    func chooseShape (for card: Card) -> String {
+    func chooseShape(for card: Card) -> String {
         switch card.shape {
         case .triangle:
             return "▲"
@@ -233,7 +229,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func chooseColor (for card: Card) -> UIColor {
+    func chooseColor(for card: Card) -> UIColor {
         switch card.color {
         case .red:
             return .red
@@ -244,7 +240,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func chooseStrokeWidth (for card: Card) -> CGFloat {
+    func chooseStrokeWidth(for card: Card) -> CGFloat {
         switch card.hatching {
         case .full:
             return -10
@@ -255,7 +251,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func chooseHatching (for card: Card) -> CGFloat {
+    func chooseHatching(for card: Card) -> CGFloat {
         switch card.hatching {
         case .full:
             return 1
@@ -265,7 +261,7 @@ class ViewController: UIViewController {
             return 0.25
         }
     }
-    func chooseCount (for card: Card) -> Int {
+    func chooseCount(for card: Card) -> Int {
         switch card.count {
         case .one:
             return 1
