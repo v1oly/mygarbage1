@@ -2,8 +2,6 @@ import Foundation
 
 class Card: Equatable {
     
-    private static var identifierFactory = -1
-    
     let shape: CardShape
     let color: CardColor
     let count: CardCount
@@ -29,7 +27,8 @@ class Card: Equatable {
         return lhs.shape == rhs.shape &&
             lhs.color == rhs.color &&
             lhs.count == rhs.count &&
-            lhs.hatching == rhs.hatching }
+            lhs.hatching == rhs.hatching
+    }
 }
 
 enum CardShape: CaseIterable {
@@ -37,16 +36,19 @@ enum CardShape: CaseIterable {
     case circle
     case square
 }
+
 enum CardColor: CaseIterable {
     case red
     case green
     case purple
 }
+
 enum CardCount: CaseIterable {
     case one
     case two
     case three
 }
+
 enum CardHatching: CaseIterable {
     case none
     case half

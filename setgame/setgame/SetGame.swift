@@ -5,28 +5,28 @@ class SetGame {
     var deck = [Card]()
     var cards = [Card]()
     var score = 0
-    var phoneScores = 0
-    private (set) var funcCounterOfChoosing3Cards = 0
+    var phoneScore = 0
+    private (set) var firstClickDate: Bool = true
     private (set) var progressiveMinus = 1
     private (set) var firstClickTime = Date()
     private (set) var randomCards = [Card]()
-    private (set) var forthCardBuffer = [Card]()// swiftlint:disable:next discouraged_optional_boolean
-    var isMatch: Bool?
+    private (set) var forthCardBuffer = [Card]() // swiftlint:disable:next discouraged_optional_boolean
+    private (set) var isMatch: Bool?
     
     init() {
         createArrayOfCards()
     }
     
-    func choosing3Cards(for index: Int) {
+    func choose3Cards(for index: Int) {
         let card = cards[index]
         
         guard card.isEnabled else {
             return
         }
         
-        if funcCounterOfChoosing3Cards != 1 {
+        if firstClickDate {
             firstClickTime = Date()
-            funcCounterOfChoosing3Cards += 1
+            firstClickDate = false
         }
         card.isChosen = !card.isChosen
         forthCardBuffer = [card]
@@ -40,6 +40,7 @@ class SetGame {
         while !isMatchFound {
             attempts += 1
             
+            // Костыль, нужный чтобы цикл вайл в случае не нахождения матча не работал бесконечно
             guard attempts != 999 else {
                 break
             }
@@ -81,7 +82,8 @@ class SetGame {
         var chosenCardsBuffer = cards.filter { $0.isChosen }
         
         guard chosenCardsBuffer.count == 4 else {
-            return }
+            return
+        }
         
         chosenCardsBuffer.removeAll { $0 == forthCardBuffer.first }
         forthCardBuffer.first?.isChosen = false
@@ -148,6 +150,15 @@ class SetGame {
         }
     }
     
+    func nilMatch() {
+        isMatch = nil
+    }
+    
+    func timerReset(for timer: Timer, reset: (Timer) -> (), funcCall: () -> ()) {
+        reset(timer)
+        funcCall()
+    }
+    
     func calculateScoresByTime() {
         let finalMatchTime = Date().timeIntervalSince(firstClickTime)
         if isMatch == true {
@@ -164,22 +175,22 @@ class SetGame {
                 score += 1
             }
             
-            funcCounterOfChoosing3Cards = 0
+            firstClickDate = true
         }
     }
     
     func calculateIphoneScoresByTime(for timeInterval: Int) {
         switch timeInterval {
         case 0...10:
-            phoneScores += 5
+            phoneScore += 5
         case 10...15:
-            phoneScores += 4
+            phoneScore += 4
         case 15...25:
-            phoneScores += 3
+            phoneScore += 3
         case 25...45:
-            phoneScores += 2
+            phoneScore += 2
         default:
-            phoneScores += 1
+            phoneScore += 1
         }
     }
 }

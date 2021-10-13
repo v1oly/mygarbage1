@@ -3,7 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     
     lazy var game = SetGame()
-    var timer: Timer?
+    var myTimer: Timer?
     
     @IBOutlet private var arrayOfButtons: [UIButton]!
     
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        startButtonsPermits()
+        setUpButtons()
         updateViewFromModel()
         
         addBorderTo(scoreLabel)
@@ -41,14 +41,21 @@ class ViewController: UIViewController {
     @IBAction private func selectCard(_ sender: UIButton) {
         let cardNumber = sender.tag - 1
         print("button pressed \(cardNumber)")
-        game.choosing3Cards(for: cardNumber)
+        game.choose3Cards(for: cardNumber)
         game.compareCards()
         updateViewFromModel()
-        if game.isMatch == true && !playerVersusPhoneButton.isEnabled {
-            timer?.invalidate()
-            setTimerForPVPhone()
+        
+        if myTimer?.isValid == true && game.isMatch == true {
+            if let timer = myTimer {
+                self.game.timerReset(
+                    for: timer,
+                    reset: { $0.invalidate() },
+                    funcCall: { self.setTimerForPVPhone() }
+                )
+            }
         }
-        game.isMatch = nil
+        
+        game.nilMatch()
     }
     
     @IBAction private func showAvailableCards(_ sender: UIButton) {
@@ -57,7 +64,7 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
-    @IBAction private func buttonOfAddCards(_ sender: UIButton) {
+    @IBAction private func add3Cards(_ sender: UIButton) {
         add3MoreCards()
         updateViewFromModel()
     }
@@ -65,16 +72,15 @@ class ViewController: UIViewController {
     @IBAction private func restartGame(_ sender: UIButton) {
         game.cards.forEach { $0.isHinted = false }
         game.cards.forEach { $0.isChosen = false }
-        updateViewFromModel()
         game = SetGame()
         addLineButton.isEnabled = true
         playerVersusPhoneButton.isEnabled = true
         playerVersusPhoneButton.setTitle("PvPhone", for: .normal)
         updateViewFromModel()
-        startButtonsPermits()
+        setUpButtons()
     }
     
-    func startButtonsPermits() {
+    func setUpButtons() {
         for index in 0...11 {
             arrayOfButtons[index].isEnabled = true
         }
@@ -91,10 +97,11 @@ class ViewController: UIViewController {
     
     func updateViewFromModel() {
         if !playerVersusPhoneButton.isEnabled {
-            self.playerVersusPhoneButton.setTitle("🤖: \(game.phoneScores) ", for: .normal)
+            self.playerVersusPhoneButton.setTitle("🤔: \(game.phoneScore) ", for: .normal)
         }
         scoreLabel.text = " Scores: \(game.score)"
         cardsInDeckLabel.text = " Deck: \(game.deck.count)"
+        
         for (index, card) in game.cards.enumerated() {
             guard let button = arrayOfButtons.first(where: { $0.tag == index + 1 }) else {
                 print("cant find button with tag \(index + 1)")
@@ -183,17 +190,22 @@ class ViewController: UIViewController {
     }
     
     func setTimerForPVPhone() {
-        var randomTime = Double.random(in: 10...50)
-        timer = Timer.scheduledTimer(withTimeInterval: randomTime, repeats: true) { timer in
+        let randomTime = Double.random(in: 10...50)
+        myTimer = Timer.scheduledTimer(withTimeInterval: randomTime, repeats: true) { timer in
             if !self.playerVersusPhoneButton.isEnabled {
                 if self.game.randomMatchAvaible() {
-                    print(randomTime)
                     self.game.setMatchedCardsChosen()
                     self.game.swapSelectedCards()
                     self.game.calculateIphoneScoresByTime(for: Int(randomTime))
-                    randomTime = Double.random(in: 10...50)
                     self.updateViewFromModel()
                     self.emptyCardsDisable()
+                    if let timer = self.myTimer {
+                        self.game.timerReset(
+                            for: timer,
+                            reset: { $0.invalidate() },
+                            funcCall: { self.setTimerForPVPhone() }
+                        )
+                    }
                 } else {
                     if !self.game.deck.isEmpty {
                         self.add3MoreCards()
