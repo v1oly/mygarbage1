@@ -6,12 +6,13 @@ class SetGame {
     var cards = [Card]()
     var score = 0
     var phoneScore = 0
-    private (set) var firstClickDate: Bool = true
     private (set) var progressiveMinus = 1
     private (set) var firstClickTime = Date()
     private (set) var randomCards = [Card]()
-    private (set) var forthCardBuffer = [Card]() // swiftlint:disable:next discouraged_optional_boolean
-    private (set) var isMatch: Bool?
+    private (set) var forthCardBuffer = [Card]()
+    private (set) var isMatch: Bool?  // swiftlint:disable:this discouraged_optional_boolean
+    var phoneMoveState: PhoneMoveState = .none
+    var isUserWon = false
     
     init() {
         createArrayOfCards()
@@ -24,12 +25,16 @@ class SetGame {
             return
         }
         
-        if firstClickDate {
-            firstClickTime = Date()
-            firstClickDate = false
-        }
         card.isChosen = !card.isChosen
         forthCardBuffer = [card]
+        
+        let chosenCards = cards.filter({ $0.isChosen }).count
+        
+        print(chosenCards)
+        
+        if chosenCards == 1 || chosenCards == 4 {
+            firstClickTime = Date()
+        }
     }
     
     @discardableResult
@@ -91,6 +96,7 @@ class SetGame {
         if isMatch(inputCards: chosenCardsBuffer) {
             swapSelectedCards()
             isMatch = true
+            isUserWon = true
             calculateScoresByTime()
         } else {
             score -= progressiveMinus
@@ -141,7 +147,7 @@ class SetGame {
                 }
             }
         }
-            .shuffled()
+        .shuffled()
         
         for _ in 0...11 {
             if let newCard = deck.popLast() {
@@ -154,13 +160,9 @@ class SetGame {
         isMatch = nil
     }
     
-    func timerReset(for timer: Timer, reset: (Timer) -> (), funcCall: () -> ()) {
-        reset(timer)
-        funcCall()
-    }
-    
     func calculateScoresByTime() {
         let finalMatchTime = Date().timeIntervalSince(firstClickTime)
+        
         if isMatch == true {
             switch finalMatchTime {
             case 0...10:
@@ -174,9 +176,7 @@ class SetGame {
             default:
                 score += 1
             }
-            
-            firstClickDate = true
-        }
+        }        
     }
     
     func calculateIphoneScoresByTime(for timeInterval: Int) {
@@ -191,6 +191,28 @@ class SetGame {
             phoneScore += 2
         default:
             phoneScore += 1
+        }
+    }
+}
+
+enum PhoneMoveState {
+    case none
+    case started
+    case ready
+    case done
+    
+    var isEnabled: Bool { return self != .none }
+    
+    mutating func toNextState() {
+        switch self {
+        case .none:
+            self = .started
+        case .started:
+            self = .ready
+        case .ready:
+            self = .done
+        case .done:
+            self = .started
         }
     }
 }

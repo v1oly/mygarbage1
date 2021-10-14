@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func setPlayerVersusPhoneMode(_ sender: UIButton) {
-        self.playerVersusPhoneButton.isEnabled = false
+        self.game.phoneMoveState.toNextState()
         self.updateViewFromModel()
         self.setTimerForPVPhone()
     }
@@ -44,16 +44,6 @@ class ViewController: UIViewController {
         game.choose3Cards(for: cardNumber)
         game.compareCards()
         updateViewFromModel()
-        
-        if myTimer?.isValid == true && game.isMatch == true {
-            if let timer = myTimer {
-                self.game.timerReset(
-                    for: timer,
-                    reset: { $0.invalidate() },
-                    funcCall: { self.setTimerForPVPhone() }
-                )
-            }
-        }
         
         game.nilMatch()
     }
@@ -74,8 +64,6 @@ class ViewController: UIViewController {
         game.cards.forEach { $0.isChosen = false }
         game = SetGame()
         addLineButton.isEnabled = true
-        playerVersusPhoneButton.isEnabled = true
-        playerVersusPhoneButton.setTitle("PvPhone", for: .normal)
         updateViewFromModel()
         setUpButtons()
     }
@@ -96,9 +84,14 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel() {
-        if !playerVersusPhoneButton.isEnabled {
-            self.playerVersusPhoneButton.setTitle("🤔: \(game.phoneScore) ", for: .normal)
+        playerVersusPhoneButton.isEnabled = !game.phoneMoveState.isEnabled
+        
+        if game.phoneMoveState.isEnabled {
+            playerVersusPhoneButton.setTitle("\(emoji(for: game.phoneMoveState, userWon: game.isUserWon)): \(game.phoneScore) ", for: .normal)
+        } else {
+            playerVersusPhoneButton.setTitle("PvPhone", for: .normal)
         }
+        
         scoreLabel.text = " Scores: \(game.score)"
         cardsInDeckLabel.text = " Deck: \(game.deck.count)"
         
@@ -146,6 +139,7 @@ class ViewController: UIViewController {
         if let isMatch = game.isMatch {
             let matchtColor = isMatch ? #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1) : #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
             self.arrayOfButtons.forEach { if $0.isEnabled { $0.backgroundColor = matchtColor } }
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.arrayOfButtons.forEach { if $0.isEnabled { $0.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) } }
                 self.updateViewFromModel()
@@ -190,32 +184,47 @@ class ViewController: UIViewController {
     }
     
     func setTimerForPVPhone() {
-        let randomTime = Double.random(in: 10...50)
-        myTimer = Timer.scheduledTimer(withTimeInterval: randomTime, repeats: true) { timer in
-            if !self.playerVersusPhoneButton.isEnabled {
-                if self.game.randomMatchAvaible() {
-                    self.game.setMatchedCardsChosen()
-                    self.game.swapSelectedCards()
-                    self.game.calculateIphoneScoresByTime(for: Int(randomTime))
-                    self.updateViewFromModel()
-                    self.emptyCardsDisable()
-                    if let timer = self.myTimer {
-                        self.game.timerReset(
-                            for: timer,
-                            reset: { $0.invalidate() },
-                            funcCall: { self.setTimerForPVPhone() }
-                        )
-                    }
-                } else {
-                    if !self.game.deck.isEmpty {
-                        self.add3MoreCards()
-                    } else {
-                        timer.invalidate()
-                    }
-                }
-            } else {
-                timer.invalidate()
+        let randomTime: Double
+        
+        if game.phoneMoveState == .done {
+            randomTime = 3
+        } else {
+            randomTime = .random(in: 5...10)
+        }
+                
+        myTimer = Timer.scheduledTimer(withTimeInterval: randomTime, repeats: false) { timer in
+            
+            if self.game.phoneMoveState == .done {
+                self.game.isUserWon = false
             }
+            
+            guard self.game.phoneMoveState.isEnabled else {
+                timer.invalidate()
+                return
+            }
+            
+            defer {
+                self.game.phoneMoveState.toNextState()
+                self.updateViewFromModel()
+                self.emptyCardsDisable()
+                self.setTimerForPVPhone()
+            }
+                        
+            guard self.game.phoneMoveState == .done else {
+                return
+            }
+            
+            guard self.game.randomMatchAvaible() else {
+                if !self.game.deck.isEmpty {
+                    self.add3MoreCards()
+                }
+                
+                return
+            }
+            
+            self.game.setMatchedCardsChosen()
+            self.game.swapSelectedCards()
+            self.game.calculateIphoneScoresByTime(for: Int(randomTime))
         }
     }
     
@@ -223,6 +232,7 @@ class ViewController: UIViewController {
         guard game.deck.isEmpty else {
             return
         }
+        
         for button in arrayOfButtons {
             if button.backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0) {
                 button.isEnabled = false
@@ -273,6 +283,7 @@ class ViewController: UIViewController {
             return 0.25
         }
     }
+    
     func chooseCount(for card: Card) -> Int {
         switch card.count {
         case .one:
@@ -281,6 +292,19 @@ class ViewController: UIViewController {
             return 2
         case .three:
             return 3
+        }
+    }
+    
+    func emoji(for state: PhoneMoveState, userWon: Bool) -> String {
+        switch state {
+        case .none:
+            return ""
+        case .started:
+            return "🤔"
+        case .ready:
+            return "🤩"
+        case .done:
+            return userWon ? "👍" : "👎"
         }
     }
 }
