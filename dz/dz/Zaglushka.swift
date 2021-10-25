@@ -1,11 +1,3 @@
-//
-//  Zaglushka.swift
-//  dz
-//
-//  Created by Марк Некрашевич on 21.10.2021.
-//  Copyright © 2021 Mark Nekrashevich. All rights reserved.
-//
-
 import UIKit
 
 class Zaglushka: UIView {
@@ -15,7 +7,9 @@ class Zaglushka: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        guard let view = loadViewFromNib() else { return }
+        guard let view = loadViewFromNib() else {
+            return
+        }
         view.frame = self.bounds
         self.addSubview(view)
         contentView = view

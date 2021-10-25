@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0527270E9100655980 /* BenchmarkViewController.swift */; };
+		28AC5B0C2727172900655980 /* ViewControllerLifecycleBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0B2727172900655980 /* ViewControllerLifecycleBehavior.swift */; };
+		28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0D27271DDF00655980 /* ProfileViewController.swift */; };
 		28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EE13342721D6DE00136712 /* AppDelegate.swift */; };
 		28EE13372721D6DE00136712 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EE13362721D6DE00136712 /* ViewController.swift */; };
 		28EE133A2721D6DE00136712 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28EE13382721D6DE00136712 /* Main.storyboard */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28AC5B0527270E9100655980 /* BenchmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchmarkViewController.swift; sourceTree = "<group>"; };
+		28AC5B0B2727172900655980 /* ViewControllerLifecycleBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerLifecycleBehavior.swift; path = ../../../../Downloads/ViewControllerLifecycleBehavior.swift; sourceTree = "<group>"; };
+		28AC5B0D27271DDF00655980 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		28EE13312721D6DD00136712 /* dz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28EE13342721D6DE00136712 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		28EE13362721D6DE00136712 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +73,9 @@
 				28EE134E2721EFFA00136712 /* Storyboard2.storyboard */,
 				28EE13502721F15700136712 /* Zaglushka.swift */,
 				28EE13382721D6DE00136712 /* Main.storyboard */,
+				28AC5B0B2727172900655980 /* ViewControllerLifecycleBehavior.swift */,
+				28AC5B0D27271DDF00655980 /* ProfileViewController.swift */,
+				28AC5B0527270E9100655980 /* BenchmarkViewController.swift */,
 				28EE134C2721EE3E00136712 /* Zaglushka.xib */,
 				28EE133B2721D6E100136712 /* Assets.xcassets */,
 				28EE133D2721D6E100136712 /* LaunchScreen.storyboard */,
@@ -84,6 +93,7 @@
 			buildConfigurationList = 28EE13432721D6E100136712 /* Build configuration list for PBXNativeTarget "dz" */;
 			buildPhases = (
 				28EE132D2721D6DD00136712 /* Sources */,
+				28AC5B0427270B7B00655980 /* Run SwiftLint */,
 				28EE132E2721D6DD00136712 /* Frameworks */,
 				28EE132F2721D6DD00136712 /* Resources */,
 			);
@@ -144,6 +154,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		28AC5B0427270B7B00655980 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint --config ../.swiftlint.yml\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		28EE132D2721D6DD00136712 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -152,7 +183,10 @@
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */,
+				28AC5B0C2727172900655980 /* ViewControllerLifecycleBehavior.swift in Sources */,
+				28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */,
 				28EE13492721E3B000136712 /* CustomButton.swift in Sources */,
+				28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
