@@ -19,6 +19,10 @@ class ViewController: UIViewController {
     
     @IBOutlet private var restartButton: UIButton!
     
+    @IBOutlet weak var buttonsCollection: UICollectionView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpButtons()
@@ -66,6 +70,11 @@ class ViewController: UIViewController {
         addLineButton.isEnabled = true
         updateViewFromModel()
         setUpButtons()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+    return cell
     }
     
     func setUpButtons() {
