@@ -180,10 +180,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
-				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */,
+				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				28AC5B0C2727172900655980 /* ViewControllerLifecycleBehavior.swift in Sources */,
+				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
 				28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */,
 				28EE13492721E3B000136712 /* CustomButton.swift in Sources */,
 				28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */,
