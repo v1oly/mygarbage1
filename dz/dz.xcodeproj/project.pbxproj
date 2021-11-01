@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0527270E9100655980 /* BenchmarkViewController.swift */; };
-		28AC5B0C2727172900655980 /* ViewControllerLifecycleBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0B2727172900655980 /* ViewControllerLifecycleBehavior.swift */; };
 		28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0D27271DDF00655980 /* ProfileViewController.swift */; };
 		28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EE13342721D6DE00136712 /* AppDelegate.swift */; };
 		28EE13372721D6DE00136712 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EE13362721D6DE00136712 /* ViewController.swift */; };
@@ -19,11 +18,11 @@
 		28EE134D2721EE3E00136712 /* Zaglushka.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EE134C2721EE3E00136712 /* Zaglushka.xib */; };
 		28EE134F2721EFFA00136712 /* Storyboard2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28EE134E2721EFFA00136712 /* Storyboard2.storyboard */; };
 		28EE13512721F15700136712 /* Zaglushka.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EE13502721F15700136712 /* Zaglushka.swift */; };
+		28EF80D92730608D00BF2DD2 /* ViewControllerLifecycleBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EF80D82730608D00BF2DD2 /* ViewControllerLifecycleBehavior.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		28AC5B0527270E9100655980 /* BenchmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchmarkViewController.swift; sourceTree = "<group>"; };
-		28AC5B0B2727172900655980 /* ViewControllerLifecycleBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerLifecycleBehavior.swift; path = ../../../../Downloads/ViewControllerLifecycleBehavior.swift; sourceTree = "<group>"; };
 		28AC5B0D27271DDF00655980 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		28EE13312721D6DD00136712 /* dz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28EE13342721D6DE00136712 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +35,7 @@
 		28EE134C2721EE3E00136712 /* Zaglushka.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Zaglushka.xib; sourceTree = "<group>"; };
 		28EE134E2721EFFA00136712 /* Storyboard2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Storyboard2.storyboard; path = ../Storyboard2.storyboard; sourceTree = "<group>"; };
 		28EE13502721F15700136712 /* Zaglushka.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zaglushka.swift; sourceTree = "<group>"; };
+		28EF80D82730608D00BF2DD2 /* ViewControllerLifecycleBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerLifecycleBehavior.swift; path = ../../../../Desktop/ViewControllerLifecycleBehavior.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,12 +68,12 @@
 		28EE13332721D6DD00136712 /* dz */ = {
 			isa = PBXGroup;
 			children = (
+				28EF80D82730608D00BF2DD2 /* ViewControllerLifecycleBehavior.swift */,
 				28EE13342721D6DE00136712 /* AppDelegate.swift */,
 				28EE13362721D6DE00136712 /* ViewController.swift */,
 				28EE134E2721EFFA00136712 /* Storyboard2.storyboard */,
 				28EE13502721F15700136712 /* Zaglushka.swift */,
 				28EE13382721D6DE00136712 /* Main.storyboard */,
-				28AC5B0B2727172900655980 /* ViewControllerLifecycleBehavior.swift */,
 				28AC5B0D27271DDF00655980 /* ProfileViewController.swift */,
 				28AC5B0527270E9100655980 /* BenchmarkViewController.swift */,
 				28EE134C2721EE3E00136712 /* Zaglushka.xib */,
@@ -182,11 +182,11 @@
 			files = (
 				28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */,
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
-				28AC5B0C2727172900655980 /* ViewControllerLifecycleBehavior.swift in Sources */,
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
 				28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */,
 				28EE13492721E3B000136712 /* CustomButton.swift in Sources */,
 				28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */,
+				28EF80D92730608D00BF2DD2 /* ViewControllerLifecycleBehavior.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
