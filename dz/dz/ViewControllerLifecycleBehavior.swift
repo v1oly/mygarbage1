@@ -44,8 +44,9 @@ struct HideNavigationBarBehavior: ViewControllerLifecycleBehavior {
 
 class LifecycleTimer: ViewControllerLifecycleBehavior {
     var timer: Timer?
+    
     func afterAppearing(_ viewController: UIViewController) {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             print(Date())
         }
     }
@@ -54,17 +55,9 @@ class LifecycleTimer: ViewControllerLifecycleBehavior {
     }
 }
 
-
 extension UIViewController {
-    /*
-     Add behaviors to be hooked into this view controller’s lifecycle.
-     
-     This method requires the view controller’s view to be loaded, so it’s best to call
-     in `viewDidLoad` to avoid it being loaded prematurely.
-     
-     - parameter behaviors: Behaviors to be added.
-     */
-    func addBehaviors(behaviors: [ViewControllerLifecycleBehavior]) {
+  
+    func addBehaviors(behaviors: [ViewControllerLifecycleBehavior]) { // copypast linter warning
         let behaviorViewController = LifecycleBehaviorViewController(behaviors: behaviors)
         
         addChild(behaviorViewController)
@@ -149,8 +142,11 @@ extension UIViewController {
         
         // MARK: - Private
         
-        private func applyBehaviors(body: (_ behavior: ViewControllerLifecycleBehavior, _ viewController: UIViewController) -> ()) {
-            guard let parentViewController = parent else { return }
+        private func applyBehaviors(body: (_ behavior: ViewControllerLifecycleBehavior,
+            _ viewController: UIViewController) -> ()) {
+            guard let parentViewController = parent else {
+                return
+            }
             
             for behavior in behaviors {
                 body(behavior, parentViewController)

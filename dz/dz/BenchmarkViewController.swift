@@ -4,6 +4,6 @@ class BenchmarkViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addBehaviors(behaviors: [lifecycleTimer()])
+        addBehaviors(behaviors: [LifecycleTimer()])
     }
 }
