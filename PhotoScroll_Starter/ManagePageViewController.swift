@@ -1,5 +1,5 @@
 import UIKit
-
+// some text
 class ManagePageViewController: UIPageViewController {
   var photos = ["photo1", "photo2", "photo3", "photo4", "photo5"]
   var currentIndex: Int!
