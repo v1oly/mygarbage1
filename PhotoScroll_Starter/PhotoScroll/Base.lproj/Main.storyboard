@@ -155,21 +155,7 @@
                                                     <constraint firstAttribute="height" constant="300" id="whQ-Pp-YeL"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="l61-es-MUN"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="WZc-IM-zSl"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="xf5-0L-hqQ"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="svw-gx-uOb"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="MUZ-UK-Kbh"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="25N-o6-wow"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="Cxp-Rx-yTC"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="FfN-2D-rNO"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="NCg-Fu-z7a"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="6v6-04-Tgv"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="2mM-p3-vkd"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="ThW-U1-dAo"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="dTv-10-uiL"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="HfI-l6-bRs"/>
-                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="8hP-F8-XI4"/>
+                                                    <outletCollection property="gestureRecognizers" destination="zTe-rp-RFC" appends="YES" id="wST-Rm-15s"/>
                                                 </connections>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What name fits me best?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZA-O6-dVa">
@@ -235,7 +221,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ogh-Sm-8XJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="zTe-rp-RFC">
                     <connections>
-                        <action selector="openZoomingController:" destination="nV1-NO-4VK" id="ai4-sl-5e6"/>
+                        <action selector="openZoomingController:" destination="nV1-NO-4VK" id="RBI-r1-gJD"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
