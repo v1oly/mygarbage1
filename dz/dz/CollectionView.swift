@@ -2,23 +2,8 @@ import UIKit
 
 class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    let array: Array = { () -> [Any] in
-        var arr = [Int]()
-        for index in 1...20 {
-            arr += [index]
-        }
-        return arr
-    }()
-    
-    let cellLabel: UILabel = {
-        let cellLbl = UILabel()
-        cellLbl.frame = CGRect(x: 0, y: 0, width: 100, height: 25)
-        cellLbl.textAlignment = .center
-        cellLbl.textColor = .black
-        return cellLbl
-    }()
-    
-    let collectionView = UICollectionView()
+    let array = Array(1...30)
+    var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +12,19 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionViewSetup() {
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 60, height: 60)
+        
+        collectionView = UICollectionView(frame:.zero, collectionViewLayout: layout)
+        view.addSubview(collectionView)
+        collectionView.register(MyCell.self, forCellWithReuseIdentifier: "super-identifier-cell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.alwaysBounceVertical = true
-        self.view.addSubview(collectionView)
         collectionView.backgroundColor = .white
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
         collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -51,9 +40,42 @@ extension CollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cellLabel.text = "\(array[indexPath.row])"
-        cell.contentView.addSubview(cellLabel)
-        return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "super-identifier-cell", for: indexPath)
+        guard let myCell = cell as? MyCell else {
+            return UICollectionViewCell()
+        }
+        myCell.backgroundColor = .purple
+        myCell.setText("\(array[indexPath.item])")
+        
+        return myCell
+    }
+}
+
+class MyCell: UICollectionViewCell {
+    let label = UILabel()
+
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(label)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        label.text = ""
+    }
+    
+    func setText(_ text: String) {
+        label.text = text
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        label.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
     }
 }
