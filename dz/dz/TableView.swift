@@ -15,14 +15,15 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        table.dataSource = self
-        table.delegate = self
-        self.view.addSubview(table)
         tableViewSetup()
     }
     
     func tableViewSetup() {
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        table.dataSource = self
+        table.delegate = self
+        self.view.addSubview(table)
+        
         table.translatesAutoresizingMaskIntoConstraints = false
         
         table.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -33,8 +34,14 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 }
 
 extension TableViewController {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newSessionViewController = SessionSummaryViewController()
+        self.navigationController?.pushViewController(newSessionViewController, animated: false)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return array.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
