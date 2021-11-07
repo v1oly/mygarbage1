@@ -57,7 +57,7 @@ class LifecycleTimer: ViewControllerLifecycleBehavior {
 
 extension UIViewController {
   
-    func addBehaviors(behaviors: [ViewControllerLifecycleBehavior]) { // copypast linter warning
+    func addBehaviors(behaviors: [ViewControllerLifecycleBehavior]) { // not my code
         let behaviorViewController = LifecycleBehaviorViewController(behaviors: behaviors)
         
         addChild(behaviorViewController)

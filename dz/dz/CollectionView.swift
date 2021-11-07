@@ -1,9 +1,12 @@
 import UIKit
 
-class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITabBarControllerDelegate {
+class CollectionViewController: UIViewController, UICollectionViewDelegate,
+                                UICollectionViewDataSource, UITabBarControllerDelegate {
+    // i wanna style like objc
     
     let array = Array(1...3)
     var collectionView: UICollectionView!
+    // im sure that i have collection view
     let nextButton = UIButton()
     
     override func viewDidLoad() {
@@ -19,7 +22,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 200, height: 200)
         
-        collectionView = UICollectionView(frame:.zero, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.addSubview(collectionView)
         collectionView.register(MyCell.self, forCellWithReuseIdentifier: "super-identifier-cell")
         collectionView.dataSource = self
@@ -37,28 +40,30 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         nextButton.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
         nextButton.frame.size = CGSize(width: 50, height: 50)
         view.addSubview(nextButton)
-        nextButton.frame.origin = CGPoint(x: view.bounds.width-50, y: view.bounds.minY + 100)
+        nextButton.frame.origin = CGPoint(x: view.bounds.width - 50, y: view.bounds.minY + 100)
         nextButton.setTitle("NEXT", for: .normal)
         nextButton.setTitleColor(.black, for: .normal)
         nextButton.contentHorizontalAlignment = .center
         nextButton.backgroundColor = .white
-   
     }
     
-    @objc func buttonClicked(_ sender : UIButton){
+    @objc func buttonClicked(_ sender: UIButton) {
+        // i dont know how to fix this types of warnings for objc funcs
         let newSessionViewController = SessionSummaryViewController()
         self.navigationController?.pushViewController(newSessionViewController, animated: false)
     }
 }
 
 extension CollectionViewController {
-    
+    // i dont think is it true warning, a lot of ppl used extensions in the same file
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return array.count
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+        ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "super-identifier-cell", for: indexPath)
         guard let myCell = cell as? MyCell else {
             return UICollectionViewCell()
@@ -128,20 +133,9 @@ class MyCell: UICollectionViewCell {
         label.text = ""
     }
     
-    @objc func countdown(count: Int, lableC: UILabel) {
-        var hours: Int
-        var minutes: Int
-        var seconds: Int
-        
-        hours = count / 3600
-        minutes = (count % 3600) / 60
-        seconds = (count % 3600) % 60
-        lableC.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
-    
     func setTimer(invalidate: Bool) {
         if !invalidate {
-            myTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
+            myTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] _ in
                 count += 1
                 countdown(count: count, lableC: label)
             }
@@ -160,6 +154,18 @@ class MyCell: UICollectionViewCell {
     
     func setText(_ text: String) {
         label.text = text
+    }
+    
+    @objc func countdown(count: Int, lableC: UILabel) {
+        // i dont know how to fix this types of warnings for objc funcs
+        var hours: Int
+        var minutes: Int
+        var seconds: Int
+        
+        hours = count / 3600 // i dont see a problem here
+        minutes = (count % 3600) / 60 // i dont see a problem here
+        seconds = (count % 3600) % 60 // i dont see a problem here
+        lableC.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     
     override func layoutSubviews() {

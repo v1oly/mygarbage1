@@ -1,4 +1,5 @@
 import UIKit
+// fuck this warning
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -34,6 +35,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 }
 
 extension TableViewController {
+// i dont think is it true warning, a lot of ppl used extensions in the same file
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newSessionViewController = SessionSummaryViewController()
