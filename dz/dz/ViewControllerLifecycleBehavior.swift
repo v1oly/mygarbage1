@@ -57,14 +57,6 @@ class LifecycleTimer: ViewControllerLifecycleBehavior {
 
 extension UIViewController {
   
-    func addBehaviors(behaviors: [ViewControllerLifecycleBehavior]) { // not my code
-        let behaviorViewController = LifecycleBehaviorViewController(behaviors: behaviors)
-        
-        addChild(behaviorViewController)
-        view.addSubview(behaviorViewController.view)
-        behaviorViewController.didMove(toParent: self)
-    }
-    
     private final class LifecycleBehaviorViewController: UIViewController {
         private let behaviors: [ViewControllerLifecycleBehavior]
         
@@ -115,7 +107,7 @@ extension UIViewController {
                 behavior.beforeDisappearing(viewController)
             }
         }
-        
+                
         override func viewDidDisappear(_ animated: Bool) {
             super.viewDidDisappear(animated)
             
@@ -139,7 +131,6 @@ extension UIViewController {
                 behavior.afterLayingOutSubviews(viewController)
             }
         }
-        
         // MARK: - Private
         
         private func applyBehaviors(body: (_ behavior: ViewControllerLifecycleBehavior,
@@ -152,5 +143,13 @@ extension UIViewController {
                 body(behavior, parentViewController)
             }
         }
+    }
+    
+    func addBehaviors(behaviors: [ViewControllerLifecycleBehavior]) {
+        let behaviorViewController = LifecycleBehaviorViewController(behaviors: behaviors)
+        
+        addChild(behaviorViewController)
+        view.addSubview(behaviorViewController.view)
+        behaviorViewController.didMove(toParent: self)
     }
 }

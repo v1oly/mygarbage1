@@ -1,12 +1,13 @@
 import UIKit
 
-class CollectionViewController: UIViewController, UICollectionViewDelegate,
-                                UICollectionViewDataSource, UITabBarControllerDelegate {
-    // i wanna style like objc
+class CollectionViewController: UIViewController,
+UICollectionViewDelegate,
+UICollectionViewDataSource,
+UITabBarControllerDelegate {
     
     let array = Array(1...3)
-    var collectionView: UICollectionView!
-    // im sure that i have collection view
+    var collectionView: UICollectionView! // swiftlint:disable:this implicitly_unwrapped_optional
+
     let nextButton = UIButton()
     
     override func viewDidLoad() {
@@ -37,7 +38,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate,
         collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     func buttonSetup() {
-        nextButton.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(showSelectionViewController(_:)), for: .touchUpInside)
         nextButton.frame.size = CGSize(width: 50, height: 50)
         view.addSubview(nextButton)
         nextButton.frame.origin = CGPoint(x: view.bounds.width - 50, y: view.bounds.minY + 100)
@@ -47,15 +48,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate,
         nextButton.backgroundColor = .white
     }
     
-    @objc func buttonClicked(_ sender: UIButton) {
-        // i dont know how to fix this types of warnings for objc funcs
+    @objc
+    func showSelectionViewController(_ sender: UIButton) {
         let newSessionViewController = SessionSummaryViewController()
         self.navigationController?.pushViewController(newSessionViewController, animated: false)
     }
 }
 
 extension CollectionViewController {
-    // i dont think is it true warning, a lot of ppl used extensions in the same file
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return array.count
     }
@@ -156,15 +156,15 @@ class MyCell: UICollectionViewCell {
         label.text = text
     }
     
-    @objc func countdown(count: Int, lableC: UILabel) {
-        // i dont know how to fix this types of warnings for objc funcs
+    @objc
+    func countdown(count: Int, lableC: UILabel) {
         var hours: Int
         var minutes: Int
         var seconds: Int
         
-        hours = count / 3600 // i dont see a problem here
-        minutes = (count % 3600) / 60 // i dont see a problem here
-        seconds = (count % 3600) % 60 // i dont see a problem here
+        hours = count / 3_600
+        minutes = (count % 3_600) / 60
+        seconds = (count % 3_600) % 60
         lableC.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
     

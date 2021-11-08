@@ -11,7 +11,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return arr
     }()
     
-    let table = UITableView()
+    let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,23 +20,21 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableViewSetup() {
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        table.dataSource = self
-        table.delegate = self
-        self.view.addSubview(table)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        self.view.addSubview(tableView)
         
-        table.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        table.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        table.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        table.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        table.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
 }
 
 extension TableViewController {
-// i dont think is it true warning, a lot of ppl used extensions in the same file
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newSessionViewController = SessionSummaryViewController()
         self.navigationController?.pushViewController(newSessionViewController, animated: false)

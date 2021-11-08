@@ -54,7 +54,6 @@ opt_in_rules:
   - multiline_literal_brackets
   - multiline_parameters_brackets
   - multiline_parameters
-  - no_grouping_extension
   - no_space_in_method_call
   - number_separator
   - operator_usage_whitespace
