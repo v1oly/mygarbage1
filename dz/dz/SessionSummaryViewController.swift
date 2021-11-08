@@ -1,5 +1,4 @@
 import UIKit
-// fuck this warning
 
 class SessionSummaryViewController: UIViewController {
     
