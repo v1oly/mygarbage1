@@ -1,9 +1,15 @@
-//
-//  DetailsViewController.swift
-//  dz
-//
-//  Created by Markus on 12.11.2021.
-//  Copyright © 2021 Mark Nekrashevich. All rights reserved.
-//
+import UIKit
 
-import Foundation
+class DetailsViewController: UIViewController {
+    
+    let detailsView = DetailsView()
+    
+    override func viewDidLoad() {
+   
+    }
+    
+    override func loadView() {
+        view = detailsView
+    }
+}
+

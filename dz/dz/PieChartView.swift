@@ -6,12 +6,12 @@ struct Segment {
     let title: String
 }
 
-@IBDesignable
 class PieChartView: UIView {
     
     var radius: CGFloat = 0.0
     let submitChangesButton = UIButton()
-    let radiusField = UITextField()
+    let stepperRadious = UIStepper()
+    let stepperRadiusValueLabel = UILabel()
     
     var segments: [Segment] = [] {
         didSet {
@@ -28,14 +28,16 @@ class PieChartView: UIView {
         super.init(frame: frame)
         setup()
         buttonSetup()
-        fieldsSetup()
+        stepperSetup()
+        labelsSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
         buttonSetup()
-        fieldsSetup()
+        stepperSetup()
+        labelsSetup()
     }
     
     override func prepareForInterfaceBuilder() {
@@ -90,28 +92,49 @@ class PieChartView: UIView {
         submitChangesButton.addTarget(self, action: #selector(showSelectionViewController(_:)), for: .touchUpInside)
         submitChangesButton.frame.size = CGSize(width: 100, height: 50)
         self.addSubview(submitChangesButton)
-        submitChangesButton.frame.origin = CGPoint(x: UIScreen.main.bounds.width - 100,
+        submitChangesButton.frame.origin = CGPoint(x: UIScreen.main.bounds.minX + 100,
                                                    y: UIScreen.main.bounds.minY + 100)
-        submitChangesButton.setTitle("Submit", for: .normal)
+        submitChangesButton.setTitle("Set Radius", for: .normal)
         submitChangesButton.setTitleColor(.black, for: .normal)
         submitChangesButton.contentHorizontalAlignment = .center
-        submitChangesButton.backgroundColor = .white
+        submitChangesButton.backgroundColor = .clear
     }
     
-    func fieldsSetup() {
-        radiusField.frame.size = CGSize(width: 100, height: 30)
-        self.addSubview(radiusField)
-        radiusField.frame.origin = CGPoint(x: submitChangesButton.frame.origin.x - 100,
-                                           y: submitChangesButton.frame.origin.y + 20)
-        radiusField.backgroundColor = .lightGray
+    func labelsSetup() {
+        stepperRadiusValueLabel.frame.size = CGSize(width: 100, height: 30)
+        self.addSubview(stepperRadiusValueLabel)
+        stepperRadiusValueLabel.frame.origin = CGPoint(x: stepperRadious.frame.origin.x, y: stepperRadious.frame.origin.y - 20)
+        stepperRadiusValueLabel.text = "Radius: 0"
+        stepperRadiusValueLabel.sizeToFit()
+        
+    }
+    
+    func stepperSetup() {
+        stepperRadious.frame.size = CGSize(width: 100, height: 30)
+        self.addSubview(stepperRadious)
+        stepperRadious.frame.origin = CGPoint(x: submitChangesButton.frame.origin.x - 100,
+                                              y: submitChangesButton.frame.origin.y + 20)
+        stepperRadious.wraps = true
+        stepperRadious.autorepeat = true
+        stepperRadious.maximumValue = 1
+        stepperRadious.minimumValue = 0
+        stepperRadious.stepValue = 0.05
+        stepperRadious.addTarget(self, action: #selector(stepperRadiusValueChanged(_:)), for: .valueChanged)
+        stepperRadious.backgroundColor = .lightGray
     }
     
     @objc
     func showSelectionViewController(_ sender: UIButton) {
-        guard let num = NumberFormatter().number(from: radiusField.text!) else { return }
-        let radiusC = CGFloat(num)
-        radius = min(frame.width, frame.height) * radiusC
+        let radiusC = stepperRadious.value
+        radius = min(frame.width, frame.height) * CGFloat(radiusC)
         setNeedsDisplay()
+    }
+    
+    @objc
+    func stepperRadiusValueChanged(_ stepper: UIStepper) {
+        let stepValue = Double(stepper.value)
+        stepperRadiusValueLabel.text = "Radius: \(round(stepValue * 100) / 100)"
+        stepperRadiusValueLabel.sizeToFit()
     }
 }
 

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD337273D0150009E52B8 /* PieChartView.swift */; };
 		1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */; };
+		1E6CD33C273ED742009E52B8 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD33B273ED742009E52B8 /* DetailsView.swift */; };
+		1E6CD33E273EDEE0009E52B8 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD33D273EDEE0009E52B8 /* DetailsViewController.swift */; };
+		1E6CD34027400781009E52B8 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD33F27400781009E52B8 /* ColorPickerView.swift */; };
 		284712F32732A9C10022111F /* BlankFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284712F22732A9C10022111F /* BlankFile.swift */; };
 		28A383E8273303B000E17ECA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E7273303B000E17ECA /* TableViewController.swift */; };
 		28A383EA273515D500E17ECA /* SessionSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */; };
@@ -30,6 +33,9 @@
 /* Begin PBXFileReference section */
 		1E6CD337273D0150009E52B8 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
+		1E6CD33B273ED742009E52B8 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		1E6CD33D273EDEE0009E52B8 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		1E6CD33F27400781009E52B8 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		284712F22732A9C10022111F /* BlankFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankFile.swift; sourceTree = "<group>"; };
 		28A383E7273303B000E17ECA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSummaryViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +95,9 @@
 				28EE13382721D6DE00136712 /* Main.storyboard */,
 				28A383EB27352A4F00E17ECA /* CollectionViewController.swift */,
 				1E6CD337273D0150009E52B8 /* PieChartView.swift */,
+				1E6CD33F27400781009E52B8 /* ColorPickerView.swift */,
+				1E6CD33B273ED742009E52B8 /* DetailsView.swift */,
+				1E6CD33D273EDEE0009E52B8 /* DetailsViewController.swift */,
 				1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */,
 				28AC5B0D27271DDF00655980 /* ProfileViewController.swift */,
 				28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */,
@@ -199,18 +208,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */,
+				1E6CD33C273ED742009E52B8 /* DetailsView.swift in Sources */,
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				284712F32732A9C10022111F /* BlankFile.swift in Sources */,
 				28A383EA273515D500E17ECA /* SessionSummaryViewController.swift in Sources */,
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
 				28A383E8273303B000E17ECA /* TableViewController.swift in Sources */,
 				28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */,
+				1E6CD34027400781009E52B8 /* ColorPickerView.swift in Sources */,
 				28EE13492721E3B000136712 /* CustomButton.swift in Sources */,
 				28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */,
 				1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */,
 				28A383EC27352A4F00E17ECA /* CollectionViewController.swift in Sources */,
 				1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */,
 				28D666162732A37500DAF24F /* ViewControllerLifecycleBehavior.swift in Sources */,
+				1E6CD33E273EDEE0009E52B8 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
