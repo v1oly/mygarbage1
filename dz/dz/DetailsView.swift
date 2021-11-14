@@ -3,9 +3,9 @@ import UIKit
 class DetailsView: UIView {
     
     let quitButton = UIButton()
+    let selectColorButton = UIButton()
+    let colorPicker = ColorPickerView()
     weak var delegate: PieChartDelegate?
-    let colorPickerView = ColorPickerView()
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,17 +18,6 @@ class DetailsView: UIView {
     }
     
     func setup() {
-         
-        colorPickerView.frame = CGRect(x: 100, y: 150, width: 20, height: 20)
-        
-        addSubview(colorPickerView)
-        colorPickerView.onColorDidChange = { [weak self] color in
-                DispatchQueue.main.async {
-
-                    // use picked color for your needs here...
-                    self?.colorPickerView.backgroundColor = color
-                }
-        }
         
         self.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.maxX, height: 200)
         
@@ -42,6 +31,18 @@ class DetailsView: UIView {
         quitButton.setTitleColor(.black, for: .normal)
         quitButton.contentHorizontalAlignment = .center
         quitButton.backgroundColor = .clear
+        
+        selectColorButton.addTarget(self, action: #selector(selectColor(_:)), for: .touchUpInside)
+        selectColorButton.frame.size = CGSize(width: 50, height: 50)
+        addSubview(selectColorButton)
+        selectColorButton.center = CGPoint(x: self.bounds.midX,
+                                                 y: self.bounds.midY)
+        selectColorButton.setTitle("▣", for: .normal)
+        selectColorButton.sizeToFit()
+        selectColorButton.setTitleColor(.black, for: .normal)
+        selectColorButton.contentHorizontalAlignment = .center
+        selectColorButton.backgroundColor = .clear
+        
         setGradientBackground()
     }
     
@@ -61,6 +62,10 @@ class DetailsView: UIView {
     @objc
     func quitFromView(_ sender: UIButton) {
         delegate?.quitDetailsViewController()
-        print ("got it")
+    }
+    
+    @objc
+    func selectColor(_ sender: UIButton) {
+        delegate?.openColorPickerView()
     }
 }

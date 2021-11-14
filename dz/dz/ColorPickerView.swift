@@ -1,120 +1,46 @@
 import UIKit
 
-
-class ColorPickerView : UIView {
-
-var onColorDidChange: ((_ color: UIColor) -> ())?
-
-let saturationExponentTop:Float = 2.0
-let saturationExponentBottom:Float = 1.3
-
-let grayPaletteHeightFactor: CGFloat = 0.1
-var rectgrayPalette = CGRect.zero
-var rectmainPalette = CGRect.zero
-
-// adjustable
-var elementSize: CGFloat = 1.0 {
-    didSet {
-        setNeedsDisplay()
+class ColorPickerView: UIView {
+   
+    let colorsArray = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1), #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1), #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1), #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1), #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)]
+    var arrayOfButtons = [UIButton]()
+    weak var delegate: PieChartDelegate?
+    var pickedColor = UIColor()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
     }
-}
-
-override init(frame: CGRect) {
-    super.init(frame: frame)
-    setup()
-}
-
-required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    setup()
-}
-
-private func setup() {
-
-    self.clipsToBounds = true
-    let touchGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.touchedColor(gestureRecognizer:)))
-    touchGesture.minimumPressDuration = 0
-    touchGesture.allowableMovement = CGFloat.greatestFiniteMagnitude
-    self.addGestureRecognizer(touchGesture)
-}
-
-
-
-override func draw(_ rect: CGRect) {
-    let context = UIGraphicsGetCurrentContext()
-
-    rectgrayPalette = CGRect(x: 0, y: 0, width: rect.width, height: rect.height * grayPaletteHeightFactor)
-    rectmainPalette = CGRect(x: 0, y: rectgrayPalette.maxY,
-                              width: rect.width, height: rect.height - rectgrayPalette.height)
-
-    // gray palette
-    for yyy in stride(from: CGFloat(0), to: rectgrayPalette.height, by: elementSize) {
-
-        for xxx in stride(from: (0 as CGFloat), to: rectgrayPalette.width, by: elementSize) {
-            let hue = xxx / rectgrayPalette.width
-
-            let color = UIColor(white: hue, alpha: 1.0)
-
-            context!.setFillColor(color.cgColor)
-            context!.fill(CGRect(x:xxx, y:yyy, width:elementSize, height:elementSize))
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+  
+    func setup() {
+        self.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY - 250, width: UIScreen.main.bounds.maxX, height: 100)
+        self.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        self.layer.cornerRadius = 10
+        
+        drawColorsBlocks()
+    }
+    
+    func drawColorsBlocks() {
+        for index in colorsArray.indices {
+        let boxButton = UIButton()
+            boxButton.frame.size = CGSize(width: 20, height: 20)
+            boxButton.center = CGPoint(x: 27 * (index + 1), y: Int(self.bounds.midY))
+            boxButton.addTarget(self, action: #selector(colorPeek(_:)), for: .touchUpInside)
+            boxButton.backgroundColor = colorsArray[index]
+            addSubview(boxButton)
+            arrayOfButtons += [boxButton]
         }
     }
-
-    // main palette
-    for yyy in stride(from: CGFloat(0), to: rectmainPalette.height, by: elementSize) {
-
-        var saturation = yyy < rectmainPalette.height / 2.0 ? CGFloat(2 * yyy) / rectmainPalette.height : 2.0 * CGFloat(rectmainPalette.height - yyy) / rectmainPalette.height
-        saturation = CGFloat(powf(Float(saturation), yyy < rectmainPalette.height / 2.0 ? saturationExponentTop : saturationExponentBottom))
-        let brightness = yyy < rectmainPalette.height / 2.0 ? CGFloat(1.0) : 2.0 * CGFloat(rectmainPalette.height - yyy) / rectmainPalette.height
-
-        for xxx in stride(from: (0 as CGFloat), to: rectmainPalette.width, by: elementSize) {
-            let hue = xxx / rectmainPalette.width
-
-            let color = UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0)
-
-            context!.setFillColor(color.cgColor)
-            context!.fill(CGRect(x:xxx, y: yyy + rectmainPalette.origin.y,
-                                 width: elementSize, height: elementSize))
-        }
+    
+    @objc
+    func colorPeek(_ sender: UIButton) {
+        delegate?.submitColorPicker()
+        pickedColor = sender.backgroundColor!
+        print(pickedColor)
     }
-}
-
-
-
-func getColorAtPoint(point: CGPoint) -> UIColor
-{
-    var roundedPoint = CGPoint(x:elementSize * CGFloat(Int(point.x / elementSize)),
-                               y:elementSize * CGFloat(Int(point.y / elementSize)))
-
-    let hue = roundedPoint.x / self.bounds.width
-
-
-    // main palette
-    if rectmainPalette.contains(point)
-    {
-        // offset point, because rect_mainPalette.origin.y is not 0
-        roundedPoint.y -= rectmainPalette.origin.y
-
-        var saturation = roundedPoint.y < rectmainPalette.height / 2.0 ? CGFloat(2 * roundedPoint.y) / rectmainPalette.height
-            : 2.0 * CGFloat(rectmainPalette.height - roundedPoint.y) / rectmainPalette.height
-
-        saturation = CGFloat(powf(Float(saturation), roundedPoint.y < rectmainPalette.height / 2.0 ? saturationExponentTop : saturationExponentBottom))
-        let brightness = roundedPoint.y < rectmainPalette.height / 2.0 ? CGFloat(1.0) : 2.0 * CGFloat(rectmainPalette.height - roundedPoint.y) / rectmainPalette.height
-
-        return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0)
-    }
-    // gray palette
-    else{
-
-        return UIColor(white: hue, alpha: 1.0)
-    }
-}
-
-
-@objc func touchedColor(gestureRecognizer: UILongPressGestureRecognizer){
-    let point = gestureRecognizer.location(in: self)
-    let color = getColorAtPoint(point: point)
-
-    self.onColorDidChange?(color)
-  }
 }
