@@ -12,6 +12,7 @@ class PieChartView: UIView {
     let submitChangesButton = UIButton()
     let stepperRadious = UIStepper()
     let stepperRadiusValueLabel = UILabel()
+    let deleteSegmentTextField = UITextField()
     
     var segments: [Segment] = [] {
         didSet {

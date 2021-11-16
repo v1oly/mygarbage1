@@ -7,6 +7,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     let colorPicker = ColorPickerView()
     let addSegment = UIButton()
     var selectedColor = UIColor()
+    var isColorPickerAlreadyOpened: Bool? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +44,27 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         self.view.viewWithTag(3)?.removeFromSuperview()
         selectedColor = colorPicker.pickedColor
         detailsView.selectColorButton.setTitleColor(selectedColor, for: .normal)
+        isColorPickerAlreadyOpened = false
     }
     
     func openColorPickerView() {
-        view.addSubview(colorPicker)
+        if isColorPickerAlreadyOpened != true {
+            view.addSubview(colorPicker)
+            isColorPickerAlreadyOpened = true
+        } else {
+            self.view.viewWithTag(3)?.removeFromSuperview()
+            isColorPickerAlreadyOpened = false
+        }
+    }
+    
+    func addPieToDiagram() {
+        guard colorPicker.pickedColor != UIColor.clear else {
+            return
+        }
+        let pieLable = detailsView.setTextToSegmentField.text!
+        let pieValue = detailsView.pieValueStepper.value
+        pieChartView.segments.append(Segment(color: selectedColor, value: CGFloat(pieValue), title: pieLable))
+        quitDetailsViewController()
     }
     
     @objc
@@ -60,4 +78,5 @@ protocol PieChartDelegate: AnyObject {
     func quitDetailsViewController()
     func submitColorPicker()
     func openColorPickerView()
+    func addPieToDiagram()
 }
