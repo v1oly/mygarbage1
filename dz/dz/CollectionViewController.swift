@@ -37,6 +37,7 @@ UITabBarControllerDelegate {
         collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
+    
     func buttonSetup() {
         nextButton.addTarget(self, action: #selector(showSelectionViewController(_:)), for: .touchUpInside)
         nextButton.frame.size = CGSize(width: 50, height: 50)

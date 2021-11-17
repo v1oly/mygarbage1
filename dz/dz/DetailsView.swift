@@ -105,7 +105,7 @@ class DetailsView: UIView {
         addSubview(pieValueStepperLabel)
         pieValueStepperLabel.frame.origin = CGPoint(x: pieValueStepper.frame.origin.x,
                                                     y: pieValueStepper.frame.origin.y - 20)
-        pieValueStepperLabel.text = "Pie Value:25"
+        pieValueStepperLabel.text = "Pie Value:1"
         pieValueStepperLabel.sizeToFit()
     }
     

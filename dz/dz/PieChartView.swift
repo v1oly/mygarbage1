@@ -8,12 +8,13 @@ struct Segment {
 
 class PieChartView: UIView {
     
-    var radius: CGFloat = 0.0
+    var radius: CGFloat = 150.0
     let submitChangesButton = UIButton()
     let stepperRadious = UIStepper()
     let stepperRadiusValueLabel = UILabel()
     let deleteSegmentTextField = UITextField()
-    
+    var arrayOfSegmentsNames: [String] = []
+
     var segments: [Segment] = [] {
         didSet {
             setNeedsDisplay()
@@ -88,7 +89,18 @@ class PieChartView: UIView {
             Segment(color: .green, value: 25, title: "Green"),
             Segment(color: .yellow, value: 40, title: "Yellow")
         ]
+        updateArrayOfNames()
     }
+    
+    func updateArrayOfNames() {
+        var array = [String]()
+        for index in 0...segments.count - 1 {
+            let title = segments[index].title
+            array.append(title)
+            arrayOfSegmentsNames = array
+        }
+    }
+    
     func buttonSetup() {
         submitChangesButton.addTarget(self, action: #selector(showSelectionViewController(_:)), for: .touchUpInside)
         submitChangesButton.frame.size = CGSize(width: 100, height: 50)
@@ -104,7 +116,8 @@ class PieChartView: UIView {
     func labelsSetup() {
         stepperRadiusValueLabel.frame.size = CGSize(width: 100, height: 30)
         self.addSubview(stepperRadiusValueLabel)
-        stepperRadiusValueLabel.frame.origin = CGPoint(x: stepperRadious.frame.origin.x, y: stepperRadious.frame.origin.y - 20)
+        stepperRadiusValueLabel.frame.origin = CGPoint(x: stepperRadious.frame.origin.x,
+                                                       y: stepperRadious.frame.origin.y - 20)
         stepperRadiusValueLabel.text = "Radius: 0"
         stepperRadiusValueLabel.sizeToFit()
         
