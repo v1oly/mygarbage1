@@ -39,7 +39,7 @@ class ColorPickerView: UIView {
     
     @objc
     func colorPeek(_ sender: UIButton) {
-        pickedColor = sender.backgroundColor!
+        pickedColor = sender.backgroundColor! // swiftlint:disable:this force_unwrapping
         delegate?.submitColorPicker()
     }
 }

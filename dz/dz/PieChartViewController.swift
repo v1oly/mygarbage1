@@ -29,8 +29,10 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         selectPieToDelete.addTarget(self, action: #selector(selectPieToDelete(_:)), for: .touchUpInside)
         selectPieToDelete.frame.size = CGSize(width: 150, height: 50)
         view.addSubview(selectPieToDelete)
-        selectPieToDelete.frame.origin = CGPoint(x: 210,
-                                                 y: 105)
+        selectPieToDelete.frame.origin = CGPoint(
+            x: 210,
+            y: 105
+        )
         selectPieToDelete.setTitle("Select Pie To Delete", for: .normal)
         selectPieToDelete.sizeToFit()
         selectPieToDelete.setTitleColor(.black, for: .normal)
@@ -40,8 +42,10 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         addSegment.addTarget(self, action: #selector(addSegmentToDiagram(_:)), for: .touchUpInside)
         addSegment.frame.size = CGSize(width: 100, height: 50)
         view.addSubview(addSegment)
-        addSegment.frame.origin = CGPoint(x: UIScreen.main.bounds.minX + 100,
-                                          y: UIScreen.main.bounds.minY + 150)
+        addSegment.frame.origin = CGPoint(
+            x: UIScreen.main.bounds.minX + 100,
+            y: UIScreen.main.bounds.minY + 150
+        )
         addSegment.setTitle("Add Segment", for: .normal)
         addSegment.sizeToFit()
         addSegment.setTitleColor(.black, for: .normal)
@@ -51,8 +55,10 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         confirmDelete.addTarget(self, action: #selector(deletePie(_:)), for: .touchUpInside)
         confirmDelete.frame.size = CGSize(width: 100, height: 50)
         view.addSubview(confirmDelete)
-        confirmDelete.frame.origin = CGPoint(x: selectPieToDelete.frame.origin.x + 45,
-                                             y: selectPieToDelete.frame.origin.y + 45)
+        confirmDelete.frame.origin = CGPoint(
+            x: selectPieToDelete.frame.origin.x + 45,
+            y: selectPieToDelete.frame.origin.y + 45
+        )
         confirmDelete.setTitle("Delete Pie", for: .normal)
         confirmDelete.sizeToFit()
         confirmDelete.setTitleColor(.black, for: .normal)
@@ -89,7 +95,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         guard colorPicker.pickedColor != UIColor.clear else {
             return
         }
-        let pieLable = detailsView.setTextToSegmentField.text!
+        let pieLable = detailsView.setTextToSegmentField.text! // swiftlint:disable:this force_unwrapping
         let pieValue = detailsView.pieValueStepper.value
         pieChartView.segments.append(Segment(color: selectedColor, value: CGFloat(pieValue), title: pieLable))
         updateListView()
@@ -122,9 +128,8 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         guard (arratListView.selectedValue != nil) && (pieChartView.segments.count != 1) else {
             return
         }
-
-        let deleteIndex = pieChartView.segments.firstIndex(where: {$0.title == arratListView.selectedValue})
-        pieChartView.segments.remove(at: deleteIndex!)
+        let deleteIndex = pieChartView.segments.firstIndex(where: { $0.title == arratListView.selectedValue })
+        pieChartView.segments.remove(at: deleteIndex!) // swiftlint:disable:this force_unwrapping
         updateListView()
         selectPieToDelete.setTitle("Select Pie To Delete", for: .normal)
     }

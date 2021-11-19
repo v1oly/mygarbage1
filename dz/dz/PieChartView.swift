@@ -2,8 +2,8 @@ import UIKit
 
 struct Segment {
     let color: UIColor
-    let value: CGFloat
-    let title: String
+    var value: CGFloat
+    var title: String
 }
 
 class PieChartView: UIView {
@@ -43,6 +43,7 @@ class PieChartView: UIView {
     }
     
     override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
         setNeedsDisplay()
     }
     
@@ -62,7 +63,13 @@ class PieChartView: UIView {
             
             let endAngle = startAngle + 2 * .pi * (segment.value / totalSegmentsValue)
             context.move(to: viewCenter)
-            context.addArc(center: viewCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+            context.addArc(
+                center: viewCenter,
+                radius: radius,
+                startAngle: startAngle,
+                endAngle: endAngle,
+                clockwise: false
+            )
             context.fillPath()
             
             context.move(to: viewCenter)
@@ -105,8 +112,10 @@ class PieChartView: UIView {
         submitChangesButton.addTarget(self, action: #selector(showSelectionViewController(_:)), for: .touchUpInside)
         submitChangesButton.frame.size = CGSize(width: 100, height: 50)
         self.addSubview(submitChangesButton)
-        submitChangesButton.frame.origin = CGPoint(x: UIScreen.main.bounds.minX + 100,
-                                                   y: UIScreen.main.bounds.minY + 100)
+        submitChangesButton.frame.origin = CGPoint(
+            x: UIScreen.main.bounds.minX + 100,
+            y: UIScreen.main.bounds.minY + 100
+        )
         submitChangesButton.setTitle("Set Radius", for: .normal)
         submitChangesButton.setTitleColor(.black, for: .normal)
         submitChangesButton.contentHorizontalAlignment = .center
@@ -116,18 +125,21 @@ class PieChartView: UIView {
     func labelsSetup() {
         stepperRadiusValueLabel.frame.size = CGSize(width: 100, height: 30)
         self.addSubview(stepperRadiusValueLabel)
-        stepperRadiusValueLabel.frame.origin = CGPoint(x: stepperRadious.frame.origin.x,
-                                                       y: stepperRadious.frame.origin.y - 20)
+        stepperRadiusValueLabel.frame.origin = CGPoint(
+            x: stepperRadious.frame.origin.x,
+            y: stepperRadious.frame.origin.y - 20
+        )
         stepperRadiusValueLabel.text = "Radius: 0"
         stepperRadiusValueLabel.sizeToFit()
-        
     }
     
     func stepperSetup() {
         stepperRadious.frame.size = CGSize(width: 100, height: 30)
         self.addSubview(stepperRadious)
-        stepperRadious.frame.origin = CGPoint(x: submitChangesButton.frame.origin.x - 100,
-                                              y: submitChangesButton.frame.origin.y + 20)
+        stepperRadious.frame.origin = CGPoint(
+            x: submitChangesButton.frame.origin.x - 100,
+            y: submitChangesButton.frame.origin.y + 20
+        )
         stepperRadious.wraps = true
         stepperRadious.autorepeat = true
         stepperRadious.maximumValue = 1
