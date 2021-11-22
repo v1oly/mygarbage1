@@ -17,6 +17,7 @@ class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
         super.init(coder: aDecoder)
         tableViewSetup()
     }
+    
     func tableViewUpdateData() {
         self.table.reloadData()
         self.refreshControl.endRefreshing()

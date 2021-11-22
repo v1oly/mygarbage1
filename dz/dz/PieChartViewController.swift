@@ -5,7 +5,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     let pieChartView = PieChartView()
     let detailsView = DetailsView()
     let colorPicker = ColorPickerView()
-    let arratListView = ArrayListView()
+    let arrayListOfColorNamesView = ArrayListView()
     let addSegment = UIButton()
     let selectPieToDelete = UIButton()
     let confirmDelete = UIButton()
@@ -22,7 +22,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         view.backgroundColor = .white
     }
     func setup() {
-        arratListView.tag = 4
+        arrayListOfColorNamesView.tag = 4
         colorPicker.tag = 3
         detailsView.tag = 2
         
@@ -67,8 +67,9 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         
         detailsView.delegate = self
         colorPicker.delegate = self
-        arratListView.delegate = self
+        arrayListOfColorNamesView.delegate = self
     }
+    
     func quitDetailsViewController() {
         print("helloworld")
         self.view.viewWithTag(2)?.removeFromSuperview()
@@ -102,14 +103,14 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         quitDetailsViewController()
     }
     func updateListView() {
-        arratListView.arrayOfNames = pieChartView.arrayOfSegmentsNames
-        arratListView.tableViewUpdateData()
+        arrayListOfColorNamesView.arrayOfNames = pieChartView.arrayOfSegmentsNames
+        arrayListOfColorNamesView.tableViewUpdateData()
         pieChartView.updateArrayOfNames()
     }
     
     func selectArrayListView() {
         updateListView()
-        selectPieToDelete.setTitle(arratListView.selectedValue, for: .normal)
+        selectPieToDelete.setTitle(arrayListOfColorNamesView.selectedValue, for: .normal)
         self.view.viewWithTag(4)?.removeFromSuperview()
     }
     
@@ -121,14 +122,14 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     @objc
     func selectPieToDelete(_ sender: UIButton) {
         updateListView()
-        view.addSubview(arratListView)
+        view.addSubview(arrayListOfColorNamesView)
     }
     @objc
     func deletePie(_ sender: UIButton) {
-        guard (arratListView.selectedValue != nil) && (pieChartView.segments.count != 1) else {
+        guard (arrayListOfColorNamesView.selectedValue != nil) && (pieChartView.segments.count != 1) else {
             return
         }
-        let deleteIndex = pieChartView.segments.firstIndex(where: { $0.title == arratListView.selectedValue })
+        let deleteIndex = pieChartView.segments.firstIndex(where: { $0.title == arrayListOfColorNamesView.selectedValue })
         pieChartView.segments.remove(at: deleteIndex!) // swiftlint:disable:this force_unwrapping
         updateListView()
         selectPieToDelete.setTitle("Select Pie To Delete", for: .normal)

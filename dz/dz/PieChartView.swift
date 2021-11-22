@@ -197,7 +197,8 @@ extension CGRect {
     init(centeredOn center: CGPoint, size: CGSize) {
         self.init(
             origin: CGPoint(
-                x: center.x - size.width * 0.5, y: center.y - size.height * 0.5
+                x: center.x - size.width * 0.5,
+                y: center.y - size.height * 0.5
             ),
             size: size
         )
