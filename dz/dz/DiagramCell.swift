@@ -27,6 +27,7 @@ class DiagramCell: UICollectionViewCell {
     }
     
     override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
         setNeedsDisplay()
     }
     
@@ -70,7 +71,7 @@ class DiagramCell: UICollectionViewCell {
         let textPositionOffset: CGFloat = 0.67
         let viewCenter = bounds.center
         
-        let totalSegmentsValue = segments.reduce(0, { $0 + $1.value })
+        let totalSegmentsValue = segments.reduce(0) { $0 + $1.value }
         var startAngle = -CGFloat.pi * 0.5
         
         for segment in segments {
@@ -95,7 +96,7 @@ class DiagramCell: UICollectionViewCell {
             
             let halfAngle = startAngle + (endAngle - startAngle) * 0.5
             let segmentCenter = viewCenter.projected(by: radius * textPositionOffset, angle: halfAngle)
-            let textToRender = segment.title as NSString
+            let textToRender = segment.title
             let renderRect = CGRect(centeredOn: segmentCenter, size: textToRender.size(withAttributes: textAttributes))
             textToRender.draw(in: renderRect, withAttributes: textAttributes)
             

@@ -10,7 +10,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     let selectPieToDelete = UIButton()
     let confirmDelete = UIButton()
     var selectedColor = UIColor()
-    var isColorPickerAlreadyOpened: Bool? = nil
+    var isColorPickerAlreadyOpened = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,7 +96,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         guard colorPicker.pickedColor != UIColor.clear else {
             return
         }
-        let pieLable = detailsView.setTextToSegmentField.text! // swiftlint:disable:this force_unwrapping
+        let pieLable = detailsView.setTextToSegmentField.text ?? "" 
         let pieValue = detailsView.pieValueStepper.value
         pieChartView.segments.append(Segment(color: selectedColor, value: CGFloat(pieValue), title: pieLable))
         updateListView()
@@ -129,7 +129,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         guard (arrayListOfColorNamesView.selectedValue != nil) && (pieChartView.segments.count != 1) else {
             return
         }
-        let deleteIndex = pieChartView.segments.firstIndex(where: { $0.title == arrayListOfColorNamesView.selectedValue })
+        let deleteIndex = pieChartView.segments.firstIndex { $0.title == arrayListOfColorNamesView.selectedValue }
         pieChartView.segments.remove(at: deleteIndex!) // swiftlint:disable:this force_unwrapping
         updateListView()
         selectPieToDelete.setTitle("Select Pie To Delete", for: .normal)

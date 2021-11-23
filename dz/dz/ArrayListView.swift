@@ -2,7 +2,7 @@ import UIKit
 
 class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
     var arrayOfNames = [""]
-    var selectedValue: String? = nil
+    var selectedValue: String? 
     weak var delegate: PieChartDelegate?
     let refreshControl = UIRefreshControl()
     
