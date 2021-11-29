@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -159,6 +160,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="Button 3"/>
+                                <connections>
+                                    <segue destination="2Vp-K3-23E" kind="show" id="CHs-r0-9xo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9n6-Hv-rsn"/>
@@ -168,6 +172,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VXC-OW-bqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2067" y="-285"/>
+        </scene>
+        <!--Sequence View Controller-->
+        <scene sceneID="OOq-82-GLJ">
+            <objects>
+                <viewController id="2Vp-K3-23E" customClass="SequenceViewController" customModule="dz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fc7-tN-Rtv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="3jF-sB-L2Z"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Dnf-0E-yFo"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tKD-B1-A4P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3006" y="-285"/>
         </scene>
         <!--Benchmark-->
         <scene sceneID="vEy-Is-Leg">
@@ -241,4 +261,9 @@
             <size key="intrinsicContentSize" width="271" height="60"/>
         </designable>
     </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
