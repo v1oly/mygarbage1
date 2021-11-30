@@ -35,7 +35,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
 extension TableViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let newSessionViewController = SessionSummaryViewController()
+        let newSessionViewController = PieChartViewController()
         self.navigationController?.pushViewController(newSessionViewController, animated: false)
     }
     

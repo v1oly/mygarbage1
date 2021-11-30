@@ -2,179 +2,81 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var coin: Coin? = nil
-    let coinView = CoinView()
+    var coin: Bool? = nil
+    var counter: Int = 0
+    var countArray = [Int]()
+    var coinButton = UIButton()
+    var scoreLabel = UILabel()
+    var recordLabel = UILabel()
+    let headImage = UIImage(named: "head") as UIImage?
+    let tailsImage = UIImage(named: "tails") as UIImage?
     
     override func viewDidLoad() {
+        coinButton.frame.size = CGSize(width: 175, height: 200)
+        coinButton.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
+        coinButton.addTarget(self, action: #selector(coinPlay(_:)), for: .touchUpInside)
+        coinButton.setBackgroundImage(headImage, for: .normal)
+        view.addSubview(coinButton)
+        
+        scoreLabel.frame.size = CGSize(width: 50, height: 25)
+        scoreLabel.center = CGPoint(x: coinButton.frame.origin.x + coinButton.frame.width/2,
+                                    y: coinButton.frame.origin.y)
+        scoreLabel.textAlignment = .center
+        view.addSubview(scoreLabel)
+        
+        recordLabel.frame.size = CGSize(width: 75, height: 25)
+        recordLabel.center = CGPoint(x: coinButton.frame.origin.x - recordLabel.frame.width,
+                                     y: coinButton.frame.origin.y + coinButton.frame.height/2)
+        recordLabel.textAlignment = .center
+        recordLabel.text = "record: 0"
+        view.addSubview(recordLabel)
     }
-    
-    override func loadView() {
-        view = coinView
-        view.backgroundColor = .white
-    }
-    
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { context in
-            if UIApplication.shared.statusBarOrientation.isLandscape {
-                self.coinView.setNeedsLayout()
-                self.coinView.scoreLabel.text = "1111"
+
+    @objc
+    func coinPlay(_ sender: UIButton) {
+        let random = Int.random(in: 1...2)
+        switch random {
+        case 1:
+            if coin == true {
+                counter += 1
+                scoreLabel.text = "X\(counter)"
             } else {
-                self.coinView.setNeedsLayout()
-                self.coinView.scoreLabel.text = "2222"
+                countArray.append(counter)
+                counter = 0
+                scoreLabel.text = ""
             }
-        })
-        
-        
+            coin = true; coinButton.setBackgroundImage(headImage, for: .normal)
+            
+        case 2:
+            if coin == false {
+                counter += 1
+                scoreLabel.text = "X\(counter)"
+            } else {
+                countArray.append(counter)
+                counter = 0
+                scoreLabel.text = ""
+            }
+            coin = false; coinButton.setBackgroundImage(tailsImage, for: .normal)
+            
+        default:
+            break
+        }
+        let maxScore = countArray.sorted(by: >).first
+        recordLabel.text = "record: \(maxScore ?? 0)"
+        recordLabel.sizeToFit()
+        countArray.removeAll()
+        countArray.append(maxScore!)
+        print(countArray)
     }
-}
     
-    class CoinView: UIView {
-        
-        let cWeight = UIScreen.main.bounds.width
-        let cHeight = UIScreen.main.bounds.height
-        
-        let scoreLabel = UILabel()
-        let coinView = UIView()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setUp()
-        }
-        
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            setUp()
-        }
-        
-        
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            
-
-            
-        }
-        
-        func updateView(text: String) {
-            scoreLabel.text = text
-            setNeedsLayout()
-        }
-        
-        func setUp(){
-            coinView.frame.size = CGSize(width: 100,
-                                         height: 100)
-            coinView.center = CGPoint(x: cWeight * 0.5,
-                                      y: cHeight * 0.5)
-            coinView.layer.borderWidth = 1.0
-            coinView.layer.borderColor = UIColor.red.cgColor
-            coinView.layer.backgroundColor = UIColor.gray.cgColor
-            addSubview(coinView)
-            
-            scoreLabel.frame.size = CGSize(width: 150,
-                                           height: 25)
-            scoreLabel.center = CGPoint(x: coinView.frame.origin.x * 1.7,
-                                        y: coinView.frame.origin.y - 20)
-            scoreLabel.font = UIFont.boldSystemFont(ofSize: 20)
-            scoreLabel.text = "Score: "
-            addSubview(scoreLabel)
-        }
-}
-
-
-
-
-
-
-
-//    var mainView: CoinView { return self.view as! CoinView }
+//    func autoPlayTest() {
+//        for _ in 1...10_000 {
+//            self.coinPlay(coinButton)
+//        }
+//    }
+//
     
-//    let coinView: UIView = {
-//        let cWeight = UIScreen.main.bounds.width
-//        let cHeight = UIScreen.main.bounds.height
-//        let view = UIView()
-//        view.frame.size = CGSize(width: 100,
-//                                 height: 100)
-//        view.center = CGPoint(x: cWeight * 0.5,
-//                              y: cHeight * 0.5)
-//        view.layer.borderWidth = 1.0
-//        view.layer.borderColor = UIColor.red.cgColor
-//        view.layer.backgroundColor = UIColor.gray.cgColor
-//        return view
-//    }()
-//
-//    let scoreLabel: UILabel = {
-//        let label = UILabel()
-//        label.frame.size = CGSize(width: 150,
-//                                  height: 25)
-//        label.center = CGPoint(x: coinView.frame.origin.x * 1.6,
-//                               y: coinView.frame.origin.y - 20)
-//        label.font = UIFont.boldSystemFont(ofSize: 20)
-//        label.text = "Score: "
-//        return label
-//    }()
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        self.view.addSubview(coinView)
-//        self.view.addSubview(scoreLabel)
-//    }
-//}
-
-
-
-
-//class CoinView: UIView {
-//
-//    let coinView: UIView = {
-//
-//        let cWeight = UIScreen.main.bounds.width
-//        let cHeight = UIScreen.main.bounds.height
-//        let view = UIView()
-//        view.frame.size = CGSize(width: 100,
-//                                 height: 100)
-//        view.center = CGPoint(x: cWeight * 0.5,
-//                              y: cHeight * 0.5)
-//        view.layer.borderWidth = 1.0
-//        view.layer.borderColor = UIColor.red.cgColor
-//        view.layer.backgroundColor = UIColor.gray.cgColor
-//        return view
-//    }()
-//
-//    let scoreLabel: UILabel = {
-//        let cWeight = UIScreen.main.bounds.width
-//        let cHeight = UIScreen.main.bounds.height
-//        let label = UILabel()
-//        label.frame.size = CGSize(width: 150,
-//                                  height: 25)
-//        scoreLabel.center = CGPoint(x: coinView.frame.origin.x * 1.6,
-//                                   y: coinView.frame.origin.y - 20)
-//        label.font = UIFont.boldSystemFont(ofSize: 20)
-//        label.text = "Score: "
-//        return label
-//    }()
-//
-//    override init(frame:CGRect) {
-//        super.init(frame:frame)
-//        self.backgroundColor = .white
-//        setupViews()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//    }
-//
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        self.setNeedsDisplay()
-//    }
-//
-//    func setupViews() {
-//        self.addSubview(coinView)
-//        self.addSubview(scoreLabel)
-//    }
-//
-//}
-
+}
 
     
 
