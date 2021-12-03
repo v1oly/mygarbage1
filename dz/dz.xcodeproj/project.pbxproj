@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E490E29275686AB00C7D5BF /* AlgoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E28275686AB00C7D5BF /* AlgoProvider.swift */; };
+		1E490E2B2757B2EC00C7D5BF /* ArrayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E2A2757B2EC00C7D5BF /* ArrayViewController.swift */; };
+		1E490E2D2757BB9300C7D5BF /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E2C2757BB9300C7D5BF /* SetViewController.swift */; };
+		1E490E2F2757BBAD00C7D5BF /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E2E2757BBAD00C7D5BF /* DictionaryViewController.swift */; };
+		1E490E312757DCE000C7D5BF /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E302757DCE000C7D5BF /* StringGenerator.swift */; };
 		1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD337273D0150009E52B8 /* PieChartView.swift */; };
 		1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */; };
 		1E6CD33C273ED742009E52B8 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD33B273ED742009E52B8 /* DetailsView.swift */; };
@@ -33,6 +38,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E490E28275686AB00C7D5BF /* AlgoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlgoProvider.swift; sourceTree = "<group>"; };
+		1E490E2A2757B2EC00C7D5BF /* ArrayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayViewController.swift; sourceTree = "<group>"; };
+		1E490E2C2757BB9300C7D5BF /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
+		1E490E2E2757BBAD00C7D5BF /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
+		1E490E302757DCE000C7D5BF /* StringGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringGenerator.swift; sourceTree = "<group>"; };
 		1E6CD337273D0150009E52B8 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		1E6CD33B273ED742009E52B8 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
@@ -98,8 +108,13 @@
 		1E490E2727551C4900C7D5BF /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				284712F22732A9C10022111F /* SequenceViewController.swift */,
+				1E490E2A2757B2EC00C7D5BF /* ArrayViewController.swift */,
+				1E490E2C2757BB9300C7D5BF /* SetViewController.swift */,
+				1E490E2E2757BBAD00C7D5BF /* DictionaryViewController.swift */,
 				28EE13482721E3B000136712 /* CustomButton.swift */,
 				28AC5B0D27271DDF00655980 /* ProfileViewController.swift */,
+				1E490E302757DCE000C7D5BF /* StringGenerator.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -123,8 +138,8 @@
 		28EE13332721D6DD00136712 /* dz */ = {
 			isa = PBXGroup;
 			children = (
+				1E490E28275686AB00C7D5BF /* AlgoProvider.swift */,
 				28EE13342721D6DE00136712 /* AppDelegate.swift */,
-				284712F22732A9C10022111F /* SequenceViewController.swift */,
 				28D666152732A37400DAF24F /* ViewControllerLifecycleBehavior.swift */,
 				28AC5B0527270E9100655980 /* BenchmarkViewController.swift */,
 				28EE13362721D6DE00136712 /* ViewController.swift */,
@@ -241,14 +256,19 @@
 				1E6CD33C273ED742009E52B8 /* DetailsView.swift in Sources */,
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				284712F32732A9C10022111F /* SequenceViewController.swift in Sources */,
+				1E490E2D2757BB9300C7D5BF /* SetViewController.swift in Sources */,
 				28A383EA273515D500E17ECA /* SessionSummaryViewController.swift in Sources */,
+				1E490E312757DCE000C7D5BF /* StringGenerator.swift in Sources */,
 				1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */,
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
 				28A383E8273303B000E17ECA /* TableViewController.swift in Sources */,
 				1E6CD3462744349A009E52B8 /* ArrayListView.swift in Sources */,
 				28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */,
 				1E6CD344274195FC009E52B8 /* ColorPickerView.swift in Sources */,
+				1E490E2B2757B2EC00C7D5BF /* ArrayViewController.swift in Sources */,
 				28EE13492721E3B000136712 /* CustomButton.swift in Sources */,
+				1E490E2F2757BBAD00C7D5BF /* DictionaryViewController.swift in Sources */,
+				1E490E29275686AB00C7D5BF /* AlgoProvider.swift in Sources */,
 				28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */,
 				1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */,
 				28A383EC27352A4F00E17ECA /* CollectionViewController.swift in Sources */,
