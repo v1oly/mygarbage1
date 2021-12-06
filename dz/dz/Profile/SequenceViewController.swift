@@ -75,7 +75,7 @@ class SequenceViewController: UIViewController, UITableViewDelegate, UITableView
                 suffixArray.append((algoName: algoArray[index], suffix: suffix))
             }
         }
-        suffixArray = suffixArray.sorted(by: { $0.algoName < $1.algoName } )
+        suffixArray = suffixArray.sorted { $0.algoName < $1.algoName }
         print(suffixArray)
     }
 }
