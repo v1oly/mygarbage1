@@ -14,6 +14,7 @@
 		1E490E312757DCE000C7D5BF /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E302757DCE000C7D5BF /* StringGenerator.swift */; };
 		1E490E33275E748900C7D5BF /* FeedDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E32275E748900C7D5BF /* FeedDataProvider.swift */; };
 		1E490E35275E77B700C7D5BF /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E34275E77B700C7D5BF /* ResultViewController.swift */; };
+		1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */; };
 		1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD337273D0150009E52B8 /* PieChartView.swift */; };
 		1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */; };
 		1E6CD33C273ED742009E52B8 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD33B273ED742009E52B8 /* DetailsView.swift */; };
@@ -47,6 +48,7 @@
 		1E490E302757DCE000C7D5BF /* StringGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringGenerator.swift; sourceTree = "<group>"; };
 		1E490E32275E748900C7D5BF /* FeedDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataProvider.swift; sourceTree = "<group>"; };
 		1E490E34275E77B700C7D5BF /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTypeViewController.swift; sourceTree = "<group>"; };
 		1E6CD337273D0150009E52B8 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		1E6CD33B273ED742009E52B8 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				28EE13482721E3B000136712 /* CustomButton.swift */,
 				28AC5B0D27271DDF00655980 /* ProfileViewController.swift */,
 				1E490E302757DCE000C7D5BF /* StringGenerator.swift */,
+				1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */,
 				28D666162732A37500DAF24F /* ViewControllerLifecycleBehavior.swift in Sources */,
 				1E6CD33E273EDEE0009E52B8 /* DetailsViewController.swift in Sources */,
+				1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

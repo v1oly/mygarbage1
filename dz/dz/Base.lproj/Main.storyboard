@@ -147,19 +147,19 @@
             </objects>
             <point key="canvasLocation" x="212" y="-285"/>
         </scene>
-        <!--View Controller-->
+        <!--Number Type View Controller-->
         <scene sceneID="UVG-FG-JyB">
             <objects>
-                <viewController id="zdZ-Eg-uYM" sceneMemberID="viewController">
+                <viewController id="zdZ-Eg-uYM" customClass="NumberTypeViewController" customModule="dz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8iT-M4-PVM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nql-55-kJB">
-                                <rect key="frame" x="116" y="412" width="182" height="72"/>
+                                <rect key="frame" x="350" y="88" width="64" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <state key="normal" title="Button 3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Next"/>
                                 <connections>
                                     <segue destination="2Vp-K3-23E" kind="show" id="CHs-r0-9xo"/>
                                 </connections>
@@ -171,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VXC-OW-bqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2067" y="-285"/>
+            <point key="canvasLocation" x="2066.666666666667" y="-285.26785714285711"/>
         </scene>
         <!--Sequence View Controller-->
         <scene sceneID="OOq-82-GLJ">
