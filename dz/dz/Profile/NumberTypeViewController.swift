@@ -2,12 +2,11 @@ import UIKit
 
 class NumberTypeField: UITextField {
     var typedNumbers = ""
-    var typedNumbersBuffer = 0
     var positions: [Int] = []
     var deletePositions: [Int] = []
-    var inc = true
+    var etcPositions: [Int] = []
     var currentIndex = 0
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -16,6 +15,33 @@ class NumberTypeField: UITextField {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+    
+    override func deleteBackward() {
+        var etcdeletedState = false
+        var numInc = 1
+        for (index, item) in etcPositions.enumerated() {
+            if let newPos = self.position(from: self.beginningOfDocument, offset: +item) {
+                if self.selectedTextRange == self.textRange(from: newPos, to: newPos) {
+                    
+                    if index != 0 {
+                        if item - 1 == etcPositions[index - 1] {
+                            numInc += 1
+                        }
+                    }
+                    
+                    if let newPos = self.position(from: self.beginningOfDocument, offset: +(item - numInc)) {
+                        self.selectedTextRange = self.textRange(from: newPos, to: newPos )
+                        super.deleteBackward()
+                        
+                        etcdeletedState = true
+                    }
+                }
+            }
+        }
+        if etcdeletedState == false {
+            super.deleteBackward()
+        }
     }
     
     func setup() {
@@ -36,18 +62,33 @@ class NumberTypeField: UITextField {
         self.font = UIFont.systemFont(ofSize: 20.0)
         self.placeholder = placeholderText
         
-        positions = getNumPositions(mask: "+X(XXX) XXX XX-XX")
+        etcPositions = getDeletePositionsForETCSymbol(mask: "+X(XXX) XXX XX-XX" )
+        positions = getNumCoords(mask: "+X(XXX) XXX XX-XX")
         deletePositions = positions.map { $0 + 1 }
+        print(etcPositions)
+        print(positions)
+        print(deletePositions )
     }
     
-    func replace(myString: String, _ index: Int, _ newChar: Character) -> String {
-        var chars = Array(myString)
+    func replaceCharacter(string: String, _ index: Int, _ newChar: Character) -> String {
+        var chars = Array(string)
         chars[index] = newChar
         let modifiedString = String(chars)
         return modifiedString
     }
     
-    func getNumPositions(mask: String) -> [Int] {
+    func getDeletePositionsForETCSymbol(mask: String) -> [Int] {
+        var returnArr: [Int] = []
+        let stringArr = Array(mask)
+        for index in stringArr.indices {
+            if stringArr[index] != "X" {
+                returnArr += [index + 1]
+            }
+        }
+        return returnArr
+    }
+    
+    func getNumCoords(mask: String) -> [Int] {
         var arr: [Int] = []
         for (index, char) in mask.enumerated() {
             if char == "X" {
@@ -69,7 +110,7 @@ class NumberTypeField: UITextField {
         }
         
         if isInc == false {
-            currentIndex = tpToClosestDeleteNumber(string: self.text ?? "")
+            currentIndex = tpToClosestDeletedNumber(string: self.text ?? "")
             print(" delete index - \(currentIndex)")
             if currentIndex >= 0 && !typedNumbers.isEmpty {
                 if let newPos = self.position(from: self.beginningOfDocument, offset: +deletePositions[currentIndex]) {
@@ -105,7 +146,7 @@ class NumberTypeField: UITextField {
         return nextIndex
     }
     
-    func tpToClosestDeleteNumber(string: String) -> Int {
+    func tpToClosestDeletedNumber(string: String) -> Int {
         var nextIndex = 0
         let arr = Array(string)
         for index in arr.indices {
@@ -121,7 +162,7 @@ class NumberTypeField: UITextField {
         return nextIndex
     }
     
-    func placeholderTextVision(string: String) -> NSAttributedString? {
+    func placeholderTextShow(string: String) -> NSAttributedString? {
         var lastNumberIndex = 0
         var arr = Array(string)
         for index in arr.indices {
@@ -168,7 +209,7 @@ class NumberTypeField: UITextField {
             replaceIndex += 1
             if char == "X" {
                 
-                result = replace(myString: result, replaceIndex, numbers[index])
+                result = replaceCharacter(string: result, replaceIndex, numbers[index])
                 
                 index = numbers.index(after: index)
             }
@@ -181,9 +222,11 @@ class NumberTypeField: UITextField {
         guard let phoneString = self.text else {
             return
         }
+        var increaseState = true
+        
         let string = typePhoneNumber(mask: "+X(XXX) XXX XX-XX", phone: phoneString)
         
-        self.attributedText = placeholderTextVision(string: string)
+        self.attributedText = placeholderTextShow(string: string)
         
         let countTypedNumbersBuffer = typedNumbers.count
         typedNumbers = ""
@@ -193,12 +236,11 @@ class NumberTypeField: UITextField {
             }
         }
         
-        if typedNumbers.count > countTypedNumbersBuffer {
-            inc = true
-        } else if typedNumbers.count < countTypedNumbersBuffer {
-            inc = false
+        if typedNumbers.count < countTypedNumbersBuffer {
+            increaseState = false
         }
-        floatingCursorSetPosition(isInc: inc)
+        
+        floatingCursorSetPosition(isInc: increaseState)
     }
 }
 
