@@ -22,7 +22,6 @@ class ShareViewController: SLComposeServiceViewController {
                             
                             if  let userDefaults = UserDefaults(suiteName: "group.MN.dz"),
                                 let text = text {
-                                NSLog("----------------------")
                                 userDefaults.set(text, forKey: "text2")
                             }
                         })

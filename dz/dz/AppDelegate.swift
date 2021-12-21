@@ -6,7 +6,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let shareExtensionViewController = ShareExtensionViewController()
 
-    
     func application(
         _ application: UIApplication,
         // swiftlint:disable:next discouraged_optional_collection
@@ -21,19 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // swiftlint:disable:next discouraged_optional_collection
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//
-//        if let userDefaults = UserDefaults(suiteName: "group.MN.dz") {
-//            if let _ = userDefaults.object(forKey: "text2") {
-//                shareExtensionViewController.textView.text = userDefaults.object(forKey: "text2") as! String // swiftlint:disable:this force_cast
-//                self.window?.rootViewController = shareExtensionViewController
-//                self.window?.makeKeyAndVisible()
-//                userDefaults.removeObject(forKey: "text2")
-//            } else {
-//                self.window?.rootViewController = TableViewController()
-//                self.window?.makeKeyAndVisible()
-//            }
-//        }
+        
         print(#function)
         return true
     }

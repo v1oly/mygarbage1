@@ -38,6 +38,7 @@ extension TableViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newSessionViewController = PieChartViewController()
         self.navigationController?.pushViewController(newSessionViewController, animated: false)
+        print("1")
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
