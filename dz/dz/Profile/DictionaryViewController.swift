@@ -13,6 +13,7 @@ class DictionaryViewController: UIViewController {
 class DictionaryView: UIView { // swiftlint:disable:this type_body_length
     
     let stringGenerator = StringGenerator()
+    var segmentNumber = 10
     
     let numberOfItemsLabel = UILabel()
     let resultLable = UILabel()
@@ -60,31 +61,31 @@ class DictionaryView: UIView { // swiftlint:disable:this type_body_length
     }
     
     func setup() {
-        
+        self.backgroundColor = .white
         numberFormatter.numberStyle = .decimal
         
-        self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.maxX, height: UIScreen.main.bounds.maxY)
-        self.backgroundColor = .white
-           
-        slider.frame.size = CGSize(width: UIScreen.main.bounds.width / 1.2, height: 200)
-        slider.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.minY + 200)
-        slider.maximumValue = 100_000
-        slider.minimumValue = 10
-        slider.addTarget(self, action: #selector(self.sliderValueDidChange(_:)), for: .valueChanged)
-        self.addSubview(slider)
+        var topSafePlace: CGFloat = 0
         
-        numberOfItemsLabel.frame.size = CGSize(width: 250, height: 50)
-        numberOfItemsLabel.text = "Number of Items: \(Int(slider.value))"
-        numberOfItemsLabel.sizeToFit()
-        numberOfItemsLabel.center = CGPoint(x: slider.center.x, y: slider.center.y - 50)
-        self.addSubview(numberOfItemsLabel)
+        if #available(iOS 13.0, *) {
+            if let window = UIApplication.shared.windows.first {
+                topSafePlace = window.safeAreaInsets.top
+            }
+        }
+        
+        let segmentsFile = ["10", "100", "1000", "10000", "100000"]
+        let segmentControl = UISegmentedControl(items: segmentsFile)
+        segmentControl.frame.size = CGSize(width: UIScreen.main.bounds.width / 1.1, height: 40)
+        segmentControl.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: topSafePlace + 55)
+        segmentControl.addTarget(self, action: #selector(segmentAction(_:)), for: .valueChanged)
+        segmentControl.selectedSegmentIndex = 0
+        self.addSubview(segmentControl)
         
         createArrayButton.frame.size = CGSize(width: 200, height: 25)
         createArrayButton.backgroundColor = .clear
         createArrayButton.setTitle("Create dictionary and Test", for: .normal)
         createArrayButton.setTitleColor(.blue, for: .normal)
         createArrayButton.sizeToFit()
-        createArrayButton.center = CGPoint(x: slider.center.x, y: slider.center.y + 50)
+        createArrayButton.center = CGPoint(x: segmentControl.center.x, y: segmentControl.center.y + 50)
         createArrayButton.addTarget(self, action: #selector(createArrayAndTest(_:)), for: .touchUpInside)
         self.addSubview(createArrayButton)
     }
@@ -258,14 +259,23 @@ class DictionaryView: UIView { // swiftlint:disable:this type_body_length
     }
     
     @objc
-    func sliderValueDidChange(_ sender: UISlider) {
-        let step: Float = 1
-        let currentValue = Int(round(sender.value / step) * step)
-        let formattedNumber = numberFormatter.string(from: NSNumber(value: currentValue))
-        
-        numberOfItemsLabel.text = "Number of Items: \(formattedNumber ?? "")"
-        setNeedsLayout()
+    func segmentAction(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            segmentNumber = 10
+        case 1:
+            segmentNumber = 100
+        case 2:
+            segmentNumber = 1_000
+        case 3:
+            segmentNumber = 10_000
+        case 4:
+            segmentNumber = 100_000
+        default:
+            break
+        }
     }
+    
     @objc
     func createArrayAndTest(_ sender: UIButton) { // swiftlint:disable:this function_body_length
         var currentTime = Date()
@@ -280,7 +290,7 @@ class DictionaryView: UIView { // swiftlint:disable:this type_body_length
         var match10Time = TimeInterval()
         
         dictionaryArray.removeAll()
-        for index in 0...Int(slider.value) - 1 {
+        for index in 0...segmentNumber {
             dictionaryArray[index] = stringGenerator.generateRandomString(2)
             
             if dictionaryArray.count == 1 {
@@ -295,7 +305,7 @@ class DictionaryView: UIView { // swiftlint:disable:this type_body_length
                 add10EntryTime = Date().timeIntervalSince(currentTime)
             }
             
-            if dictionaryArray.count == Int(slider.value) - 1 {
+            if dictionaryArray.count == segmentNumber - 1 {
                 setCreateTime = Date().timeIntervalSince(currentTime)
             }
         }
@@ -322,7 +332,6 @@ class DictionaryView: UIView { // swiftlint:disable:this type_body_length
         let setCount2 = dictionaryArray.count - 5
         let setCount3 = dictionaryArray.count - 10
         
-        print(dictionaryArray.count)
         for index in 0...9 {
             dictionaryArray.removeValue(forKey: index)
             

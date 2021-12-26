@@ -40,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         print(#function)
         if let userDefaults = UserDefaults(suiteName: "group.MN.dz") {
-            if let _ = userDefaults.object(forKey: "text2") {
-                shareExtensionViewController.textView.text = userDefaults.object(forKey: "text2") as! String // swiftlint:disable:this force_cast
+            if let userDefaultObj = userDefaults.object(forKey: "text2") {
+                shareExtensionViewController.textView.text = userDefaultObj as? String
                 self.window?.rootViewController = shareExtensionViewController
                 self.window?.makeKeyAndVisible()
                 userDefaults.removeObject(forKey: "text2")

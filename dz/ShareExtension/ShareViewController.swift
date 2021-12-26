@@ -1,6 +1,6 @@
-import UIKit
-import Social
 import MobileCoreServices
+import Social
+import UIKit
 
 class ShareViewController: SLComposeServiceViewController {
     
@@ -10,29 +10,40 @@ class ShareViewController: SLComposeServiceViewController {
     
     override func didSelectPost() {
         
-        for item: Any in extensionContext!.inputItems {
-            
-            if let inputItem = item as? NSExtensionItem {
-                for provider: Any in inputItem.attachments! {
-                    
-                    let itemProvider = provider as? NSItemProvider
-                    
-                    if itemProvider!.hasItemConformingToTypeIdentifier(kUTTypeText as String) {
-                        itemProvider!.loadItem(forTypeIdentifier: kUTTypeText as String, options: nil, completionHandler: { text, error in
+        if let extContextInputItems = extensionContext?.inputItems {
+            for item: Any in extContextInputItems {
+                
+                if let inputItem = item as? NSExtensionItem {
+                    if let inputItemAtt = inputItem.attachments {
+                        for provider: Any in inputItemAtt {
                             
-                            if  let userDefaults = UserDefaults(suiteName: "group.MN.dz"),
-                                let text = text {
-                                userDefaults.set(text, forKey: "text2")
+                            let itemProvider = provider as? NSItemProvider
+                            if let itemProviderItem = itemProvider?.hasItemConformingToTypeIdentifier(
+                                kUTTypeText as String
+                            ) {
+                                
+                                if itemProviderItem {
+                                    itemProvider?.loadItem(
+                                        forTypeIdentifier: kUTTypeText as String,
+                                        options: nil,
+                                        completionHandler: { text, _ in
+                                            if  let userDefaults = UserDefaults(suiteName: "group.MN.dz"),
+                                                let text = text {
+                                                userDefaults.set(text, forKey: "text2")
+                                            }
+                                        }
+                                    )
+                                }
                             }
-                        })
+                        }
                     }
                 }
             }
         }
-        if let url = URL(string: "AppWithExtensionShare://text") {
+        if let url = URL(string: "dz://text") {
             _ = self.openURL(url)
         }
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
     }
     
     override func configurationItems() -> [Any]! {
