@@ -270,7 +270,7 @@ class SetView: UIView { // swiftlint:disable:this type_body_length
     }
     
     @objc
-    func segmentAction(_ sender: UISegmentedControl) {
+    func segmentSwitching(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
             segmentNumber = 10
