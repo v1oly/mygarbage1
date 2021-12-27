@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // swiftlint:disable:next discouraged_optional_collection
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        
         print(#function)
         return true
     }

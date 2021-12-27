@@ -25,7 +25,7 @@
 		1EB4B39E276DEC9A00669D11 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4B39D276DEC9A00669D11 /* ShareViewController.swift */; };
 		1EB4B3A1276DEC9A00669D11 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4B39F276DEC9A00669D11 /* MainInterface.storyboard */; };
 		1EB4B3A5276DEC9A00669D11 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1EB8A6CA276E28C6007479F7 /*  .swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB8A6C9276E28C6007479F7 /*  .swift */; };
+		1EB8A6CA276E28C6007479F7 /* ShareExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */; };
 		284712F32732A9C10022111F /* SequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284712F22732A9C10022111F /* SequenceViewController.swift */; };
 		28A383E8273303B000E17ECA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E7273303B000E17ECA /* TableViewController.swift */; };
 		28A383EA273515D500E17ECA /* SessionSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */; };
@@ -90,7 +90,7 @@
 		1EB4B3A2276DEC9A00669D11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EB4B3AA276DED1500669D11 /* dz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dz.entitlements; sourceTree = "<group>"; };
 		1EB8A6C8276DFE71007479F7 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
-		1EB8A6C9276E28C6007479F7 /*  .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " .swift"; sourceTree = "<group>"; };
+		1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExtensionViewController.swift; sourceTree = "<group>"; };
 		284712F22732A9C10022111F /* SequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceViewController.swift; sourceTree = "<group>"; };
 		28A383E7273303B000E17ECA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSummaryViewController.swift; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 			children = (
 				1EB4B3AA276DED1500669D11 /* dz.entitlements */,
 				1E490E28275686AB00C7D5BF /* AlgoProvider.swift */,
-				1EB8A6C9276E28C6007479F7 /*  .swift */,
+				1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */,
 				28EE13342721D6DE00136712 /* AppDelegate.swift */,
 				28D666152732A37400DAF24F /* ViewControllerLifecycleBehavior.swift */,
 				28AC5B0527270E9100655980 /* BenchmarkViewController.swift */,
@@ -383,7 +383,7 @@
 				28D666162732A37500DAF24F /* ViewControllerLifecycleBehavior.swift in Sources */,
 				1E6CD33E273EDEE0009E52B8 /* DetailsViewController.swift in Sources */,
 				1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */,
-				1EB8A6CA276E28C6007479F7 /*  .swift in Sources */,
+				1EB8A6CA276E28C6007479F7 /* ShareExtensionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

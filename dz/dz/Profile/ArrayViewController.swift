@@ -76,7 +76,7 @@ class ArrayView: UIView { // swiftlint:disable:this type_body_length
         let segmentControl = UISegmentedControl(items: segmentsFile)
         segmentControl.frame.size = CGSize(width: UIScreen.main.bounds.width / 1.1, height: 40)
         segmentControl.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: topSafePlace + 55)
-        segmentControl.addTarget(self, action: #selector(segmentAction(_:)), for: .valueChanged)
+        segmentControl.addTarget(self, action: #selector(segmentSwitching(_:)), for: .valueChanged)
         segmentControl.selectedSegmentIndex = 0
         self.addSubview(segmentControl)
         
