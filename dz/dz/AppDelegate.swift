@@ -4,7 +4,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    let shareExtensionViewController = ShareExtensionViewController()
+
     func application(
         _ application: UIApplication,
         // swiftlint:disable:next discouraged_optional_collection
@@ -18,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         // swiftlint:disable:next discouraged_optional_collection
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-        ) -> Bool {
+    ) -> Bool {
         print(#function)
         return true
     }
@@ -37,8 +38,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         print(#function)
+        if let userDefaults = UserDefaults(suiteName: "group.MN.dz") {
+            if let userDefaultObj = userDefaults.object(forKey: "text2") {
+                shareExtensionViewController.shareView.textView.text = userDefaultObj as? String
+                self.window?.rootViewController = shareExtensionViewController
+                self.window?.makeKeyAndVisible()
+                userDefaults.removeObject(forKey: "text2")
+            }
+        }
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         print(#function)
     }
