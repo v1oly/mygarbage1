@@ -25,14 +25,12 @@ class ShareViewController: SLComposeServiceViewController {
                                 if itemProviderItem {
                                     itemProvider?.loadItem(
                                         forTypeIdentifier: kUTTypeText as String,
-                                        options: nil,
-                                        completionHandler: { text, _ in
+                                        options: nil) { text, _ in
                                             if  let userDefaults = UserDefaults(suiteName: "group.MN.dz"),
                                                 let text = text {
                                                 userDefaults.set(text, forKey: "text2")
                                             }
-                                        }
-                                    )
+                                    }
                                 }
                             }
                         }

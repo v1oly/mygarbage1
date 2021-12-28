@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(#function)
         if let userDefaults = UserDefaults(suiteName: "group.MN.dz") {
             if let userDefaultObj = userDefaults.object(forKey: "text2") {
-                shareExtensionViewController.textView.text = userDefaultObj as? String
+                shareExtensionViewController.shareView.textView.text = userDefaultObj as? String
                 self.window?.rootViewController = shareExtensionViewController
                 self.window?.makeKeyAndVisible()
                 userDefaults.removeObject(forKey: "text2")

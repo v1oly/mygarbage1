@@ -1,50 +1,63 @@
 import UIKit
 
 class ShareExtensionViewController: UIViewController {
-    let textView = UITextView()
-    var topSafePlace: CGFloat = 0
-    let measurementFormatter = MeasurementFormatter()
-    var currentDateFormatter = DateFormatter()
-    var bufCount = false
-    var originalText: String = ""
+    let shareView = ShareExtensionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view = shareView
+    }
+}
+
+class ShareExtensionView: UIView {
+    let textView = UITextView()
+    var topSafePlace: CGFloat = 0
+    private let measurementFormatter = MeasurementFormatter()
+    private var currentDateFormatter = DateFormatter()
+    private var bufCount = false
+    private var originalText: String = ""
+    private let segmentedControl = UISegmentedControl(items: ["Chinese", "French", "Engish(USA)"])
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
-        view.backgroundColor = .white
     }
     
-    func setup() {
-        
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         if #available(iOS 13.0, *) {
             if let window = UIApplication.shared.windows.first {
                 topSafePlace = window.safeAreaInsets.top
             }
         }
+        segmentedControl.frame.size = CGSize(width: bounds.width / 1.1, height: 40)
+        segmentedControl.center = CGPoint(x: bounds.width / 2, y: topSafePlace + 15)
         
-        let segmentedItems = ["Chinese", "French", "Engish(USA)"]
-        let segmentedControl = UISegmentedControl(items: segmentedItems)
-        segmentedControl.frame.size = CGSize(width: UIScreen.main.bounds.width / 1.1, height: 40)
-        segmentedControl.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: topSafePlace + 10)
-        segmentedControl.addTarget(self, action: #selector(segmentSwitching(_:)), for: .valueChanged)
+        textView.frame.size = CGSize(width: bounds.width / 1.5, height: bounds.height / 2)
+        textView.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+    }
+    private func setup() {
+        
+        self.backgroundColor = .white
+        
+        segmentedControl.addTarget(self, action: #selector(switchSegment(_:)), for: .valueChanged)
         segmentedControl.selectedSegmentIndex = 1
-        view.addSubview(segmentedControl)
+        self.addSubview(segmentedControl)
         
-        textView.frame.size = CGSize(width: UIScreen.main.bounds.width / 1.5, height: UIScreen.main.bounds.height / 2)
-        textView.center = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
         textView.backgroundColor = .lightGray
-        view.addSubview(textView)
+        self.addSubview(textView)
     }
     
-    func detectLanguage(for string: String) -> String? {
-        if let language = NSLinguisticTagger.dominantLanguage(for: string) {
-            return language
-        } else {
-            return nil
-        }
+    private func detectLanguage(for string: String) -> String? {
+        return NSLinguisticTagger.dominantLanguage(for: string)
     }
     
-    func findDateInSharedText(newLocale: Locale) {
+    private func findDateInSharedText(newLocale: Locale) {
         
         var dateArray: [String] = []
         var localizedDateArray: [String] = []
@@ -52,7 +65,7 @@ class ShareExtensionViewController: UIViewController {
             "EEEE, MMM d, yyyy", "MM/dd/yyyy", "MM-dd-yyyy HH:mm", "MMM d, h:mm a", "MMMM yyyy",
             "MMM d, yyyy", "d MMMM yyyy", "dd-MM-yy", "dd.MM.yy", "dd MMM", "dd MM", "dd MMMM"
         ]
-        var check = false
+        var isFormatAlreadyUsed = false
         let dateFormatter = DateFormatter()
         let types: NSTextCheckingResult.CheckingType = [.date]
         
@@ -73,19 +86,19 @@ class ShareExtensionViewController: UIViewController {
             }
         }
         
-        for item in dateArray {
-            check = false
+        for date in dateArray {
+            isFormatAlreadyUsed = false
             for format in dateFormats {
                 dateFormatter.locale = Locale(identifier: detectLanguage(for: textView.text) ?? "")
                 
                 dateFormatter.dateFormat = format
                 
-                if let date = dateFormatter.date(from: item) {
+                if let date = dateFormatter.date(from: date) {
                     dateFormatter.locale = newLocale
-                    if check == false {
+                    if isFormatAlreadyUsed == false {
                         let date1 = dateFormatter.string(from: date)
                         localizedDateArray += [date1]
-                        check = true
+                        isFormatAlreadyUsed = true
                     }
                 }
             }
@@ -98,7 +111,7 @@ class ShareExtensionViewController: UIViewController {
         localizedDateArray.removeAll()
     }
     
-    func findMeasurements(newLocale: Locale) {
+    private func findMeasurements(newLocale: Locale) {
         
         textView.text = originalText
         
@@ -136,7 +149,7 @@ class ShareExtensionViewController: UIViewController {
             }
             
             for item in result {
-                let splitArr = splitString(string: item)
+                let splitArr = splitDateStrToNumberAndMeasure(string: item)
                 formatter.locale = newLocale
                 formatter.unitOptions = .providedUnit
                 let measuare = Measurement(value: Double(splitArr[0]) ?? 0, unit: value)
@@ -153,21 +166,21 @@ class ShareExtensionViewController: UIViewController {
         }
     }
     
-    func splitString(string: String) -> [String] {
+    private func splitDateStrToNumberAndMeasure(string: String) -> [String] {
         var result: [String] = []
         var lastNumberIndex = 0
-        var check = false
+        var isSeparateFieldFound = false
         var spaceDetect = false
         var arr = Array(string)
         
         for (index, char) in arr.enumerated() {
-            if char == " " && check == false {
+            if char == " " && isSeparateFieldFound == false {
                 lastNumberIndex = index
-                check = true
+                isSeparateFieldFound = true
                 spaceDetect = true
-            } else if char.isNumber == false && check == false {
+            } else if char.isNumber == false && isSeparateFieldFound == false {
                 lastNumberIndex = index
-                check = true
+                isSeparateFieldFound = true
             }
         }
         
@@ -184,12 +197,12 @@ class ShareExtensionViewController: UIViewController {
         return result
     }
     
-    func getOriginalText() -> String {
+    private func getOriginalText() -> String {
         return textView.text
     }
     
     @objc
-    func segmentSwitching(_ sender: UISegmentedControl) {
+    private func switchSegment(_ sender: UISegmentedControl) {
         if bufCount == false {
             originalText = getOriginalText()
             bufCount = true
@@ -216,8 +229,7 @@ class ShareExtensionViewController: UIViewController {
         }
     }
 }
-
-extension String {
+private extension String {
     func substring(nsrange: NSRange) -> Substring? {
         guard let range = Range(nsrange, in: self) else {
             return nil
