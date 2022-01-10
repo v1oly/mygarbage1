@@ -1,29 +1,30 @@
+import Foundation
 import UIKit
 
-class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
-    var arrayOfNames = [""]
-    var selectedValue: String? 
-    weak var delegate: PieChartDelegate?
-    let refreshControl = UIRefreshControl()
+public class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
+    public var arrayOfNames = [""]
+    private let refreshControl = UIRefreshControl()
     
-    let table = UITableView()
+    private let closure: (String) -> ()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private let table = UITableView()
+    
+    public init(closure: @escaping (String) -> () ) {
+        self.closure = closure
+        super.init(frame: CGRect.zero)
         tableViewSetup()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        tableViewSetup()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    func tableViewUpdateData() {
+    public func tableViewUpdateData() {
         self.table.reloadData()
         self.refreshControl.endRefreshing()
     }
     
-    func tableViewSetup() {
+    private func tableViewSetup() {
         self.frame = CGRect(x: 210, y: 105, width: 150, height: 200)
         
         table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -40,7 +41,7 @@ class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ArrayListView {
+public extension ArrayListView {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         arrayOfNames.count
     }
@@ -52,8 +53,9 @@ extension ArrayListView {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedValue = arrayOfNames[indexPath.row]
+        let selectedValue = arrayOfNames[indexPath.row]
         print(arrayOfNames[indexPath.row])
-        delegate?.selectArrayListView()
+
+        closure(selectedValue)
     }
 }

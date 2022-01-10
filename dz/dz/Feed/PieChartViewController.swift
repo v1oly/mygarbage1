@@ -1,19 +1,42 @@
+import DZUIKit
 import UIKit
 
-class PieChartViewController: UIViewController, PieChartDelegate {
+class PieChartViewController: UIViewController {
     
     let pieChartView = PieChartView()
-    let detailsView = DetailsView()
-    let colorPicker = ColorPickerView()
-    let arrayListOfColorNamesView = ArrayListView()
+    var detailsView: DetailsView! // swiftlint:disable:this implicitly_unwrapped_optional
+    var colorPicker: ColorPickerView! // swiftlint:disable:this implicitly_unwrapped_optional
+    var arrayListOfColorNamesView: ArrayListView! // swiftlint:disable:this implicitly_unwrapped_optional
+
     let addSegment = UIButton()
     let selectPieToDelete = UIButton()
     let confirmDelete = UIButton()
     var selectedColor = UIColor()
+    var selectedValue: String = ""
+    var pickedColor: UIColor = UIColor.clear
     var isColorPickerAlreadyOpened = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        detailsView = DetailsView(quitDetailsViewController: { [weak self] in
+            self?.quitDetailsViewController()
+        }, openColorPickerView: { [weak self] in
+            self?.openColorPickerView()
+        }, addPieToDiagram: { [weak self] in
+            self?.addPieToDiagram()
+        })
+        
+        colorPicker = ColorPickerView { [weak self] pickedColor in
+            self?.pickedColor = pickedColor
+            self?.submitColorPicker()
+        }
+        
+        arrayListOfColorNamesView = ArrayListView { [weak self] selectedValue in
+            self?.selectedValue = selectedValue
+            self?.selectArrayListView()
+        }
+        
         setup()
     }
     
@@ -21,7 +44,9 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         view = pieChartView
         view.backgroundColor = .white
     }
+    
     func setup() {
+        
         arrayListOfColorNamesView.tag = 4
         colorPicker.tag = 3
         detailsView.tag = 2
@@ -64,10 +89,6 @@ class PieChartViewController: UIViewController, PieChartDelegate {
         confirmDelete.setTitleColor(.black, for: .normal)
         confirmDelete.contentHorizontalAlignment = .center
         confirmDelete.backgroundColor = .clear
-        
-        detailsView.delegate = self
-        colorPicker.delegate = self
-        arrayListOfColorNamesView.delegate = self
     }
     
     func quitDetailsViewController() {
@@ -77,13 +98,13 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     
     func submitColorPicker() {
         self.view.viewWithTag(3)?.removeFromSuperview()
-        selectedColor = colorPicker.pickedColor
+        selectedColor = pickedColor
         detailsView.selectColorButton.setTitleColor(selectedColor, for: .normal)
         isColorPickerAlreadyOpened = false
     }
     
     func openColorPickerView() {
-        if isColorPickerAlreadyOpened != true {
+        if isColorPickerAlreadyOpened == false {
             view.addSubview(colorPicker)
             isColorPickerAlreadyOpened = true
         } else {
@@ -93,7 +114,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     }
     
     func addPieToDiagram() {
-        guard colorPicker.pickedColor != UIColor.clear else {
+        guard pickedColor != UIColor.clear else {
             return
         }
         let pieLable = detailsView.setTextToSegmentField.text ?? "" 
@@ -110,7 +131,7 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     
     func selectArrayListView() {
         updateListView()
-        selectPieToDelete.setTitle(arrayListOfColorNamesView.selectedValue, for: .normal)
+        selectPieToDelete.setTitle(selectedValue, for: .normal)
         self.view.viewWithTag(4)?.removeFromSuperview()
     }
     
@@ -126,20 +147,12 @@ class PieChartViewController: UIViewController, PieChartDelegate {
     }
     @objc
     func deletePie(_ sender: UIButton) {
-        guard (arrayListOfColorNamesView.selectedValue != nil) && (pieChartView.segments.count != 1) else {
+        guard (!selectedValue.isEmpty) && (pieChartView.segments.count != 1) else {
             return
         }
-        let deleteIndex = pieChartView.segments.firstIndex { $0.title == arrayListOfColorNamesView.selectedValue }
+        let deleteIndex = pieChartView.segments.firstIndex { $0.title == selectedValue }
         pieChartView.segments.remove(at: deleteIndex!) // swiftlint:disable:this force_unwrapping
         updateListView()
         selectPieToDelete.setTitle("Select Pie To Delete", for: .normal)
     }
-}
-
-protocol PieChartDelegate: AnyObject {
-    func quitDetailsViewController()
-    func selectArrayListView()
-    func submitColorPicker()
-    func openColorPickerView()
-    func addPieToDiagram()
 }

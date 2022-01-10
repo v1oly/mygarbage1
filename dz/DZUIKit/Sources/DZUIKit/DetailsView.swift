@@ -1,29 +1,36 @@
 import UIKit
 
-class DetailsView: UIView {
+public class DetailsView: UIView {
     
-    let quitButton = UIButton()
-    let selectColorButton = UIButton()
-    let submitPieAdd = UIButton()
-    let colorPickerLabel = UILabel()
-    let setTextToSegmentFieldLabel = UILabel()
-    let pieValueStepperLabel = UILabel()
-    let setTextToSegmentField = UITextField()
-    let pieValueStepper = UIStepper()
-    let colorPicker = ColorPickerView()
-    weak var delegate: PieChartDelegate?
+    private let quitButton = UIButton()
+    public let selectColorButton = UIButton()
+    private let submitPieAdd = UIButton()
+    private let colorPickerLabel = UILabel()
+    private let setTextToSegmentFieldLabel = UILabel()
+    private let pieValueStepperLabel = UILabel()
+    public let setTextToSegmentField = UITextField()
+    public let pieValueStepper = UIStepper()
+    private let quitDetailsViewController: () -> ()
+    private let openColorPickerView: () -> ()
+    private let addPieToDiagram: () -> ()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    public init(
+        quitDetailsViewController: @escaping () -> (),
+        openColorPickerView: @escaping () -> (),
+        addPieToDiagram:  @escaping () -> ()
+    ) {
+        self.quitDetailsViewController = quitDetailsViewController
+        self.openColorPickerView = openColorPickerView
+        self.addPieToDiagram = addPieToDiagram
+        super.init(frame: CGRect.zero)
         setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("Error")
     }
     
-    func setup() { // swiftlint:disable:this function_body_length
+    private func setup() { // swiftlint:disable:this function_body_length
         
         self.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.maxX, height: 200)
         
@@ -94,7 +101,7 @@ class DetailsView: UIView {
         setGradientBackground()
     }
     
-    func labelSetup() {
+    private func labelSetup() {
         colorPickerLabel.frame.size = CGSize(width: 100, height: 25)
         addSubview(colorPickerLabel)
         colorPickerLabel.frame.origin = CGPoint(
@@ -125,7 +132,7 @@ class DetailsView: UIView {
         pieValueStepperLabel.sizeToFit()
     }
     
-    func setGradientBackground() {
+    private func setGradientBackground() {
         let colorTop =  #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).withAlphaComponent(0.96).cgColor
         let colorBottom =  #colorLiteral(red: 0.9054492116, green: 0.9000669122, blue: 0.909586668, alpha: 1).withAlphaComponent(0.96).cgColor
                     
@@ -139,24 +146,23 @@ class DetailsView: UIView {
     }
     
     @objc
-    func quitFromView(_ sender: UIButton) {
-        delegate?.quitDetailsViewController()
+    private func quitFromView(_ sender: UIButton) {
+        quitDetailsViewController()
     }
     
     @objc
-    func selectColor(_ sender: UIButton) {
-        delegate?.openColorPickerView()
+    private func selectColor(_ sender: UIButton) {
+        openColorPickerView()
     }
     @objc
-    func addPieToDiagram(_ sender: UIButton) {
+    private func addPieToDiagram(_ sender: UIButton) {
         guard !setTextToSegmentField.text!.isEmpty  else { // swiftlint:disable:this force_unwrapping
             return
         }
-        print("added")
-        delegate?.addPieToDiagram()
+        addPieToDiagram()
     }
     @objc
-    func pieValueStepperChange(_ sender: UIButton) {
+    private func pieValueStepperChange(_ sender: UIButton) {
         let stepValue = Int(pieValueStepper.value)
         pieValueStepperLabel.text = "Pie Value:\(stepValue)"
         pieValueStepperLabel.sizeToFit()

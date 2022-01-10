@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,18 +17,18 @@
 		1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */; };
 		1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD337273D0150009E52B8 /* PieChartView.swift */; };
 		1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */; };
-		1E6CD33C273ED742009E52B8 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD33B273ED742009E52B8 /* DetailsView.swift */; };
-		1E6CD33E273EDEE0009E52B8 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD33D273EDEE0009E52B8 /* DetailsViewController.swift */; };
-		1E6CD344274195FC009E52B8 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD343274195FC009E52B8 /* ColorPickerView.swift */; };
-		1E6CD3462744349A009E52B8 /* ArrayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD3452744349A009E52B8 /* ArrayListView.swift */; };
 		1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD3472746C994009E52B8 /* DiagramCell.swift */; };
 		1EB4B39E276DEC9A00669D11 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4B39D276DEC9A00669D11 /* ShareViewController.swift */; };
 		1EB4B3A1276DEC9A00669D11 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4B39F276DEC9A00669D11 /* MainInterface.storyboard */; };
 		1EB4B3A5276DEC9A00669D11 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1EB8A6CA276E28C6007479F7 /* ShareExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */; };
+		1ECA3669278CA1990095CAD2 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA3668278CA1990095CAD2 /* LoginVM.swift */; };
+		1ECA366B278CA1A90095CAD2 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA366A278CA1A90095CAD2 /* LoginModel.swift */; };
+		1ECA366E278CA3F70095CAD2 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA366D278CA3F70095CAD2 /* Dynamic.swift */; };
+		1ECA3672278D6DF10095CAD2 /* DZUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1ECA3671278D6DF10095CAD2 /* DZUIKit */; };
 		284712F32732A9C10022111F /* SequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284712F22732A9C10022111F /* SequenceViewController.swift */; };
 		28A383E8273303B000E17ECA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E7273303B000E17ECA /* TableViewController.swift */; };
-		28A383EA273515D500E17ECA /* SessionSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */; };
+		28A383EA273515D500E17ECA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E9273515D500E17ECA /* LoginVC.swift */; };
 		28A383EC27352A4F00E17ECA /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383EB27352A4F00E17ECA /* CollectionViewController.swift */; };
 		28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0527270E9100655980 /* BenchmarkViewController.swift */; };
 		28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0D27271DDF00655980 /* ProfileViewController.swift */; };
@@ -79,10 +79,6 @@
 		1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTypeViewController.swift; sourceTree = "<group>"; };
 		1E6CD337273D0150009E52B8 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
-		1E6CD33B273ED742009E52B8 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
-		1E6CD33D273EDEE0009E52B8 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
-		1E6CD343274195FC009E52B8 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
-		1E6CD3452744349A009E52B8 /* ArrayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayListView.swift; sourceTree = "<group>"; };
 		1E6CD3472746C994009E52B8 /* DiagramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramCell.swift; sourceTree = "<group>"; };
 		1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB4B39D276DEC9A00669D11 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -91,9 +87,13 @@
 		1EB4B3AA276DED1500669D11 /* dz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dz.entitlements; sourceTree = "<group>"; };
 		1EB8A6C8276DFE71007479F7 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExtensionViewController.swift; sourceTree = "<group>"; };
+		1ECA3668278CA1990095CAD2 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		1ECA366A278CA1A90095CAD2 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		1ECA366D278CA3F70095CAD2 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		1ECA3670278D6DC40095CAD2 /* DZUIKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DZUIKit; sourceTree = "<group>"; };
 		284712F22732A9C10022111F /* SequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceViewController.swift; sourceTree = "<group>"; };
 		28A383E7273303B000E17ECA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSummaryViewController.swift; sourceTree = "<group>"; };
+		28A383E9273515D500E17ECA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		28A383EB27352A4F00E17ECA /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		28AC5B0527270E9100655980 /* BenchmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchmarkViewController.swift; sourceTree = "<group>"; };
 		28AC5B0D27271DDF00655980 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -123,23 +123,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ECA3672278D6DF10095CAD2 /* DZUIKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E32CC5127875CC7000136B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1E490E2527551C1100C7D5BF /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				1E6CD3452744349A009E52B8 /* ArrayListView.swift */,
 				1E490E32275E748900C7D5BF /* FeedDataProvider.swift */,
-				1E6CD343274195FC009E52B8 /* ColorPickerView.swift */,
-				1E6CD33D273EDEE0009E52B8 /* DetailsViewController.swift */,
-				1E490E34275E77B700C7D5BF /* ResultViewController.swift */,
-				1E6CD33B273ED742009E52B8 /* DetailsView.swift */,
-				1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */,
 				1E6CD337273D0150009E52B8 /* PieChartView.swift */,
+				1E6CD339273D0A32009E52B8 /* PieChartViewController.swift */,
+				1E490E34275E77B700C7D5BF /* ResultViewController.swift */,
 				28A383E7273303B000E17ECA /* TableViewController.swift */,
 			);
 			path = Feed;
@@ -150,7 +154,7 @@
 			children = (
 				1E6CD3472746C994009E52B8 /* DiagramCell.swift */,
 				28A383EB27352A4F00E17ECA /* CollectionViewController.swift */,
-				28A383E9273515D500E17ECA /* SessionSummaryViewController.swift */,
+				1ECA3667278B5A6C0095CAD2 /* LogIn MVVM */,
 			);
 			path = Benchmark;
 			sourceTree = "<group>";
@@ -181,12 +185,32 @@
 			path = ShareExtension;
 			sourceTree = "<group>";
 		};
+		1ECA3667278B5A6C0095CAD2 /* LogIn MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				28A383E9273515D500E17ECA /* LoginVC.swift */,
+				1ECA3668278CA1990095CAD2 /* LoginVM.swift */,
+				1ECA366A278CA1A90095CAD2 /* LoginModel.swift */,
+			);
+			path = "LogIn MVVM";
+			sourceTree = "<group>";
+		};
+		1ECA366C278CA3CA0095CAD2 /* Bindings */ = {
+			isa = PBXGroup;
+			children = (
+				1ECA366D278CA3F70095CAD2 /* Dynamic.swift */,
+			);
+			path = Bindings;
+			sourceTree = "<group>";
+		};
 		28EE13282721D6DD00136712 = {
 			isa = PBXGroup;
 			children = (
+				1ECA3670278D6DC40095CAD2 /* DZUIKit */,
 				28EE13332721D6DD00136712 /* dz */,
 				1EB4B39C276DEC9A00669D11 /* ShareExtension */,
 				28EE13322721D6DD00136712 /* Products */,
+				1E32CC5127875CC7000136B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -202,6 +226,7 @@
 		28EE13332721D6DD00136712 /* dz */ = {
 			isa = PBXGroup;
 			children = (
+				1ECA366C278CA3CA0095CAD2 /* Bindings */,
 				1EB4B3AA276DED1500669D11 /* dz.entitlements */,
 				1E490E28275686AB00C7D5BF /* AlgoProvider.swift */,
 				1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */,
@@ -259,6 +284,9 @@
 				1EB4B3A4276DEC9A00669D11 /* PBXTargetDependency */,
 			);
 			name = dz;
+			packageProductDependencies = (
+				1ECA3671278D6DF10095CAD2 /* DZUIKit */,
+			);
 			productName = dz;
 			productReference = 28EE13312721D6DD00136712 /* dz.app */;
 			productType = "com.apple.product-type.application";
@@ -358,20 +386,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */,
-				1E6CD33C273ED742009E52B8 /* DetailsView.swift in Sources */,
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				284712F32732A9C10022111F /* SequenceViewController.swift in Sources */,
 				1E490E2D2757BB9300C7D5BF /* SetViewController.swift in Sources */,
-				28A383EA273515D500E17ECA /* SessionSummaryViewController.swift in Sources */,
+				28A383EA273515D500E17ECA /* LoginVC.swift in Sources */,
 				1E490E312757DCE000C7D5BF /* StringGenerator.swift in Sources */,
 				1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */,
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
 				28A383E8273303B000E17ECA /* TableViewController.swift in Sources */,
 				1E490E35275E77B700C7D5BF /* ResultViewController.swift in Sources */,
+				1ECA366B278CA1A90095CAD2 /* LoginModel.swift in Sources */,
 				1E490E33275E748900C7D5BF /* FeedDataProvider.swift in Sources */,
-				1E6CD3462744349A009E52B8 /* ArrayListView.swift in Sources */,
 				28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */,
-				1E6CD344274195FC009E52B8 /* ColorPickerView.swift in Sources */,
+				1ECA366E278CA3F70095CAD2 /* Dynamic.swift in Sources */,
 				1E490E2B2757B2EC00C7D5BF /* ArrayViewController.swift in Sources */,
 				28EE13492721E3B000136712 /* CustomButton.swift in Sources */,
 				1E490E2F2757BBAD00C7D5BF /* DictionaryViewController.swift in Sources */,
@@ -380,8 +407,8 @@
 				1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */,
 				28A383EC27352A4F00E17ECA /* CollectionViewController.swift in Sources */,
 				1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */,
+				1ECA3669278CA1990095CAD2 /* LoginVM.swift in Sources */,
 				28D666162732A37500DAF24F /* ViewControllerLifecycleBehavior.swift in Sources */,
-				1E6CD33E273EDEE0009E52B8 /* DetailsViewController.swift in Sources */,
 				1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */,
 				1EB8A6CA276E28C6007479F7 /* ShareExtensionViewController.swift in Sources */,
 			);
@@ -594,6 +621,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7S8228QL7L;
 				INFOPLIST_FILE = dz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -614,6 +642,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7S8228QL7L;
 				INFOPLIST_FILE = dz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -656,6 +685,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1ECA3671278D6DF10095CAD2 /* DZUIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DZUIKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 28EE13292721D6DD00136712 /* Project object */;
 }
