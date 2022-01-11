@@ -1,7 +1,7 @@
-import Foundation // swiftlint:disable:this file_name
+import Foundation
 
-class AccountsList {
-    let list: [UserAccount] = [
+class LoginModel {
+    let accountList: [UserAccount] = [
         UserAccount(login: "Violy", password: "12345" ),
         UserAccount(login: "WE_STOR", password: "10delivery"),
         UserAccount(login: "Mama", password: "Papa"),

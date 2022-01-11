@@ -22,13 +22,13 @@
 		1EB4B3A1276DEC9A00669D11 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4B39F276DEC9A00669D11 /* MainInterface.storyboard */; };
 		1EB4B3A5276DEC9A00669D11 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1EB8A6CA276E28C6007479F7 /* ShareExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */; };
-		1ECA3669278CA1990095CAD2 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA3668278CA1990095CAD2 /* LoginVM.swift */; };
+		1ECA3669278CA1990095CAD2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA3668278CA1990095CAD2 /* LoginViewModel.swift */; };
 		1ECA366B278CA1A90095CAD2 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA366A278CA1A90095CAD2 /* LoginModel.swift */; };
 		1ECA366E278CA3F70095CAD2 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA366D278CA3F70095CAD2 /* Dynamic.swift */; };
 		1ECA3672278D6DF10095CAD2 /* DZUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1ECA3671278D6DF10095CAD2 /* DZUIKit */; };
 		284712F32732A9C10022111F /* SequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284712F22732A9C10022111F /* SequenceViewController.swift */; };
 		28A383E8273303B000E17ECA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E7273303B000E17ECA /* TableViewController.swift */; };
-		28A383EA273515D500E17ECA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E9273515D500E17ECA /* LoginVC.swift */; };
+		28A383EA273515D500E17ECA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E9273515D500E17ECA /* LoginViewController.swift */; };
 		28A383EC27352A4F00E17ECA /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383EB27352A4F00E17ECA /* CollectionViewController.swift */; };
 		28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0527270E9100655980 /* BenchmarkViewController.swift */; };
 		28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AC5B0D27271DDF00655980 /* ProfileViewController.swift */; };
@@ -87,13 +87,13 @@
 		1EB4B3AA276DED1500669D11 /* dz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dz.entitlements; sourceTree = "<group>"; };
 		1EB8A6C8276DFE71007479F7 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExtensionViewController.swift; sourceTree = "<group>"; };
-		1ECA3668278CA1990095CAD2 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		1ECA3668278CA1990095CAD2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		1ECA366A278CA1A90095CAD2 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		1ECA366D278CA3F70095CAD2 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		1ECA3670278D6DC40095CAD2 /* DZUIKit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DZUIKit; sourceTree = "<group>"; };
 		284712F22732A9C10022111F /* SequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceViewController.swift; sourceTree = "<group>"; };
 		28A383E7273303B000E17ECA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		28A383E9273515D500E17ECA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		28A383E9273515D500E17ECA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		28A383EB27352A4F00E17ECA /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		28AC5B0527270E9100655980 /* BenchmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenchmarkViewController.swift; sourceTree = "<group>"; };
 		28AC5B0D27271DDF00655980 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -188,8 +188,8 @@
 		1ECA3667278B5A6C0095CAD2 /* LogIn MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				28A383E9273515D500E17ECA /* LoginVC.swift */,
-				1ECA3668278CA1990095CAD2 /* LoginVM.swift */,
+				28A383E9273515D500E17ECA /* LoginViewController.swift */,
+				1ECA3668278CA1990095CAD2 /* LoginViewModel.swift */,
 				1ECA366A278CA1A90095CAD2 /* LoginModel.swift */,
 			);
 			path = "LogIn MVVM";
@@ -389,7 +389,7 @@
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				284712F32732A9C10022111F /* SequenceViewController.swift in Sources */,
 				1E490E2D2757BB9300C7D5BF /* SetViewController.swift in Sources */,
-				28A383EA273515D500E17ECA /* LoginVC.swift in Sources */,
+				28A383EA273515D500E17ECA /* LoginViewController.swift in Sources */,
 				1E490E312757DCE000C7D5BF /* StringGenerator.swift in Sources */,
 				1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */,
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
@@ -407,7 +407,7 @@
 				1E6CD338273D0150009E52B8 /* PieChartView.swift in Sources */,
 				28A383EC27352A4F00E17ECA /* CollectionViewController.swift in Sources */,
 				1E6CD33A273D0A32009E52B8 /* PieChartViewController.swift in Sources */,
-				1ECA3669278CA1990095CAD2 /* LoginVM.swift in Sources */,
+				1ECA3669278CA1990095CAD2 /* LoginViewModel.swift in Sources */,
 				28D666162732A37500DAF24F /* ViewControllerLifecycleBehavior.swift in Sources */,
 				1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */,
 				1EB8A6CA276E28C6007479F7 /* ShareExtensionViewController.swift in Sources */,

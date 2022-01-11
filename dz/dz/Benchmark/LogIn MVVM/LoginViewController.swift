@@ -1,54 +1,54 @@
 import UIKit
 
-class LoginVC: UIViewController, PassDelegate {
+class LoginViewController: UIViewController {
     
-    let loginView = LoginView()
-    let loginVM = LoginVM()
+    private let loginView = LoginView()
+    private let loginViewModel = LoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view = loginView
-        bindVM()
-        loginView.delegate = self
+        bind()
     }
     
-    func checkUserLogInToMatchInBase() {
-        loginVM.checkUserLogInToMatchInBase(
-            login: loginView.loginField.text ?? "",
-            password: loginView.passwordField.text ?? ""
+    func checkUserLogInToMatchInBase(login: String, password: String) {
+        loginViewModel.checkUserLogInToMatchInBase(
+            login: login,
+            password: password
         )
-        loginView.layoutSubviews()
     }
-
-    func bindVM() {
-        loginVM.statusText.bind({ (statusText) in
+    
+    private func bind() {
+        loginViewModel.statusText.bind { [weak self] statusText in
             DispatchQueue.main.async {
-                self.loginView.statusLabel.text = statusText
+                self?.loginView.setStatusText(statusText)
             }
-        })
-        loginVM.statusColor.bind({ (statusColor) in
+        }
+        
+        loginViewModel.statusColor.bind { [weak self] statusColor in
             DispatchQueue.main.async {
-                self.loginView.statusLabel.textColor = statusColor
+                self?.loginView.setStatusColor(statusColor)
             }
-        })
+        }
+        
+        loginView.onConfirm = { [weak self] login, password in
+            self?.checkUserLogInToMatchInBase(login: login, password: password)
+        }
     }
-}
-
-protocol PassDelegate: AnyObject {
-    func checkUserLogInToMatchInBase()
 }
 
 class LoginView: UIView {
     
-    let loginField = UITextField()
-    let passwordField = UITextField()
+    private let loginField = UITextField()
+    private let passwordField = UITextField()
     
-    let loginLabel = UILabel()
-    let passwordLabel = UILabel()
-    let statusLabel = UILabel()
+    private let loginLabel = UILabel()
+    private let passwordLabel = UILabel()
+    private let statusLabel = UILabel()
     
-    let confirmButton = UIButton()
-    weak var delegate: PassDelegate?
+    private let confirmButton = UIButton()
+    
+    var onConfirm: ((_ login: String, _ password: String) -> ())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,9 +62,7 @@ class LoginView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.maxX, height: UIScreen.main.bounds.maxY)
-        
+                
         loginField.frame.size = CGSize(width: bounds.width / 1.25, height: 30)
         loginField.center = CGPoint(x: bounds.width / 2, y: bounds.minY + 175)
         
@@ -87,8 +85,7 @@ class LoginView: UIView {
         statusLabel.center = CGPoint(x: bounds.center.x, y: passwordField.frame.maxY + 10)
     }
     
-    func setup() {
-        
+    private func setup() {
         backgroundColor = .white
     
         loginField.backgroundColor = UIColor.lightGray
@@ -109,15 +106,21 @@ class LoginView: UIView {
         confirmButton.setTitleColor(.blue, for: .normal)
         addSubview(confirmButton)
         
-        statusLabel.text = ""
-        statusLabel.textColor = .clear
         addSubview(statusLabel)
-        
-        layoutSubviews()
+    }
+    
+    func setStatusColor(_ color: UIColor) {
+        statusLabel.textColor = color
+        setNeedsLayout()
+    }
+    
+    func setStatusText(_ text: String) {
+        statusLabel.text = text
+        setNeedsLayout()
     }
     
     @objc
-    func confirmLoggingIn(_ sender: UIButton) {
-        delegate?.checkUserLogInToMatchInBase()
+    private func confirmLoggingIn(_ sender: UIButton) {
+        onConfirm?(loginField.text ?? "", passwordField.text ?? "")
     }
 }
