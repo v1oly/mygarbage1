@@ -11,8 +11,8 @@ class LoginViewModel {
         let userList = loginModel.accountList
         let compareLogInData = UserAccount(login: login, password: password)
         
-        for index in userList.indices {
-            if compareLogInData == userList[index] {
+        for user in userList {
+            if compareLogInData == user {
                 statusText.value = "Logged In"
                 statusColor.value = UIColor.green
                 isMatchFound = true
