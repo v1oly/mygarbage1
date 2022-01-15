@@ -12,7 +12,7 @@ class PieChartView: UIView {
     private let stepperRadious = UIStepper()
     private let stepperRadiusValueLabel = UILabel()
     private let deleteSegmentTextField = UITextField()
-    var pieSegments: [Segment] = []
+    var pieSegments: [Segment] = [] // кажется можно было бы и не делать эту переменную открытой, а кидать данные через кложер, но я нашел сложным так обновлять данные для вьюхи
     
     var onAddSegment: () -> ()
     var onDeletePie: () -> ()
@@ -80,7 +80,7 @@ class PieChartView: UIView {
         }
     }
     
-    override func layoutSubviews() {
+    override func layoutSubviews() { // я подумал, мб не стоит иметь так много привязок к кордам других элементов, чтобы в случае чего все не рухнуло как карточный домик, пример вот был че со степер велью
         super.layoutSubviews()
         
         drawByRadiusButton.frame.size = CGSize(width: 100, height: 50)

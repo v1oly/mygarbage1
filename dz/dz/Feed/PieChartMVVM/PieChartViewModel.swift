@@ -5,7 +5,7 @@ class PieChartViewModel {
     
     var pieChartModel = PieChartModel()
     
-    let detailsViewControllerDisplay: () -> ()
+    let detailsViewControllerDisplay: () -> () // я хз как весь этот блок кложеров переименовывать, типа я их всех и так по несколько раз передаю в разные функции так что onSmth название не прокатит, а текущие название не оч судя по всему, они либо дублируют названия функций вьюконтроллера либо описывают само действие
     let detailsViewValuesBind: () -> ()
     let colorPickerDisplay: () -> ()
     let arrayListDiplay: () -> ()
@@ -14,7 +14,7 @@ class PieChartViewModel {
     let newSelectPieName: ((String) -> ())?
     let updateSegmentsToView: () -> ()
     
-    var pickedColor: UIColor {
+    var pickedColor: UIColor { // я думаю мб можно было бы как то проще связать данные без 5 прокси переменных, просто выглядит это как уродство
         get {
             return pieChartModel.pickedColor
         }
@@ -95,7 +95,7 @@ class PieChartViewModel {
     }
     
     func addPieToDiagram() {
-        guard pickedColor != UIColor.clear else {
+        guard pickedColor != UIColor.clear else { // наверное типа isEmpty лучше заюзать
             return
         }
         detailsViewValuesBind()

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class PieChartModel {
-    var arrayOfSegmentNames: [String] = [""]
+    var arrayOfSegmentNames: [String] = [""] // мб можно было бы венести эти данные как отдельную структуру и потом ее вынести в случае необходимости,хотя мб этот метод говно ведь постоянно создавать копии структуры при изменении 1 переменной такое себе.
     var pickedColor: UIColor = UIColor.clear
     var pickedValue: String = ""
     var pieLable: String = ""
