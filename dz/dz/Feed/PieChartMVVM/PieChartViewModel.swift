@@ -89,10 +89,6 @@ class PieChartViewModel {
         self.updateSegmentsToView = updateSegmentsToView
     }
     
-    func setColorValueToModel(color: UIColor) {
-        pieChartModel.pickedColor = color
-    }
-    
     func submitColorPicker() {
         colorPickerDisplay()
         setDisplatColorButton(pieChartModel.pickedColor)

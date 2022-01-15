@@ -7,41 +7,36 @@ class PieChartView: UIView {
     private let addSegment = UIButton()
     private let selectPieToDelete = UIButton()
     private let confirmDelete = UIButton()
-    private let submitChangesButton = UIButton()
+    private let drawByRadiusButton = UIButton()
     
     private let stepperRadious = UIStepper()
     private let stepperRadiusValueLabel = UILabel()
     private let deleteSegmentTextField = UITextField()
-    public var segments: [Segment] = []
+    var pieSegments: [Segment] = []
     
-    var displayDetailsView: () -> ()
-    var deletePieFromModel: () -> ()
-    var arrayListDisplay: () -> ()
+    var onAddSegment: () -> ()
+    var onDeletePie: () -> ()
+    var onSelectPie: () -> ()
     
     private lazy var textAttributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.systemFont(ofSize: 14),
         .foregroundColor: UIColor.black
     ]
     
-    public init(
-        displayDetailsView: @escaping () -> (),
-        deletePieFromModel: @escaping () -> (),
-        arrayListDisplay: @escaping () -> ()
+    init(
+        onAddSegment: @escaping () -> (),
+        onDeletePie: @escaping () -> (),
+        onSelectPie: @escaping () -> ()
     ) {
-        self.displayDetailsView = displayDetailsView
-        self.deletePieFromModel = deletePieFromModel
-        self.arrayListDisplay = arrayListDisplay
+        self.onAddSegment = onAddSegment
+        self.onDeletePie = onDeletePie
+        self.onSelectPie = onSelectPie
         super.init(frame: CGRect.zero)
         setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("Required coder not founded!")
-    }
-    
-    override func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-        setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
@@ -52,10 +47,10 @@ class PieChartView: UIView {
         let textPositionOffset: CGFloat = 0.67
         let viewCenter = bounds.center
         
-        let totalSegmentsValue = segments.reduce(0) { $0 + $1.value }
+        let totalSegmentsValue = pieSegments.reduce(0) { $0 + $1.value }
         var startAngle = -CGFloat.pi * 0.5
         
-        for segment in segments {
+        for segment in pieSegments {
             context.setFillColor(segment.color.cgColor)
             
             let endAngle = startAngle + 2 * .pi * (segment.value / totalSegmentsValue)
@@ -85,25 +80,25 @@ class PieChartView: UIView {
         }
     }
     
-    override func setNeedsLayout() {
-        super.setNeedsLayout()
-        submitChangesButton.frame.size = CGSize(width: 100, height: 50)
-        submitChangesButton.frame.origin = CGPoint(
-            x: UIScreen.main.bounds.minX + 100,
-            y: UIScreen.main.bounds.minY + 100
-        )
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        stepperRadiusValueLabel.frame.size = CGSize(width: 100, height: 30)
-        stepperRadiusValueLabel.frame.origin = CGPoint(
-            x: stepperRadious.frame.origin.x,
-            y: stepperRadious.frame.origin.y - 20
+        drawByRadiusButton.frame.size = CGSize(width: 100, height: 50)
+        drawByRadiusButton.frame.origin = CGPoint(
+            x: bounds.minX + 100,
+            y: bounds.minY + 100
         )
-        stepperRadiusValueLabel.sizeToFit()
         
         stepperRadious.frame.size = CGSize(width: 100, height: 30)
         stepperRadious.frame.origin = CGPoint(
-            x: submitChangesButton.frame.origin.x - 100,
-            y: submitChangesButton.frame.origin.y + 20
+            x: drawByRadiusButton.frame.origin.x - 100,
+            y: drawByRadiusButton.frame.origin.y + 20
+        )
+
+        stepperRadiusValueLabel.frame.size = CGSize(width: 100, height: 30)
+        stepperRadiusValueLabel.frame.origin = CGPoint(
+            x: stepperRadious.frame.origin.x,
+            y: stepperRadious.frame.origin.y - 30
         )
         
         selectPieToDelete.frame.size = CGSize(width: 175, height: 35)
@@ -133,14 +128,14 @@ class PieChartView: UIView {
     
     private func setup() {
         
-        isOpaque = false
+        isOpaque = true
         
-        submitChangesButton.addTarget(self, action: #selector(showSelectionViewController(_:)), for: .touchUpInside)
-        submitChangesButton.setTitle("Set Radius", for: .normal)
-        submitChangesButton.setTitleColor(.black, for: .normal)
-        submitChangesButton.contentHorizontalAlignment = .center
-        submitChangesButton.backgroundColor = .clear
-        self.addSubview(submitChangesButton)
+        drawByRadiusButton.addTarget(self, action: #selector(drawRadiusDiagram(_:)), for: .touchUpInside)
+        drawByRadiusButton.setTitle("Set Radius", for: .normal)
+        drawByRadiusButton.setTitleColor(.black, for: .normal)
+        drawByRadiusButton.contentHorizontalAlignment = .center
+        drawByRadiusButton.backgroundColor = .clear
+        self.addSubview(drawByRadiusButton)
         
         stepperRadiusValueLabel.text = "Radius: 0"
         self.addSubview(stepperRadiusValueLabel)
@@ -174,12 +169,10 @@ class PieChartView: UIView {
         confirmDelete.backgroundColor = .clear
         confirmDelete.contentHorizontalAlignment = .center
         self.addSubview(confirmDelete)
-        
-        setNeedsLayout()
     }
     
     @objc
-    private func showSelectionViewController(_ sender: UIButton) {
+    private func drawRadiusDiagram(_ sender: UIButton) {
         let radiusC = stepperRadious.value
         radius = min(frame.width, frame.height) * CGFloat(radiusC)
         setNeedsDisplay()
@@ -193,14 +186,14 @@ class PieChartView: UIView {
     }
     @objc
     private func addSegmentToDiagram(_ sender: UIButton) {
-        displayDetailsView()
+        onAddSegment()
     }
     @objc
     private func selectPieToDelete(_ sender: UIButton) {
-        arrayListDisplay()
+        onSelectPie()
     }
     @objc
     private func deletePie(_ sender: UIButton) {
-        deletePieFromModel()
+        onDeletePie()
     }
 }

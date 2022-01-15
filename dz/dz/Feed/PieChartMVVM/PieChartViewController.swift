@@ -3,8 +3,8 @@ import UIKit
 
 class PieChartViewController: UIViewController {
     
-    var pieChartView: PieChartView!
-    var pieChartViewModel: PieChartViewModel!
+    var pieChartView: PieChartView! // swiftlint:disable:this implicitly_unwrapped_optional
+    var pieChartViewModel: PieChartViewModel! // swiftlint:disable:this implicitly_unwrapped_optional
     var detailsView: DetailsView! // swiftlint:disable:this implicitly_unwrapped_optional
     var colorPicker: ColorPickerView! // swiftlint:disable:this implicitly_unwrapped_optional
     var arrayListOfColorNamesView: ArrayListView! // swiftlint:disable:this implicitly_unwrapped_optional
@@ -37,7 +37,8 @@ class PieChartViewController: UIViewController {
             },
             updateSegmentsToView: { [weak self] in
                 self?.updateSegmentsToView()
-            })
+            }
+        )
         
         detailsView = DetailsView(quitDetailsViewController: { [weak self] in
             self?.detailsViewControllerDisplay()
@@ -60,19 +61,18 @@ class PieChartViewController: UIViewController {
     }
     
     override func loadView() {
-        super.loadView()
-        
         pieChartView = PieChartView(
-            displayDetailsView: { [weak self] in
+            onAddSegment: { [weak self] in
                 self?.detailsViewControllerDisplay()
                 self?.pieChartViewModel.updateListView()
             },
-            deletePieFromModel: { [weak self] in
+            onDeletePie: { [weak self] in
                 self?.deletePie()
             },
-            arrayListDisplay: { [weak self] in
+            onSelectPie: { [weak self] in
                 self?.arrayListDisplay()
-            })
+            }
+        )
         
         view = pieChartView
         view.backgroundColor = .white
@@ -83,7 +83,7 @@ class PieChartViewController: UIViewController {
     }
     
     func updateSegmentsToView() {
-        pieChartView.segments = pieChartViewModel.pieSegmets
+        pieChartView.pieSegments = pieChartViewModel.pieSegmets
         pieChartView.setNeedsDisplay()
     }
     
@@ -120,96 +120,4 @@ class PieChartViewController: UIViewController {
         arrayListOfColorNamesView.arrayOfNames = pieChartViewModel.arrayOfSegmentNames
         arrayListOfColorNamesView.tableViewUpdateData()
     }
-    
-//    func updateArrayOfNames() {
-//        var array = [String]()
-//        for index in 0...segments.count - 1 {
-//            let title = segments[index].title
-//            array.append(title)
-//            arrayOfSegmentsNames = array
-//        }
-//    }
-
-//    func submitColorPicker() {
-//        colorPickerDisplay()
-//        selectedColor = pieChartModel.pickedColor
-//        detailsView.selectColorButton.setTitleColor(selectedColor, for: .normal)
-//    }
-//
-//    func addPieToDiagram() {
-//        guard pickedColor != UIColor.clear else {
-//            return
-//        }
-//        let pieLable = pieChartModel.pieLable
-//        let pieValue = pieChartModel.pieStepperValue
-//        pieChartModel.pieSegments.append(Segment(color: selectedColor, value: CGFloat(pieValue), title: pieLable))
-//        updateListView()
-//        detailsViewControllerDisplay()
-//    }
-//
-//    func updateListView() {
-//        arrayListOfColorNamesView.arrayOfNames = arrayOfSegmentsNames
-//        arrayListOfColorNamesView.tableViewUpdateData()
-//        updateArrayOfNames()
-//    }
-//
-//    func selectArrayListView() {
-//        updateListView()
-//        newSelectPieName?(selectedValue)
-//        arrayListDiplay()
-//    }
-//
-//    func deletePie() {
-//        guard (!selectedValue.isEmpty) && (pieChartModel.pieSegments.count != 1) else {
-//            return
-//        }
-//        let deleteIndex = segments.firstIndex { $0.title == selectedValue }
-//        pieChartModel.pieSegments.remove(at: deleteIndex!) // swiftlint:disable:this force_unwrapping
-//        updateListView()
-//        newSelectPieName?("Select Pie To Delete")
-//    }
-    
-//    func quitDetailsViewController() {
-////        self.view.viewWithTag(2)?.removeFromSuperview()
-//    }
-//
-//    func submitColorPicker() {
-////        self.view.viewWithTag(3)?.removeFromSuperview()
-//        selectedColor = pickedColor
-//        detailsView.selectColorButton.setTitleColor(selectedColor, for: .normal)
-//        isColorPickerAlreadyOpened = false
-//    }
-//
-//    func openColorPickerView() {
-//        if isColorPickerAlreadyOpened == false {
-//            view.addSubview(colorPicker)
-//            isColorPickerAlreadyOpened = true
-//        } else {
-//            self.view.viewWithTag(3)?.removeFromSuperview()
-//            isColorPickerAlreadyOpened = false
-//        }
-//    }
-//
-//    func addPieToDiagram() {
-//        guard pickedColor != UIColor.clear else {
-//            return
-//        }
-//        let pieLable = detailsView.setTextToSegmentField.text ?? ""
-//        let pieValue = detailsView.pieValueStepper.value
-//        pieChartView.segments.append(Segment(color: selectedColor, value: CGFloat(pieValue), title: pieLable))
-//        updateListView()
-//        quitDetailsViewController()
-//    }
-//    func updateListView() {
-//        arrayListOfColorNamesView.arrayOfNames = pieChartView.arrayOfSegmentsNames
-//        arrayListOfColorNamesView.tableViewUpdateData()
-//        pieChartView.updateArrayOfNames()
-//    }
-//
-//    func selectArrayListView() {
-//        updateListView()
-//        selectPieToDelete.setTitle(selectedValue, for: .normal)
-////        self.view.viewWithTag(4)?.removeFromSuperview()
-//    }
 }
-

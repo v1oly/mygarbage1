@@ -1,4 +1,4 @@
-import Foundation
+import Foundation // swiftlint:disable:this file_name
 import UIKit
 
 extension CGFloat {
@@ -41,4 +41,3 @@ extension CGRect {
         )
     }
 }
-
