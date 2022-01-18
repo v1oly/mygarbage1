@@ -2,29 +2,30 @@ import Foundation
 import UIKit
 
 public class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
-    public var arrayOfNames = [""]
+    private var arrayOfNames = [""]
     private let refreshControl = UIRefreshControl()
     
-    private let closure: (String) -> ()
+    private let onTableCellSelect: (String) -> ()
     
     private let table = UITableView()
     
-    public init(closure: @escaping (String) -> () ) {
-        self.closure = closure
+    public init(onTableCellSelect: @escaping (String) -> () ) {
+        self.onTableCellSelect = onTableCellSelect
         super.init(frame: CGRect.zero)
-        tableViewSetup()
+        setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func tableViewUpdateData() {
+    public func updateDataOfTableView(arrayListOfFieldsNames: [String]) {
+        arrayOfNames = arrayListOfFieldsNames
         self.table.reloadData()
         self.refreshControl.endRefreshing()
     }
     
-    private func tableViewSetup() {
+    private func setup() {
         self.frame = CGRect(x: 210, y: 105, width: 150, height: 200)
         
         table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -41,21 +42,21 @@ public class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-public extension ArrayListView {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    extension ArrayListView {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         arrayOfNames.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "Cell")
         cell.textLabel?.text = "\(arrayOfNames[indexPath.row])"
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedValue = arrayOfNames[indexPath.row]
         print(arrayOfNames[indexPath.row])
-
-        closure(selectedValue)
+        
+        onTableCellSelect(selectedValue)
     }
 }

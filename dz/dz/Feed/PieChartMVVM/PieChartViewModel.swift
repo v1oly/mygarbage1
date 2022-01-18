@@ -3,9 +3,9 @@ import UIKit
 
 class PieChartViewModel {
     
-    var pieChartModel = PieChartModel()
+    var pieChartModel: PieChartModel! // swiftlint:disable:this implicitly_unwrapped_optional
     
-    let detailsViewControllerDisplay: () -> () // я хз как весь этот блок кложеров переименовывать, типа я их всех и так по несколько раз передаю в разные функции так что onSmth название не прокатит, а текущие название не оч судя по всему, они либо дублируют названия функций вьюконтроллера либо описывают само действие
+    let detailsViewControllerDisplay: () -> ()
     let detailsViewValuesBind: () -> ()
     let colorPickerDisplay: () -> ()
     let arrayListDiplay: () -> ()
@@ -14,58 +14,34 @@ class PieChartViewModel {
     let newSelectPieName: ((String) -> ())?
     let updateSegmentsToView: () -> ()
     
-    var pickedColor: UIColor { // я думаю мб можно было бы как то проще связать данные без 5 прокси переменных, просто выглядит это как уродство
-        get {
-            return pieChartModel.pickedColor
-        }
-        set {
-            pieChartModel.pickedColor = newValue
-        }
+    var pickedColor: UIColor {
+        get { return pieChartModel.pickedColor }
+        set { pieChartModel.pickedColor = newValue }
     }
     
-    var pickedValue: String {
-        get {
-            return pieChartModel.pickedValue
-        }
-        set {
-            pieChartModel.pickedValue = newValue
-        }
+    var pickedSegment: String {
+        get { return pieChartModel.pickedSegment }
+        set { pieChartModel.pickedSegment = newValue }
     }
     
-    var arrayOfSegmentNames: [String] {
-        get {
-            return pieChartModel.arrayOfSegmentNames
-        }
-        set {
-            pieChartModel.arrayOfSegmentNames = newValue
-        }
+    var segmentNames: [String] {
+        get { return pieChartModel.arrayOfSegmentNames }
+        set { pieChartModel.arrayOfSegmentNames = newValue }
     }
     
     var pieSegmets: [Segment] {
-        get {
-            return pieChartModel.pieSegments
-        }
-        set {
-            pieChartModel.pieSegments = newValue
-        }
+        get { return pieChartModel.pieSegments }
+        set { pieChartModel.pieSegments = newValue }
     }
     
-    var pieLable: String {
-        get {
-            return pieChartModel.pieLable
-        }
-        set {
-            pieChartModel.pieLable = newValue
-        }
+    var pieName: String {
+        get { return pieChartModel.pieName }
+        set { pieChartModel.pieName = newValue }
     }
     
     var pieStepperValue: Double {
-        get {
-            return pieChartModel.pieStepperValue
-        }
-        set {
-            pieChartModel.pieStepperValue = newValue
-        }
+        get { return pieChartModel.diagramSize }
+        set { pieChartModel.diagramSize = newValue }
     }
     
     init(
@@ -87,6 +63,10 @@ class PieChartViewModel {
         self.updateListViewNames = updateListViewNames
         self.newSelectPieName = newSelectPieName
         self.updateSegmentsToView = updateSegmentsToView
+        
+        self.pieChartModel = PieChartModel { [weak self] in
+            self?.updateArrayOfNames()
+        }
     }
     
     func submitColorPicker() {
@@ -99,8 +79,8 @@ class PieChartViewModel {
             return
         }
         detailsViewValuesBind()
-        let pieLable = pieChartModel.pieLable
-        let pieValue = pieChartModel.pieStepperValue
+        let pieLable = pieChartModel.pieName
+        let pieValue = pieChartModel.diagramSize
         let selectedColor = pieChartModel.pickedColor
         pieChartModel.pieSegments.append(Segment(color: selectedColor, value: CGFloat(pieValue), title: pieLable))
         updateSegmentsToView()
@@ -110,17 +90,26 @@ class PieChartViewModel {
     
     func updateListView() {
         updateListViewNames()
-        pieChartModel.updateArrayOfNames()
+        updateArrayOfNames()
     }
     
+    func updateArrayOfNames() {
+        var array = [String]()
+        for segment in pieChartModel.pieSegments {
+            let title = segment.title
+            array.append(title)
+        }
+        pieChartModel.arrayOfSegmentNames = array
+    }
+
     func selectArrayListView() {
         updateListView()
-        newSelectPieName?(pieChartModel.pickedValue)
+        newSelectPieName?(pieChartModel.pickedSegment)
         arrayListDiplay()
     }
     
     func deletePie() {
-        let selectedValue = pieChartModel.pickedValue
+        let selectedValue = pieChartModel.pickedSegment
         guard (!selectedValue.isEmpty) && (pieChartModel.pieSegments.count != 1) else {
             return
         }

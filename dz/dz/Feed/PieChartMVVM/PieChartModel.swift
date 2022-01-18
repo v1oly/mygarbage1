@@ -1,12 +1,14 @@
 import Foundation
-import UIKit
+import UIKit.UIColor
 
 class PieChartModel {
-    var arrayOfSegmentNames: [String] = [""] // мб можно было бы венести эти данные как отдельную структуру и потом ее вынести в случае необходимости,хотя мб этот метод говно ведь постоянно создавать копии структуры при изменении 1 переменной такое себе.
+    var arrayOfSegmentNames: [String] = ["Red", "Blue", "Green", "Yellow"]
     var pickedColor: UIColor = UIColor.clear
-    var pickedValue: String = ""
-    var pieLable: String = ""
-    var pieStepperValue: Double = 0.0
+    var pickedSegment: String = ""
+    var pieName: String = ""
+    var diagramSize: Double = 0.0
+    
+    var onPieSegmentsDidSet: () -> ()
     
     var pieSegments = [
         Segment(color: .red, value: 57, title: "Red"),
@@ -15,22 +17,12 @@ class PieChartModel {
         Segment(color: .yellow, value: 40, title: "Yellow")
     ] {
         didSet {
-            arrayOfSegmentNames = updateArrayOfNames()
+            onPieSegmentsDidSet()
         }
     }
     
-    init() {
-        arrayOfSegmentNames = updateArrayOfNames()
-    }
-    
-    @discardableResult
-    func updateArrayOfNames() -> [String] {
-        var array = [String]()
-        for segment in pieSegments {
-            let title = segment.title
-            array.append(title)
-        }
-        return array
+    init(onPieSegmentsDidSet: @escaping () -> ()) {
+        self.onPieSegmentsDidSet = onPieSegmentsDidSet
     }
 }
 

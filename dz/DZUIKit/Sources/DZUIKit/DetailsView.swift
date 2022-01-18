@@ -10,18 +10,19 @@ public class DetailsView: UIView {
     private let pieValueStepperLabel = UILabel()
     public let setTextToSegmentField = UITextField()
     public let pieValueStepper = UIStepper()
-    private let quitDetailsViewController: () -> ()
-    private let openColorPickerView: () -> ()
-    private let addPieToDiagram: () -> ()
+
+    private let onQuitFromView: () -> ()
+    private let onSelectColor: () -> ()
+    private let onSubmitPieAdd: () -> ()
     
     public init(
-        quitDetailsViewController: @escaping () -> (),
-        openColorPickerView: @escaping () -> (),
-        addPieToDiagram:  @escaping () -> ()
+        onQuitFromView: @escaping () -> (),
+        onSelectColor: @escaping () -> (),
+        onSubmitPieAdd:  @escaping () -> ()
     ) {
-        self.quitDetailsViewController = quitDetailsViewController
-        self.openColorPickerView = openColorPickerView
-        self.addPieToDiagram = addPieToDiagram
+        self.onQuitFromView = onQuitFromView
+        self.onSelectColor = onSelectColor
+        self.onSubmitPieAdd = onSubmitPieAdd
         super.init(frame: CGRect.zero)
         setup()
     }
@@ -61,7 +62,7 @@ public class DetailsView: UIView {
         selectColorButton.contentHorizontalAlignment = .center
         selectColorButton.backgroundColor = .clear
         
-        submitPieAdd.addTarget(self, action: #selector(addPieToDiagram(_:)), for: .touchUpInside)
+        submitPieAdd.addTarget(self, action: #selector(submitPieAdd(_:)), for: .touchUpInside)
         submitPieAdd.frame.size = CGSize(width: 100, height: 100)
         addSubview(submitPieAdd)
         submitPieAdd.center = CGPoint(
@@ -97,11 +98,11 @@ public class DetailsView: UIView {
         pieValueStepper.addTarget(self, action: #selector(pieValueStepperChange(_:)), for: .valueChanged)
         pieValueStepper.backgroundColor = .lightGray
         
-        labelSetup()
+        setupLabel()
         setGradientBackground()
     }
     
-    private func labelSetup() {
+    private func setupLabel() {
         colorPickerLabel.frame.size = CGSize(width: 100, height: 25)
         addSubview(colorPickerLabel)
         colorPickerLabel.frame.origin = CGPoint(
@@ -147,19 +148,19 @@ public class DetailsView: UIView {
     
     @objc
     private func quitFromView(_ sender: UIButton) {
-        quitDetailsViewController()
+        onQuitFromView()
     }
     
     @objc
     private func selectColor(_ sender: UIButton) {
-        openColorPickerView()
+        onSelectColor()
     }
     @objc
-    private func addPieToDiagram(_ sender: UIButton) {
+    private func submitPieAdd(_ sender: UIButton) {
         guard !setTextToSegmentField.text!.isEmpty  else { // swiftlint:disable:this force_unwrapping
             return
         }
-        addPieToDiagram()
+        onSubmitPieAdd()
     }
     @objc
     private func pieValueStepperChange(_ sender: UIButton) {
