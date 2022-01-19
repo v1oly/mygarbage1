@@ -24,13 +24,9 @@ public class ArrayListView: UITableView, UITableViewDelegate, UITableViewDataSou
         self.reloadData()
     }
     
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-        self.frame = CGRect(x: 210, y: 105, width: 150, height: 200)
-    }
-    
     private func setup() {
-
+        
+        self.frame = CGRect(x: 210, y: 105, width: 150, height: 200)
         self.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         self.dataSource = self
         self.delegate = self

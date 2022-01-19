@@ -32,24 +32,27 @@ public class DetailsView: UIView {
     }
     
     override public func layoutSubviews() {
-        self.frame = CGRect(x: 0, y: 100, width: bounds.maxX, height: 200)
+        
         quitButton.frame.size = CGSize(width: 100, height: 50)
         quitButton.frame.origin = CGPoint(
-            x: self.bounds.minX,
-            y: self.bounds.minY
+            x: bounds.minX,
+            y: bounds.minY
         )
+        quitButton.sizeToFit()
         
         selectColorButton.frame.size = CGSize(width: 100, height: 100)
         selectColorButton.center = CGPoint(
             x: 125,
-            y: self.bounds.midY - 35
+            y: bounds.midY - 35
         )
+        selectColorButton.sizeToFit()
         
         submitPieAdd.frame.size = CGSize(width: 100, height: 100)
         submitPieAdd.center = CGPoint(
             x: self.bounds.midX + 55,
             y: self.bounds.midY + 25
         )
+        submitPieAdd.sizeToFit()
         
         setTextToSegmentField.frame.size = CGSize(width: 200, height: 25)
         setTextToSegmentField.frame.origin = CGPoint(
@@ -62,40 +65,59 @@ public class DetailsView: UIView {
             x: selectColorButton.frame.origin.x - 20,
             y: selectColorButton.frame.origin.y + 70
         )
+        
+        colorPickerLabel.frame.size = CGSize(width: 100, height: 25)
+        colorPickerLabel.frame.origin = CGPoint(
+            x: selectColorButton.frame.origin.x - 16,
+            y: selectColorButton.frame.origin.y - 10
+        )
+        colorPickerLabel.sizeToFit()
+        
+        setTextToSegmentFieldLabel.frame.size = CGSize(width: 100, height: 25)
+        setTextToSegmentFieldLabel.frame.origin = CGPoint(
+            x: colorPickerLabel.frame.origin.x + 160,
+            y: selectColorButton.frame.origin.y - 10
+        )
+        setTextToSegmentFieldLabel.sizeToFit()
+        
+        pieValueStepperLabel.frame.size = CGSize(width: 100, height: 30)
+        pieValueStepperLabel.frame.origin = CGPoint(
+            x: pieValueStepper.frame.origin.x,
+            y: pieValueStepper.frame.origin.y - 20
+        )
+        pieValueStepperLabel.sizeToFit()
     }
     
-    private func setup() { 
+    private func setup() {
+        
+        self.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.maxX, height: 200)
         
         quitButton.addTarget(self, action: #selector(quitFromView(_:)), for: .touchUpInside)
-        addSubview(quitButton)
         quitButton.setTitle("Esc", for: .normal)
-        quitButton.sizeToFit()
         quitButton.setTitleColor(.black, for: .normal)
         quitButton.contentHorizontalAlignment = .center
         quitButton.backgroundColor = .clear
+        self.addSubview(quitButton)
         
         selectColorButton.addTarget(self, action: #selector(selectColor(_:)), for: .touchUpInside)
-        addSubview(selectColorButton)
         selectColorButton.setTitle("▣", for: .normal)
         selectColorButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 40)
-        selectColorButton.sizeToFit()
         selectColorButton.setTitleColor(.black, for: .normal)
         selectColorButton.contentHorizontalAlignment = .center
         selectColorButton.backgroundColor = .clear
+        self.addSubview(selectColorButton)
         
         submitPieAdd.addTarget(self, action: #selector(submitPieAdd(_:)), for: .touchUpInside)
-        addSubview(submitPieAdd)
         submitPieAdd.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
         submitPieAdd.setTitle("Add Pie", for: .normal)
-        submitPieAdd.sizeToFit()
         submitPieAdd.setTitleColor(.black, for: .normal)
         submitPieAdd.contentHorizontalAlignment = .center
         submitPieAdd.backgroundColor = .clear
+        self.addSubview(submitPieAdd)
         
-        addSubview(setTextToSegmentField)
         setTextToSegmentField.backgroundColor = #colorLiteral(red: 0.9054492116, green: 0.9000669122, blue: 0.909586668, alpha: 1).withAlphaComponent(0.6)
+        self.addSubview(setTextToSegmentField)
         
-        addSubview(pieValueStepper)
         pieValueStepper.wraps = true
         pieValueStepper.autorepeat = true
         pieValueStepper.maximumValue = 100
@@ -103,40 +125,19 @@ public class DetailsView: UIView {
         pieValueStepper.stepValue = 1
         pieValueStepper.addTarget(self, action: #selector(pieValueStepperChange(_:)), for: .valueChanged)
         pieValueStepper.backgroundColor = .lightGray
+        self.addSubview(pieValueStepper)
         
-        setupLabel()
-        setGradientBackground()
-    }
-    
-    private func setupLabel() {
-        colorPickerLabel.frame.size = CGSize(width: 100, height: 25)
-        addSubview(colorPickerLabel)
-        colorPickerLabel.frame.origin = CGPoint(
-            x: selectColorButton.frame.origin.x - 16,
-            y: selectColorButton.frame.origin.y - 10
-        )
         colorPickerLabel.text = "Set Color"
-        colorPickerLabel.sizeToFit()
         colorPickerLabel.backgroundColor = .clear
-        
-        setTextToSegmentFieldLabel.frame.size = CGSize(width: 100, height: 25)
-        addSubview(setTextToSegmentFieldLabel)
-        setTextToSegmentFieldLabel.frame.origin = CGPoint(
-            x: colorPickerLabel.frame.origin.x + 160,
-            y: selectColorButton.frame.origin.y - 10
-        )
+        self.addSubview(colorPickerLabel)
+      
         setTextToSegmentFieldLabel.text = "Set text to pie"
-        setTextToSegmentFieldLabel.sizeToFit()
         setTextToSegmentFieldLabel.backgroundColor = .clear
+        self.addSubview(setTextToSegmentFieldLabel)
         
-        pieValueStepperLabel.frame.size = CGSize(width: 100, height: 30)
-        addSubview(pieValueStepperLabel)
-        pieValueStepperLabel.frame.origin = CGPoint(
-            x: pieValueStepper.frame.origin.x,
-            y: pieValueStepper.frame.origin.y - 20
-        )
         pieValueStepperLabel.text = "Pie Value:1"
-        pieValueStepperLabel.sizeToFit()
+        self.addSubview(pieValueStepperLabel)
+        setGradientBackground()
     }
     
     private func setGradientBackground() {
