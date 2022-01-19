@@ -17,8 +17,11 @@ public class ColorPickerView: UIView {
         fatalError("error")
     }
   
-    private func setup() {
+    override public func layoutSubviews() {
         self.frame = CGRect(x: 0, y: UIScreen.main.bounds.maxY - 250, width: UIScreen.main.bounds.maxX, height: 100)
+    }
+    
+    private func setup() {
         self.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         self.layer.cornerRadius = 10
         

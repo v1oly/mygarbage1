@@ -1,59 +1,54 @@
 import Foundation
 import UIKit
 
-public class ArrayListView: UIView, UITableViewDelegate, UITableViewDataSource {
+public class ArrayListView: UITableView, UITableViewDelegate, UITableViewDataSource {
+    
     private var arrayOfNames = [""]
-    private let refreshControl = UIRefreshControl()
     
     private let onTableCellSelect: (String) -> ()
     
-    private let table = UITableView()
-    
-    public init(onTableCellSelect: @escaping (String) -> () ) {
+    public init(
+    onTableCellSelect: @escaping (String) -> ()
+    ) {
         self.onTableCellSelect = onTableCellSelect
-        super.init(frame: CGRect.zero)
+        super.init(frame: CGRect.zero, style: UITableView.Style.grouped)
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     public func updateDataOfTableView(arrayListOfFieldsNames: [String]) {
         arrayOfNames = arrayListOfFieldsNames
-        self.table.reloadData()
-        self.refreshControl.endRefreshing()
+        self.reloadData()
+    }
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        self.frame = CGRect(x: 210, y: 105, width: 150, height: 200)
     }
     
     private func setup() {
-        self.frame = CGRect(x: 210, y: 105, width: 150, height: 200)
-        
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        table.dataSource = self
-        table.delegate = self
-        addSubview(table)
-        
-        table.translatesAutoresizingMaskIntoConstraints = false
-        
-        table.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        table.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        table.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        table.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+
+        self.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.dataSource = self
+        self.delegate = self
     }
 }
 
-    extension ArrayListView {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+public extension ArrayListView {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         arrayOfNames.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "Cell")
         cell.textLabel?.text = "\(arrayOfNames[indexPath.row])"
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedValue = arrayOfNames[indexPath.row]
         print(arrayOfNames[indexPath.row])
         

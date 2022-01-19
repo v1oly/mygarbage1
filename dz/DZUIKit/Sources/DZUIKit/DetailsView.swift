@@ -31,17 +31,43 @@ public class DetailsView: UIView {
         fatalError("Error")
     }
     
-    private func setup() { // swiftlint:disable:this function_body_length
-        
-        self.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.maxX, height: 200)
-        
-        quitButton.addTarget(self, action: #selector(quitFromView(_:)), for: .touchUpInside)
+    override public func layoutSubviews() {
+        self.frame = CGRect(x: 0, y: 100, width: bounds.maxX, height: 200)
         quitButton.frame.size = CGSize(width: 100, height: 50)
-        addSubview(quitButton)
         quitButton.frame.origin = CGPoint(
             x: self.bounds.minX,
             y: self.bounds.minY
         )
+        
+        selectColorButton.frame.size = CGSize(width: 100, height: 100)
+        selectColorButton.center = CGPoint(
+            x: 125,
+            y: self.bounds.midY - 35
+        )
+        
+        submitPieAdd.frame.size = CGSize(width: 100, height: 100)
+        submitPieAdd.center = CGPoint(
+            x: self.bounds.midX + 55,
+            y: self.bounds.midY + 25
+        )
+        
+        setTextToSegmentField.frame.size = CGSize(width: 200, height: 25)
+        setTextToSegmentField.frame.origin = CGPoint(
+            x: selectColorButton.frame.origin.x + 100,
+            y: selectColorButton.frame.origin.y + 18
+        )
+        
+        pieValueStepper.frame.size = CGSize(width: 100, height: 30)
+        pieValueStepper.frame.origin = CGPoint(
+            x: selectColorButton.frame.origin.x - 20,
+            y: selectColorButton.frame.origin.y + 70
+        )
+    }
+    
+    private func setup() { 
+        
+        quitButton.addTarget(self, action: #selector(quitFromView(_:)), for: .touchUpInside)
+        addSubview(quitButton)
         quitButton.setTitle("Esc", for: .normal)
         quitButton.sizeToFit()
         quitButton.setTitleColor(.black, for: .normal)
@@ -49,12 +75,7 @@ public class DetailsView: UIView {
         quitButton.backgroundColor = .clear
         
         selectColorButton.addTarget(self, action: #selector(selectColor(_:)), for: .touchUpInside)
-        selectColorButton.frame.size = CGSize(width: 100, height: 100)
         addSubview(selectColorButton)
-        selectColorButton.center = CGPoint(
-            x: 125,
-            y: self.bounds.midY - 35
-        )
         selectColorButton.setTitle("▣", for: .normal)
         selectColorButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 40)
         selectColorButton.sizeToFit()
@@ -63,12 +84,7 @@ public class DetailsView: UIView {
         selectColorButton.backgroundColor = .clear
         
         submitPieAdd.addTarget(self, action: #selector(submitPieAdd(_:)), for: .touchUpInside)
-        submitPieAdd.frame.size = CGSize(width: 100, height: 100)
         addSubview(submitPieAdd)
-        submitPieAdd.center = CGPoint(
-            x: self.bounds.midX + 55,
-            y: self.bounds.midY + 25
-        )
         submitPieAdd.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
         submitPieAdd.setTitle("Add Pie", for: .normal)
         submitPieAdd.sizeToFit()
@@ -76,20 +92,10 @@ public class DetailsView: UIView {
         submitPieAdd.contentHorizontalAlignment = .center
         submitPieAdd.backgroundColor = .clear
         
-        setTextToSegmentField.frame.size = CGSize(width: 200, height: 25)
-        setTextToSegmentField.frame.origin = CGPoint(
-            x: selectColorButton.frame.origin.x + 100,
-            y: selectColorButton.frame.origin.y + 18
-        )
         addSubview(setTextToSegmentField)
         setTextToSegmentField.backgroundColor = #colorLiteral(red: 0.9054492116, green: 0.9000669122, blue: 0.909586668, alpha: 1).withAlphaComponent(0.6)
         
-        pieValueStepper.frame.size = CGSize(width: 100, height: 30)
         addSubview(pieValueStepper)
-        pieValueStepper.frame.origin = CGPoint(
-            x: selectColorButton.frame.origin.x - 20,
-            y: selectColorButton.frame.origin.y + 70
-        )
         pieValueStepper.wraps = true
         pieValueStepper.autorepeat = true
         pieValueStepper.maximumValue = 100
