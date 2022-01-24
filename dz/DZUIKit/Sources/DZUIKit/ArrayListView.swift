@@ -7,9 +7,7 @@ public class ArrayListView: UITableView, UITableViewDelegate, UITableViewDataSou
     
     private let onTableCellSelect: (String) -> ()
     
-    public init(
-    onTableCellSelect: @escaping (String) -> ()
-    ) {
+    public init(onTableCellSelect: @escaping (String) -> ()) {
         self.onTableCellSelect = onTableCellSelect
         super.init(frame: CGRect.zero, style: UITableView.Style.grouped)
         setup()

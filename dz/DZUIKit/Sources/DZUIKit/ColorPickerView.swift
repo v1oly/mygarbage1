@@ -40,7 +40,7 @@ public class ColorPickerView: UIView {
     @objc
     private func selectColor(_ sender: UIButton) {
         if let pickedColor = sender.backgroundColor {
-        onSelectColor(pickedColor)
+            onSelectColor(pickedColor)
         }
     }
 }
