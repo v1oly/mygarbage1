@@ -6,7 +6,7 @@ class DiagramCell: UICollectionViewCell {
     let pauseUnpauseButton = UIButton()
     let invalidateButton = UIButton()
    
-    var segments: [Segment] = [] {
+    private var segments: [CellSegment] = [] {
         didSet {
             setNeedsDisplay()
         }
@@ -57,8 +57,8 @@ class DiagramCell: UICollectionViewCell {
         invalidateButton.backgroundColor = .clear
         
         segments = [
-            Segment(color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1), value: 1, title: "Run - 00:00:00"),
-            Segment(color: #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), value: 0, title: "Pause - 00:00:00")
+            CellSegment(color: #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1), value: 1, title: "Run - 00:00:00"),
+            CellSegment(color: #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1), value: 0, title: "Pause - 00:00:00")
         ]
     }
     
@@ -156,4 +156,10 @@ class DiagramCell: UICollectionViewCell {
         pauseUnpauseButton.setTitle(">", for: .normal)
         setNeedsDisplay()
     }
+}
+
+private struct CellSegment {
+    let color: UIColor
+    var value: CGFloat
+    var title: String
 }
