@@ -4,7 +4,7 @@ struct Algo {
     var name: String
 }
 
-struct AlgoProvider {
+class AlgoProvider {
     
     var all: [String] {
         return [

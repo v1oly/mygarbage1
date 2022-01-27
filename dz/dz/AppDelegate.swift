@@ -6,12 +6,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let shareExtensionViewController = ShareExtensionViewController()
 
+    override init() {
+        ServiceLocatorInitialization.registerServicesToServiceLocator()
+    }
+    
     func application(
         _ application: UIApplication,
         // swiftlint:disable:next discouraged_optional_collection
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
         print(#function)
+        print("didIt")
         return true
     }
 

@@ -12,7 +12,7 @@ class ArrayViewController: UIViewController {
 
 class ArrayView: UIView { // swiftlint:disable:this type_body_length
     
-    let stringGenerator = StringGenerator()
+    let stringGenerator: StringGenerator = ServiceLocator.shared.getService()
     var segmentNumber = 10
     
     let numberOfItemsLabel = UILabel()

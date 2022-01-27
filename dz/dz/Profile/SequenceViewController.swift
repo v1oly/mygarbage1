@@ -24,7 +24,7 @@ struct SuffixIterator: IteratorProtocol {
 
 struct SuffixSequence: Sequence {
     let string: String
-    
+
     func makeIterator() -> SuffixIterator {
         return SuffixIterator(string: string)
     }
@@ -32,11 +32,10 @@ struct SuffixSequence: Sequence {
 
 class SequenceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let algoProvider = AlgoProvider()
-    
     let arrayViewController = ArrayViewController()
     let setViewController = SetViewController()
     let dictionaryViewController = DictionaryViewController()
+    let algoProvider: AlgoProvider = ServiceLocator.shared.getService()
     
     let tableView = UITableView()
     let tableViewCellsNames = [
