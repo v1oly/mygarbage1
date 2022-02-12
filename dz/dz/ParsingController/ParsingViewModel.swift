@@ -2,9 +2,9 @@ import Foundation
 
 class ParsingViewModel {
     
-    var model = ParsingModel()
-    var autocallTask: () -> ()
-    var dispatchTimerSource: DispatchSourceTimer?
+    private var model = ParsingModel()
+    private var autocallTask: () -> ()
+    private var dispatchTimerSource: DispatchSourceTimer?
     
     var url: URL? {
         get { model.url }
@@ -45,7 +45,7 @@ class ParsingViewModel {
         task.resume()
     }
     
-    func autocallToURLEvery15Min() {
+    private func autocallToURLEvery15Min() {
         DispatchQueue.global(qos: .background).async {
             var secondsCounter = 0
             

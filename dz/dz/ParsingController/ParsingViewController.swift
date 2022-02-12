@@ -3,8 +3,8 @@ import UIKit
 
 class ParsingViewController: UIViewController {
     
-    var parseView: ParsingView! // swiftlint:disable:this implicitly_unwrapped_optional
-    var viewModel: ParsingViewModel! // swiftlint:disable:this implicitly_unwrapped_optional
+    private var parseView: ParsingView! // swiftlint:disable:this implicitly_unwrapped_optional
+    private var viewModel: ParsingViewModel! // swiftlint:disable:this implicitly_unwrapped_optional
     
     override func viewDidLoad() {
         super.viewDidLoad()

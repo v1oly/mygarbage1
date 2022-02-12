@@ -3,10 +3,10 @@ import UIKit
 
 class ParsingView: UIView {
     
-    let textView = UITextView()
-    let parseButton = UIButton()
+    private let textView = UITextView()
+    private let parseButton = UIButton()
     
-    let parseFromUrl: () -> ()
+    private let parseFromUrl: () -> ()
     
     init (parseFromUrl: @escaping () -> ()) {
         self.parseFromUrl = parseFromUrl
@@ -26,7 +26,7 @@ class ParsingView: UIView {
         parseButton.center = CGPoint(x: textView.frame.midX, y: textView.frame.maxY + 50)
     }
     
-    func setup() {
+    private func setup() {
         self.backgroundColor = .white
         
         textView.backgroundColor = .lightGray
