@@ -15,6 +15,10 @@
 		1E490E35275E77B700C7D5BF /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E34275E77B700C7D5BF /* ResultViewController.swift */; };
 		1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */; };
 		1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD3472746C994009E52B8 /* DiagramCell.swift */; };
+		1EA70C6827B58BF3003234A0 /* ParsingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C6727B58BF3003234A0 /* ParsingViewController.swift */; };
+		1EA70C6A27B596A9003234A0 /* ParsingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C6927B596A9003234A0 /* ParsingView.swift */; };
+		1EA70C6D27B6EB05003234A0 /* ParsingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C6C27B6EB05003234A0 /* ParsingViewModel.swift */; };
+		1EA70C6F27B6EC04003234A0 /* ParsingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C6E27B6EC04003234A0 /* ParsingModel.swift */; };
 		1EB4B39E276DEC9A00669D11 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4B39D276DEC9A00669D11 /* ShareViewController.swift */; };
 		1EB4B3A1276DEC9A00669D11 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4B39F276DEC9A00669D11 /* MainInterface.storyboard */; };
 		1EB4B3A5276DEC9A00669D11 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -87,6 +91,10 @@
 		1E490E34275E77B700C7D5BF /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTypeViewController.swift; sourceTree = "<group>"; };
 		1E6CD3472746C994009E52B8 /* DiagramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramCell.swift; sourceTree = "<group>"; };
+		1EA70C6727B58BF3003234A0 /* ParsingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingViewController.swift; sourceTree = "<group>"; };
+		1EA70C6927B596A9003234A0 /* ParsingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingView.swift; sourceTree = "<group>"; };
+		1EA70C6C27B6EB05003234A0 /* ParsingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingViewModel.swift; sourceTree = "<group>"; };
+		1EA70C6E27B6EC04003234A0 /* ParsingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingModel.swift; sourceTree = "<group>"; };
 		1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB4B39D276DEC9A00669D11 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		1EB4B3A0276DEC9A00669D11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -189,6 +197,17 @@
 				1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		1EA70C6627B58B44003234A0 /* ParsingController */ = {
+			isa = PBXGroup;
+			children = (
+				1EA70C6927B596A9003234A0 /* ParsingView.swift */,
+				1EA70C6727B58BF3003234A0 /* ParsingViewController.swift */,
+				1EA70C6C27B6EB05003234A0 /* ParsingViewModel.swift */,
+				1EA70C6E27B6EC04003234A0 /* ParsingModel.swift */,
+			);
+			path = ParsingController;
 			sourceTree = "<group>";
 		};
 		1EB4B39C276DEC9A00669D11 /* ShareExtension */ = {
@@ -309,8 +328,9 @@
 				28EE13502721F15700136712 /* Zaglushka.swift */,
 				28EE134C2721EE3E00136712 /* Zaglushka.xib */,
 				1E490E2527551C1100C7D5BF /* Feed */,
-				1E490E2627551C3600C7D5BF /* Benchmark */,
+				1EA70C6627B58B44003234A0 /* ParsingController */,
 				1E490E2727551C4900C7D5BF /* Profile */,
+				1E490E2627551C3600C7D5BF /* Benchmark */,
 				28EE133B2721D6E100136712 /* Assets.xcassets */,
 				28EE133D2721D6E100136712 /* LaunchScreen.storyboard */,
 				28EE13402721D6E100136712 /* Info.plist */,
@@ -461,6 +481,7 @@
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				284712F32732A9C10022111F /* SequenceViewController.swift in Sources */,
 				1E490E2D2757BB9300C7D5BF /* SetViewController.swift in Sources */,
+				1EA70C6D27B6EB05003234A0 /* ParsingViewModel.swift in Sources */,
 				1ED1C66A279AE3A100F62640 /* FeedDataProvider.swift in Sources */,
 				28A383EA273515D500E17ECA /* LoginViewController.swift in Sources */,
 				1EFCD0C427A2E17A0077E794 /* RegistrationViewController.swift in Sources */,
@@ -472,6 +493,8 @@
 				1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */,
 				1EFCD0BF27A059500077E794 /* RegistrationView.swift in Sources */,
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
+				1EA70C6A27B596A9003234A0 /* ParsingView.swift in Sources */,
+				1EA70C6827B58BF3003234A0 /* ParsingViewController.swift in Sources */,
 				1EFCD0C127A1A7720077E794 /* AccountsListService.swift in Sources */,
 				28A383E8273303B000E17ECA /* TableViewController.swift in Sources */,
 				1E490E35275E77B700C7D5BF /* ResultViewController.swift in Sources */,
@@ -486,6 +509,7 @@
 				1ECA3677278DD5120095CAD2 /* PieChartViewModel.swift in Sources */,
 				1E490E29275686AB00C7D5BF /* AlgoProvider.swift in Sources */,
 				28AC5B0627270E9100655980 /* BenchmarkViewController.swift in Sources */,
+				1EA70C6F27B6EC04003234A0 /* ParsingModel.swift in Sources */,
 				28A383EC27352A4F00E17ECA /* CollectionViewController.swift in Sources */,
 				1ECA3669278CA1990095CAD2 /* LoginViewModel.swift in Sources */,
 				28D666162732A37500DAF24F /* ViewControllerLifecycleBehavior.swift in Sources */,
