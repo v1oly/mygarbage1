@@ -3,23 +3,23 @@ import UIKit
 
 class RegistrationView: UIView {
     
-    private let regLoginField = UITextField()
-    private let regPasswordField = UITextField()
-    private let regConfirmPasswordField = UITextField()
+    private let loginField = UITextField()
+    private let passwordField = UITextField()
+    private let confirmPasswordField = UITextField()
     
     private let registrationLable = UILabel()
-    private let regLoginLable = UILabel()
-    private let regPasswordLable = UILabel()
-    private let regConfirmPasswordLable = UILabel()
+    private let loginLable = UILabel()
+    private let passwordLable = UILabel()
+    private let confirmPasswordLable = UILabel()
     
     private var statusLable = UILabel()
-    private var onRegConfirm: (String, String, String) -> ()
+    private var onRegConfirm: (_ login: String, _ password: String, _ confirmPassword: String) -> ()
 
     private let confirmRegistrationButton = UIButton()
     
-    init(onRegConfirm: @escaping (String, String, String) -> ()) {
+    init(onRegConfirm: @escaping (_ login: String, _ password: String, _ confirmPassword: String) -> ()) {
         self.onRegConfirm = onRegConfirm
-        super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        super.init(frame: CGRect.zero)
         setup()
     }
     
@@ -41,32 +41,32 @@ class RegistrationView: UIView {
         registrationLable.frame.size = CGSize(width: 115, height: 40)
         registrationLable.center = CGPoint(x: self.bounds.center.x, y: self.bounds.minY + 100)
         
-        regLoginField.frame.size = CGSize(width: bounds.width / 1.25, height: 30)
-        regLoginField.center = CGPoint(x: bounds.width / 2, y: bounds.minY + 175)
+        loginField.frame.size = CGSize(width: bounds.width / 1.25, height: 30)
+        loginField.center = CGPoint(x: bounds.width / 2, y: bounds.minY + 175)
         
-        regPasswordField.frame.size = CGSize(width: bounds.width / 1.25, height: 30)
-        regPasswordField.center = CGPoint(x: bounds.width / 2, y: regLoginField.frame.maxY + 80)
+        passwordField.frame.size = CGSize(width: bounds.width / 1.25, height: 30)
+        passwordField.center = CGPoint(x: bounds.width / 2, y: loginField.frame.maxY + 80)
         
-        regConfirmPasswordField.frame.size = CGSize(width: bounds.width / 1.25, height: 30)
-        regConfirmPasswordField.center = CGPoint(x: bounds.width / 2, y: regPasswordField.frame.maxY + 80)
+        confirmPasswordField.frame.size = CGSize(width: bounds.width / 1.25, height: 30)
+        confirmPasswordField.center = CGPoint(x: bounds.width / 2, y: passwordField.frame.maxY + 80)
         
-        regLoginLable.frame.size = CGSize(width: 100, height: 25)
-        regLoginLable.center = CGPoint(x: self.bounds.center.x, y: regLoginField.frame.minY - 20)
-        regLoginLable.sizeThatFits(regLoginLable.frame.size)
+        loginLable.frame.size = CGSize(width: 100, height: 25)
+        loginLable.center = CGPoint(x: self.bounds.center.x, y: loginField.frame.minY - 20)
+        loginLable.sizeThatFits(loginLable.frame.size)
         
-        regPasswordLable.frame.size = CGSize(width: 125, height: 25)
-        regPasswordLable.center = CGPoint(x: self.bounds.center.x, y: regPasswordField.frame.minY - 20)
-        regPasswordLable.sizeThatFits(regPasswordLable.frame.size)
+        passwordLable.frame.size = CGSize(width: 125, height: 25)
+        passwordLable.center = CGPoint(x: self.bounds.center.x, y: passwordField.frame.minY - 20)
+        passwordLable.sizeThatFits(passwordLable.frame.size)
         
-        regConfirmPasswordLable.frame.size = CGSize(width: 185, height: 25)
-        regConfirmPasswordLable.center = CGPoint(x: self.bounds.center.x, y: regConfirmPasswordField.frame.minY - 20)
-        regConfirmPasswordLable.sizeThatFits(regConfirmPasswordLable.frame.size)
+        confirmPasswordLable.frame.size = CGSize(width: 185, height: 25)
+        confirmPasswordLable.center = CGPoint(x: self.bounds.center.x, y: confirmPasswordField.frame.minY - 20)
+        confirmPasswordLable.sizeThatFits(confirmPasswordLable.frame.size)
         
         confirmRegistrationButton.frame.size = CGSize(width: 100, height: 30)
-        confirmRegistrationButton.center = CGPoint(x: bounds.width / 2, y: regConfirmPasswordField.frame.maxY + 50)
+        confirmRegistrationButton.center = CGPoint(x: bounds.width / 2, y: confirmPasswordField.frame.maxY + 50)
         
         statusLable.sizeToFit()
-        statusLable.center = CGPoint(x: bounds.width / 2, y: regConfirmPasswordField.frame.maxY + 15)
+        statusLable.center = CGPoint(x: bounds.width / 2, y: confirmPasswordField.frame.maxY + 15)
     }
     
     private func setup() {
@@ -76,23 +76,23 @@ class RegistrationView: UIView {
         registrationLable.text = "Registration"
         addSubview(registrationLable)
         
-        regLoginField.backgroundColor = .lightGray
-        addSubview(regLoginField)
+        loginField.backgroundColor = .lightGray
+        addSubview(loginField)
         
-        regPasswordField.backgroundColor = .lightGray
-        addSubview(regPasswordField)
+        passwordField.backgroundColor = .lightGray
+        addSubview(passwordField)
         
-        regConfirmPasswordField.backgroundColor = .lightGray
-        addSubview(regConfirmPasswordField)
+        confirmPasswordField.backgroundColor = .lightGray
+        addSubview(confirmPasswordField)
         
-        regLoginLable.text = "New Login:"
-        addSubview(regLoginLable)
+        loginLable.text = "New Login:"
+        addSubview(loginLable)
         
-        regPasswordLable.text = "New Password:"
-        addSubview(regPasswordLable)
+        passwordLable.text = "New Password:"
+        addSubview(passwordLable)
         
-        regConfirmPasswordLable.text = "Confirm New Password:"
-        addSubview(regConfirmPasswordLable)
+        confirmPasswordLable.text = "Confirm New Password:"
+        addSubview(confirmPasswordLable)
         
         confirmRegistrationButton.addTarget(self, action: #selector(confirmRegistration(_:)), for: .touchUpInside)
         confirmRegistrationButton.backgroundColor = .clear
@@ -105,6 +105,6 @@ class RegistrationView: UIView {
     
     @objc
     private func confirmRegistration(_ sender: UIButton) {
-        onRegConfirm(regLoginField.text ?? "", regPasswordField.text ?? "", regConfirmPasswordField.text ?? "")
+        onRegConfirm(loginField.text ?? "", passwordField.text ?? "", confirmPasswordField.text ?? "")
     }
 }

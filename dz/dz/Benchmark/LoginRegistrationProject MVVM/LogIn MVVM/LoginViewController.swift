@@ -8,23 +8,28 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = LoginViewModel(onModelUpdate: { [weak self] model in
-            self?.setTuringForStatusCondition(model.currentStatusCondition)
+            self?.setSettingsForStatusCondition(model.currentStatusCondition)
         })
     }
     
     override func loadView() {
-        loginView = LoginView(onConfirm: { [weak self] login, password in
-            self?.viewModel.checkUserLogInToMatchInBase(login: login, password: password)
-        }, onOpenRegistrationView: { [weak self] in
-            let registrationViewController = RegistrationViewController(updateLoginState: { [weak self] in
-                self?.viewModel.updateAccountList()
-            })
-            self?.navigationController?.pushViewController(registrationViewController, animated: false)
-        })
+        loginView = LoginView(
+            onConfirm: { [weak self] login, password in
+                self?.viewModel.checkLoginDataToMatchInBase(login: login, password: password)
+            },
+            onOpenRegistrationView: { [weak self] in
+                let registrationViewController = RegistrationViewController(
+                    updateLoginState: { [weak self] in
+                        self?.viewModel.updateAccountList()
+                    }
+                )
+                self?.navigationController?.pushViewController(registrationViewController, animated: false)
+            }
+        )
         view = loginView
     }
     
-    func setTuringForStatusCondition(_ statusCondition: LogInStatusCondition) {
+    func setSettingsForStatusCondition(_ statusCondition: LogInStatusCondition) {
         switch statusCondition {
         case .neutral:
             loginView.setStatusText("")

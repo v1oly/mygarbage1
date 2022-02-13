@@ -20,22 +20,22 @@ class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = RegistrationViewModel(onModelChange: { [weak self] model in
-            self?.setTuringForStatusCondition(statusCondition: model.currentStatusCondition)
+            self?.setSettingsForStatusCondition(statusCondition: model.currentStatusCondition)
         })
     }
     
     override func loadView() {
-        registrationView = RegistrationView(onRegConfirm: { [weak self] login, passwd, passwd2 in
+        registrationView = RegistrationView(onRegConfirm: { [weak self] userLogin, userPassword, confirmUserPassword in
             self?.viewModel.checkIsRegistrationDataHaveMistakesAndSetNewAccountIfHavent(
-                login: login,
-                password: passwd,
-                confirmPassword: passwd2
+                login: userLogin,
+                password: userPassword,
+                confirmPassword: confirmUserPassword
             )
         })
         view = registrationView
     }
     
-    private func setTuringForStatusCondition(statusCondition: RegistrationStatusCondition) {
+    private func setSettingsForStatusCondition(statusCondition: RegistrationStatusCondition) {
         switch statusCondition {
         case .neutral:
             registrationView.setStatusText("")

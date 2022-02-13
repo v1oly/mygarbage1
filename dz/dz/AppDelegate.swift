@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
         print(#function)
-        print("didIt")
         return true
     }
 

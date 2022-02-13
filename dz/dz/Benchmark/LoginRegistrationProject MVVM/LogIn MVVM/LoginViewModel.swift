@@ -3,14 +3,14 @@ import UIKit
 
 class LoginViewModel {
     
-    var accountsListService: AccountsListService = ServiceLocator.shared.getService()
-    var model = LoginModel() {
+    private var accountsListService: AccountsListService = ServiceLocator.shared.getService()
+    private var model = LoginModel() {
         didSet {
             onModelUpdate(model)
         }
     }
-
-    var onModelUpdate: (LoginModel) -> ()
+    
+    private var onModelUpdate: (LoginModel) -> ()
     
     init(onModelUpdate: @escaping (LoginModel) -> ()) {
         self.onModelUpdate = onModelUpdate
@@ -31,7 +31,7 @@ class LoginViewModel {
         model.usersAccountList = accountsListService.getAccountsList()
     }
     
-    func checkUserLogInToMatchInBase(login: String, password: String) {
+    func checkLoginDataToMatchInBase(login: String, password: String) {
         let usersList = model.usersAccountList
         let accountToCheck = UserAccount(login: login, password: password)
         var isMatched = false
