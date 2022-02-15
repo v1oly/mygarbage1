@@ -12,7 +12,6 @@
 		1E490E2D2757BB9300C7D5BF /* SetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E2C2757BB9300C7D5BF /* SetViewController.swift */; };
 		1E490E2F2757BBAD00C7D5BF /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E2E2757BBAD00C7D5BF /* DictionaryViewController.swift */; };
 		1E490E312757DCE000C7D5BF /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E302757DCE000C7D5BF /* StringGenerator.swift */; };
-		1E490E33275E748900C7D5BF /* FeedDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E32275E748900C7D5BF /* FeedDataProvider.swift */; };
 		1E490E35275E77B700C7D5BF /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E34275E77B700C7D5BF /* ResultViewController.swift */; };
 		1E490E3727625D9700C7D5BF /* NumberTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */; };
 		1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6CD3472746C994009E52B8 /* DiagramCell.swift */; };
@@ -29,6 +28,14 @@
 		1ECA367B278DD7DB0095CAD2 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA367A278DD7DB0095CAD2 /* PieChartView.swift */; };
 		1ECA367E278F45640095CAD2 /* Extenshions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ECA367D278F45640095CAD2 /* Extenshions.swift */; };
 		1ECA3680279037A20095CAD2 /* DZUIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1ECA367F279037A20095CAD2 /* DZUIKit */; };
+		1ED1C666279AD99D00F62640 /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED1C665279AD99D00F62640 /* ServiceLocator.swift */; };
+		1ED1C66A279AE3A100F62640 /* FeedDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED1C669279AE3A100F62640 /* FeedDataProvider.swift */; };
+		1EFCD0BD27A056FB0077E794 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFCD0BC27A056FB0077E794 /* LoginView.swift */; };
+		1EFCD0BF27A059500077E794 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFCD0BE27A059500077E794 /* RegistrationView.swift */; };
+		1EFCD0C127A1A7720077E794 /* AccountsListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFCD0C027A1A7720077E794 /* AccountsListService.swift */; };
+		1EFCD0C427A2E17A0077E794 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFCD0C327A2E17A0077E794 /* RegistrationViewController.swift */; };
+		1EFCD0C627A2E6090077E794 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFCD0C527A2E6090077E794 /* RegistrationViewModel.swift */; };
+		1EFCD0CA27A2F2140077E794 /* RegistrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFCD0C927A2F2140077E794 /* RegistrationModel.swift */; };
 		284712F32732A9C10022111F /* SequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284712F22732A9C10022111F /* SequenceViewController.swift */; };
 		28A383E8273303B000E17ECA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E7273303B000E17ECA /* TableViewController.swift */; };
 		28A383EA273515D500E17ECA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A383E9273515D500E17ECA /* LoginViewController.swift */; };
@@ -77,7 +84,6 @@
 		1E490E2C2757BB9300C7D5BF /* SetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewController.swift; sourceTree = "<group>"; };
 		1E490E2E2757BBAD00C7D5BF /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
 		1E490E302757DCE000C7D5BF /* StringGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringGenerator.swift; sourceTree = "<group>"; };
-		1E490E32275E748900C7D5BF /* FeedDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataProvider.swift; sourceTree = "<group>"; };
 		1E490E34275E77B700C7D5BF /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTypeViewController.swift; sourceTree = "<group>"; };
 		1E6CD3472746C994009E52B8 /* DiagramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramCell.swift; sourceTree = "<group>"; };
@@ -97,6 +103,14 @@
 		1ECA3678278DD52F0095CAD2 /* PieChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		1ECA367A278DD7DB0095CAD2 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		1ECA367D278F45640095CAD2 /* Extenshions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extenshions.swift; sourceTree = "<group>"; };
+		1ED1C665279AD99D00F62640 /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
+		1ED1C669279AE3A100F62640 /* FeedDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDataProvider.swift; sourceTree = "<group>"; };
+		1EFCD0BC27A056FB0077E794 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		1EFCD0BE27A059500077E794 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		1EFCD0C027A1A7720077E794 /* AccountsListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsListService.swift; sourceTree = "<group>"; };
+		1EFCD0C327A2E17A0077E794 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		1EFCD0C527A2E6090077E794 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		1EFCD0C927A2F2140077E794 /* RegistrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModel.swift; sourceTree = "<group>"; };
 		284712F22732A9C10022111F /* SequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceViewController.swift; sourceTree = "<group>"; };
 		28A383E7273303B000E17ECA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		28A383E9273515D500E17ECA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -147,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				1ECA3673278DD4360095CAD2 /* PieChartMVVM */,
-				1E490E32275E748900C7D5BF /* FeedDataProvider.swift */,
 				1E490E34275E77B700C7D5BF /* ResultViewController.swift */,
 				28A383E7273303B000E17ECA /* TableViewController.swift */,
 			);
@@ -157,9 +170,9 @@
 		1E490E2627551C3600C7D5BF /* Benchmark */ = {
 			isa = PBXGroup;
 			children = (
+				1EFCD0CB27A301D00077E794 /* LoginRegistrationProject MVVM */,
 				1E6CD3472746C994009E52B8 /* DiagramCell.swift */,
 				28A383EB27352A4F00E17ECA /* CollectionViewController.swift */,
-				1ECA3667278B5A6C0095CAD2 /* LogIn MVVM */,
 			);
 			path = Benchmark;
 			sourceTree = "<group>";
@@ -173,7 +186,6 @@
 				1E490E2E2757BBAD00C7D5BF /* DictionaryViewController.swift */,
 				28EE13482721E3B000136712 /* CustomButton.swift */,
 				28AC5B0D27271DDF00655980 /* ProfileViewController.swift */,
-				1E490E302757DCE000C7D5BF /* StringGenerator.swift */,
 				1E490E3627625D9700C7D5BF /* NumberTypeViewController.swift */,
 			);
 			path = Profile;
@@ -193,6 +205,7 @@
 		1ECA3667278B5A6C0095CAD2 /* LogIn MVVM */ = {
 			isa = PBXGroup;
 			children = (
+				1EFCD0BC27A056FB0077E794 /* LoginView.swift */,
 				28A383E9273515D500E17ECA /* LoginViewController.swift */,
 				1ECA3668278CA1990095CAD2 /* LoginViewModel.swift */,
 				1ECA366A278CA1A90095CAD2 /* LoginModel.swift */,
@@ -227,6 +240,38 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		1ED1C664279AD97100F62640 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1ED1C665279AD99D00F62640 /* ServiceLocator.swift */,
+				1E490E28275686AB00C7D5BF /* AlgoProvider.swift */,
+				1E490E302757DCE000C7D5BF /* StringGenerator.swift */,
+				1ED1C669279AE3A100F62640 /* FeedDataProvider.swift */,
+				1EFCD0C027A1A7720077E794 /* AccountsListService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1EFCD0C227A2E1300077E794 /* Registration MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				1EFCD0BE27A059500077E794 /* RegistrationView.swift */,
+				1EFCD0C327A2E17A0077E794 /* RegistrationViewController.swift */,
+				1EFCD0C527A2E6090077E794 /* RegistrationViewModel.swift */,
+				1EFCD0C927A2F2140077E794 /* RegistrationModel.swift */,
+			);
+			path = "Registration MVVM";
+			sourceTree = "<group>";
+		};
+		1EFCD0CB27A301D00077E794 /* LoginRegistrationProject MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				1ECA3667278B5A6C0095CAD2 /* LogIn MVVM */,
+				1EFCD0C227A2E1300077E794 /* Registration MVVM */,
+			);
+			path = "LoginRegistrationProject MVVM";
+			sourceTree = "<group>";
+		};
 		28EE13282721D6DD00136712 = {
 			isa = PBXGroup;
 			children = (
@@ -253,7 +298,6 @@
 				1ECA367C278F45380095CAD2 /* Extensions */,
 				1ECA366C278CA3CA0095CAD2 /* Bindings */,
 				1EB4B3AA276DED1500669D11 /* dz.entitlements */,
-				1E490E28275686AB00C7D5BF /* AlgoProvider.swift */,
 				1EB8A6C9276E28C6007479F7 /* ShareExtensionViewController.swift */,
 				28EE13342721D6DE00136712 /* AppDelegate.swift */,
 				28D666152732A37400DAF24F /* ViewControllerLifecycleBehavior.swift */,
@@ -261,6 +305,7 @@
 				28EE13362721D6DE00136712 /* ViewController.swift */,
 				28EE134E2721EFFA00136712 /* Storyboard2.storyboard */,
 				28EE13382721D6DE00136712 /* Main.storyboard */,
+				1ED1C664279AD97100F62640 /* Services */,
 				28EE13502721F15700136712 /* Zaglushka.swift */,
 				28EE134C2721EE3E00136712 /* Zaglushka.xib */,
 				1E490E2527551C1100C7D5BF /* Feed */,
@@ -412,24 +457,31 @@
 			files = (
 				28EE13352721D6DE00136712 /* AppDelegate.swift in Sources */,
 				1ECA3675278DD4CE0095CAD2 /* PieChartModel.swift in Sources */,
+				1EFCD0BD27A056FB0077E794 /* LoginView.swift in Sources */,
 				28EE13372721D6DE00136712 /* ViewController.swift in Sources */,
 				284712F32732A9C10022111F /* SequenceViewController.swift in Sources */,
 				1E490E2D2757BB9300C7D5BF /* SetViewController.swift in Sources */,
+				1ED1C66A279AE3A100F62640 /* FeedDataProvider.swift in Sources */,
 				28A383EA273515D500E17ECA /* LoginViewController.swift in Sources */,
+				1EFCD0C427A2E17A0077E794 /* RegistrationViewController.swift in Sources */,
+				1ED1C666279AD99D00F62640 /* ServiceLocator.swift in Sources */,
+				1EFCD0C627A2E6090077E794 /* RegistrationViewModel.swift in Sources */,
 				1ECA367B278DD7DB0095CAD2 /* PieChartView.swift in Sources */,
 				1E490E312757DCE000C7D5BF /* StringGenerator.swift in Sources */,
 				1ECA367E278F45640095CAD2 /* Extenshions.swift in Sources */,
 				1E6CD3482746C994009E52B8 /* DiagramCell.swift in Sources */,
+				1EFCD0BF27A059500077E794 /* RegistrationView.swift in Sources */,
 				28EE13512721F15700136712 /* Zaglushka.swift in Sources */,
+				1EFCD0C127A1A7720077E794 /* AccountsListService.swift in Sources */,
 				28A383E8273303B000E17ECA /* TableViewController.swift in Sources */,
 				1E490E35275E77B700C7D5BF /* ResultViewController.swift in Sources */,
 				1ECA366B278CA1A90095CAD2 /* LoginModel.swift in Sources */,
-				1E490E33275E748900C7D5BF /* FeedDataProvider.swift in Sources */,
 				28AC5B0E27271DDF00655980 /* ProfileViewController.swift in Sources */,
 				1ECA366E278CA3F70095CAD2 /* Dynamic.swift in Sources */,
 				1E490E2B2757B2EC00C7D5BF /* ArrayViewController.swift in Sources */,
 				28EE13492721E3B000136712 /* CustomButton.swift in Sources */,
 				1E490E2F2757BBAD00C7D5BF /* DictionaryViewController.swift in Sources */,
+				1EFCD0CA27A2F2140077E794 /* RegistrationModel.swift in Sources */,
 				1ECA3679278DD52F0095CAD2 /* PieChartViewController.swift in Sources */,
 				1ECA3677278DD5120095CAD2 /* PieChartViewModel.swift in Sources */,
 				1E490E29275686AB00C7D5BF /* AlgoProvider.swift in Sources */,

@@ -1,41 +1,5 @@
+import Foundation
 import UIKit
-
-class LoginViewController: UIViewController {
-    
-    private let loginView = LoginView()
-    private let loginViewModel = LoginViewModel()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view = loginView
-        bind()
-    }
-    
-    func checkUserLogInToMatchInBase(login: String, password: String) {
-        loginViewModel.checkUserLogInToMatchInBase(
-            login: login,
-            password: password
-        )
-    }
-    
-    private func bind() {
-        loginViewModel.statusText.bind { [weak self] statusText in
-            DispatchQueue.main.async {
-                self?.loginView.setStatusText(statusText)
-            }
-        }
-        
-        loginViewModel.statusColor.bind { [weak self] statusColor in
-            DispatchQueue.main.async {
-                self?.loginView.setStatusColor(statusColor)
-            }
-        }
-        
-        loginView.onConfirm = { [weak self] login, password in
-            self?.checkUserLogInToMatchInBase(login: login, password: password)
-        }
-    }
-}
 
 class LoginView: UIView {
     
@@ -46,18 +10,24 @@ class LoginView: UIView {
     private let passwordLabel = UILabel()
     private let statusLabel = UILabel()
     
-    private let confirmButton = UIButton()
+    private let confirmLogInButton = UIButton()
+    private let openRegistarionViewButton = UIButton()
     
-    var onConfirm: ((_ login: String, _ password: String) -> ())?
+    var onConfirm: ((_ login: String, _ password: String) -> ())
+    var onOpenRegistrationView: () -> ()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(
+        onConfirm: @escaping ((_ login: String, _ password: String)-> ()),
+        onOpenRegistrationView: @escaping () -> ()
+    ) {
+        self.onOpenRegistrationView = onOpenRegistrationView
+        self.onConfirm = onConfirm
+        super.init(frame: CGRect.zero)
         setup()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
+        fatalError( "fatal error: coder doesn't found")
     }
     
     override func layoutSubviews() {
@@ -77,8 +47,11 @@ class LoginView: UIView {
         passwordLabel.sizeToFit()
         passwordLabel.center = CGPoint(x: bounds.width / 2, y: passwordField.frame.minY - 20)
         
-        confirmButton.frame.size = CGSize(width: 100, height: 30)
-        confirmButton.center = CGPoint(x: bounds.center.x, y: passwordField.frame.maxY + 50)
+        confirmLogInButton.frame.size = CGSize(width: 100, height: 30)
+        confirmLogInButton.center = CGPoint(x: bounds.center.x, y: passwordField.frame.maxY + 50)
+        
+        openRegistarionViewButton.frame.size = CGSize(width: 100, height: 30)
+        openRegistarionViewButton.center = CGPoint(x: bounds.center.x, y: confirmLogInButton.frame.maxY + 50)
         
         statusLabel.frame.size = CGSize(width: 50, height: 15)
         statusLabel.sizeToFit()
@@ -100,11 +73,17 @@ class LoginView: UIView {
         passwordLabel.text = "Password:"
         addSubview(passwordLabel)
         
-        confirmButton.addTarget(self, action: #selector(confirmLoggingIn(_:)), for: .touchUpInside)
-        confirmButton.backgroundColor = .clear
-        confirmButton.setTitle("Confirm", for: .normal)
-        confirmButton.setTitleColor(.blue, for: .normal)
-        addSubview(confirmButton)
+        confirmLogInButton.addTarget(self, action: #selector(confirmLoggingIn(_:)), for: .touchUpInside)
+        confirmLogInButton.backgroundColor = .clear
+        confirmLogInButton.setTitle("Confirm", for: .normal)
+        confirmLogInButton.setTitleColor(.blue, for: .normal)
+        addSubview(confirmLogInButton)
+        
+        openRegistarionViewButton.addTarget(self, action: #selector(openRegistarionView(_:)), for: .touchUpInside)
+        openRegistarionViewButton.backgroundColor = .clear
+        openRegistarionViewButton.setTitle("Sing Up", for: .normal)
+        openRegistarionViewButton.setTitleColor(.blue, for: .normal)
+        addSubview(openRegistarionViewButton)
         
         addSubview(statusLabel)
     }
@@ -121,6 +100,11 @@ class LoginView: UIView {
     
     @objc
     private func confirmLoggingIn(_ sender: UIButton) {
-        onConfirm?(loginField.text ?? "", passwordField.text ?? "")
+        onConfirm(loginField.text ?? "", passwordField.text ?? "")
+    }
+    
+    @objc
+    private func openRegistarionView(_ sender: UIButton) {
+        onOpenRegistrationView()
     }
 }

@@ -22,6 +22,10 @@ public class ArrayListView: UITableView, UITableViewDelegate, UITableViewDataSou
         self.reloadData()
     }
     
+    public override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return CGSize(width: min(size.width, 150), height: 210)
+    }
+    
     private func setup() {
         
         self.frame = CGRect(x: 210, y: 105, width: 150, height: 200)

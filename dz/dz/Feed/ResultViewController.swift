@@ -3,7 +3,7 @@ import UIKit
 class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let resultTableView = UITableView()
-    let feedDataProvider = FeedDataProvider()
+    let feedDataProvider: FeedDataProvider = ServiceLocator.shared.getService()
     var originalArray = [FeedData]()
     var resultArray = [FeedData]()
     
