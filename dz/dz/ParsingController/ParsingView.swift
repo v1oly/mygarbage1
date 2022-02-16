@@ -48,6 +48,7 @@ class ParsingView: UIView {
         self.addSubview(parseButton)
         
         urlField.backgroundColor = .lightGray
+        urlField.text = "https://swapi.dev/api/people/1"
         self.addSubview(urlField)
         
         urlFieldLabel.text = "Set url to parse here:"

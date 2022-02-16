@@ -38,5 +38,6 @@ class ServiceLocatorInitialization {
         serviceLocator.addService(service: AlgoProvider())
         serviceLocator.addService(service: StringGenerator())
         serviceLocator.addService(service: AccountsListService())
+        serviceLocator.addService(service: ParsingService())
     }
 }
