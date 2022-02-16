@@ -1,51 +1,45 @@
 import Foundation
+import UIKit
 
 class ParsingViewModel {
     
-    private var model = ParsingModel()
-    private var autocallTask: () -> ()
+    private var model = ParsingModel() {
+        didSet {
+            self.parseDataClosure()
+        }
+    }
+    private var parsingService: ParsingService = ServiceLocator.shared.getService()
+    private var parseDataClosure: () -> ()
     private var dispatchTimerSource: DispatchSourceTimer?
     
-    var url: URL? {
-        get { model.url }
-        set { model.url = newValue }
-    }
-    
-    init(autoCallsTask: @escaping () -> () ) {
-        self.autocallTask = autoCallsTask
+    init(parseDataClosure: @escaping () -> () ) {
+        self.parseDataClosure = parseDataClosure
         autocallToURLEvery15Min()
     }
     
-    func getResources(url: URL, completion: @escaping (Data) -> ()) {
-        let request = URLRequest(url: url)
-        
-        let task = model.urlSession.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            guard let data = data else {
-                print("No Data")
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                print("Server Error")
-                return
-            }
-            
-            guard let mimeType = response.mimeType, mimeType == "application/json" else {
-                print("Wrong mimeType")
-                return
-            }
-            
-            completion(data)
-        }
-        task.resume()
+    func updateDataFromUrl(url: String) {
+        guard let url = URL(string: url) else { return }
+        parsingService.getDataFromUrl(url: url, receiveDataFromTask: { [weak self] data in
+            self?.model.data = data
+        })
     }
     
-    private func autocallToURLEvery15Min() {
+    func decodeData<T>(convertedType: T.Type) -> T? {
+        
+        if let data = model.data {
+            let parsedData = parsingService.decodeJSON(
+                data: data,
+                codableStruct: PeopleDescription.self,
+                decodeType: convertedType.self
+            )
+            print("decoding")
+            return parsedData
+        } else {
+            return nil
+        }
+    }
+    
+    func autocallToURLEvery15Min() {
         DispatchQueue.global(qos: .background).async {
             var secondsCounter = 0
             
@@ -55,7 +49,7 @@ class ParsingViewModel {
                 print(secondsCounter)
                 if secondsCounter >= 900 {
                     print("autocall executing")
-                    self?.autocallTask()
+                    self?.parseDataClosure()
                     secondsCounter = 0
                 }
                 secondsCounter += 1
@@ -63,22 +57,6 @@ class ParsingViewModel {
             }
             self.dispatchTimerSource?.schedule(deadline: .now(), repeating: 1)
             self.dispatchTimerSource?.activate()
-        }
-    }
-    
-    func setNewUrl(url: String) {
-        guard url.isValidURL == true else { return }
-        let url = URL(string: url)
-        model.url = url
-    }
-    
-    func decodeJSON(data: Data) -> CustomStringConvertible? {
-        let decoder = JSONDecoder()
-        
-        if let decodedText = try? decoder.decode(PeopleDescriotion.self, from: data) {
-            return decodedText
-        } else {
-            return nil
         }
     }
     

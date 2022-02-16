@@ -1,21 +1,10 @@
 import Foundation
 
 struct ParsingModel {
-    
-    var urlComponents = URLComponents()
-    var url: URL?
-    var urlSession = URLSession.shared
-    
-    init() {
-        // url by default
-        urlComponents.scheme = "https"
-        urlComponents.host = "swapi.dev"
-        urlComponents.path = "/api/people/1"
-        url = urlComponents.url
-    }
+    var data: Data?
 }
 
-struct PeopleDescriotion: Codable, CustomStringConvertible {
+struct PeopleDescription: Codable, CustomStringConvertible {
     var description: String {
         return "\(name) \(mass) \(birth_year)"
     }

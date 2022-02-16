@@ -8,23 +8,17 @@ class ParsingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = ParsingViewModel(autoCallsTask: { [weak self] in
-            guard let url = self?.viewModel.url else { return }
-            self?.viewModel.getResources(url: url, completion: { data in
-                let newText = self?.viewModel.decodeJSON(data: data)
-                self?.parseView.setTextViewText(newText?.description ?? "nil")
-            })
+        viewModel = ParsingViewModel(parseDataClosure: { [weak self] in
+            if let parsedData = self?.viewModel.decodeData(convertedType: CustomStringConvertible.self) {
+                self?.parseView.setText(parsedData.description)
+            }
         })
     }
     
     override func loadView() {
         
-        parseView = ParsingView(parseFromUrl: { [weak self] in
-            guard let url = self?.viewModel.url else { return }
-            self?.viewModel.getResources(url: url, completion: { data in
-                let newText = self?.viewModel.decodeJSON(data: data)
-                self?.parseView.setTextViewText(newText?.description ?? "nil")
-            })
+        parseView = ParsingView(parseFromUrl: { [weak self] urlString in
+            self?.viewModel.updateDataFromUrl(url: urlString)
         })
         view = parseView
     }

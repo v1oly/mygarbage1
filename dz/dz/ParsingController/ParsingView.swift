@@ -5,10 +5,12 @@ class ParsingView: UIView {
     
     private let textView = UITextView()
     private let parseButton = UIButton()
+    private let urlField = UITextField()
+    private let urlFieldLabel = UILabel()
     
-    private let parseFromUrl: () -> ()
+    private let parseFromUrl: (_ url: String) -> ()
     
-    init (parseFromUrl: @escaping () -> ()) {
+    init (parseFromUrl: @escaping (_ url: String) -> ()) {
         self.parseFromUrl = parseFromUrl
         super.init(frame: CGRect.zero)
         setup()
@@ -24,6 +26,13 @@ class ParsingView: UIView {
         
         parseButton.frame = CGRect(x: textView.frame.midX, y: textView.frame.maxY + 50, width: 150, height: 50)
         parseButton.center = CGPoint(x: textView.frame.midX, y: textView.frame.maxY + 50)
+        
+        urlField.frame = CGRect(x: textView.frame.midX, y: textView.frame.midY, width: 400, height: 30)
+        urlField.center = CGPoint(x: textView.frame.midX, y: textView.frame.minY - 50)
+        
+        urlFieldLabel.frame = CGRect(x: textView.frame.midX, y: textView.frame.midY, width: 150, height: 30)
+        urlFieldLabel.center = CGPoint(x: urlField.frame.midX, y: urlField.frame.maxY - 40)
+        urlFieldLabel.sizeToFit()
     }
     
     private func setup() {
@@ -33,21 +42,28 @@ class ParsingView: UIView {
         textView.text = "Waiting parse"
         self.addSubview(textView)
         
-        parseButton.addTarget(self, action: #selector(parseFromUrl(_:)), for: .touchUpInside)
+        parseButton.addTarget(self, action: #selector(getData(_:)), for: .touchUpInside)
         parseButton.setTitle("Parse from Url", for: .normal)
         parseButton.backgroundColor = .lightGray
         self.addSubview(parseButton)
+        
+        urlField.backgroundColor = .lightGray
+        self.addSubview(urlField)
+        
+        urlFieldLabel.text = "Set url to parse here:"
+        self.addSubview(urlFieldLabel)
     }
     
-    func setTextViewText(_ text: String) {
+    func setText(_ text: String) {
         DispatchQueue.main.async {
             self.textView.text = text
         }
     }
     
     @objc
-    func parseFromUrl(_ sender: UIButton) {
-        parseFromUrl()
-        print("parsing...")
+    func getData(_ sender: UIButton) {
+        if let string = urlField.text {
+            parseFromUrl(string)
+        }
     }
 }
