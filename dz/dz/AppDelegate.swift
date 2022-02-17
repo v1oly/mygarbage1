@@ -4,6 +4,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
     let shareExtensionViewController = ShareExtensionViewController()
 
     override init() {

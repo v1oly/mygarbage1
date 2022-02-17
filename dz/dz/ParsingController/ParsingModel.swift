@@ -12,3 +12,8 @@ struct PeopleDescription: Codable, CustomStringConvertible {
     let mass: String
     let birth_year: String // swiftlint:disable:this identifier_name
 }
+
+struct ParseConfiguration: Codable {
+    let url: String
+    let parsedData: String
+}

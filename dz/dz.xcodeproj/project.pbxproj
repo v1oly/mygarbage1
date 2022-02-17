@@ -20,6 +20,7 @@
 		1EA70C6D27B6EB05003234A0 /* ParsingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C6C27B6EB05003234A0 /* ParsingViewModel.swift */; };
 		1EA70C6F27B6EC04003234A0 /* ParsingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C6E27B6EC04003234A0 /* ParsingModel.swift */; };
 		1EA70C7127BD67F2003234A0 /* ParsingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C7027BD67F2003234A0 /* ParsingService.swift */; };
+		1EA70C7327BEB3D7003234A0 /* CodableFileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA70C7227BEB3D7003234A0 /* CodableFileStorage.swift */; };
 		1EB4B39E276DEC9A00669D11 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4B39D276DEC9A00669D11 /* ShareViewController.swift */; };
 		1EB4B3A1276DEC9A00669D11 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4B39F276DEC9A00669D11 /* MainInterface.storyboard */; };
 		1EB4B3A5276DEC9A00669D11 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -97,6 +98,7 @@
 		1EA70C6C27B6EB05003234A0 /* ParsingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingViewModel.swift; sourceTree = "<group>"; };
 		1EA70C6E27B6EC04003234A0 /* ParsingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingModel.swift; sourceTree = "<group>"; };
 		1EA70C7027BD67F2003234A0 /* ParsingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingService.swift; sourceTree = "<group>"; };
+		1EA70C7227BEB3D7003234A0 /* CodableFileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFileStorage.swift; sourceTree = "<group>"; };
 		1EB4B39B276DEC9A00669D11 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB4B39D276DEC9A00669D11 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		1EB4B3A0276DEC9A00669D11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				1ED1C669279AE3A100F62640 /* FeedDataProvider.swift */,
 				1EFCD0C027A1A7720077E794 /* AccountsListService.swift */,
 				1EA70C7027BD67F2003234A0 /* ParsingService.swift */,
+				1EA70C7227BEB3D7003234A0 /* CodableFileStorage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				1ED1C66A279AE3A100F62640 /* FeedDataProvider.swift in Sources */,
 				28A383EA273515D500E17ECA /* LoginViewController.swift in Sources */,
 				1EFCD0C427A2E17A0077E794 /* RegistrationViewController.swift in Sources */,
+				1EA70C7327BEB3D7003234A0 /* CodableFileStorage.swift in Sources */,
 				1ED1C666279AD99D00F62640 /* ServiceLocator.swift in Sources */,
 				1EFCD0C627A2E6090077E794 /* RegistrationViewModel.swift in Sources */,
 				1ECA367B278DD7DB0095CAD2 /* PieChartView.swift in Sources */,

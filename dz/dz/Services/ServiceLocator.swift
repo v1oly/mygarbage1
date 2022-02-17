@@ -39,5 +39,6 @@ class ServiceLocatorInitialization {
         serviceLocator.addService(service: StringGenerator())
         serviceLocator.addService(service: AccountsListService())
         serviceLocator.addService(service: ParsingService())
+        serviceLocator.addService(service: CodableFileStorage())
     }
 }

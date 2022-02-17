@@ -61,6 +61,20 @@ class ParsingView: UIView {
         }
     }
     
+    func setUrlFieldText(_ text: String) {
+        DispatchQueue.main.async {
+            self.urlField.text = text
+        }
+    }
+    
+    func getTextViewText() -> String? {
+        return textView.text ?? ""
+    }
+    
+    func getUrlFieldText() -> String? {
+        return urlField.text ?? ""
+    }
+    
     @objc
     func getData(_ sender: UIButton) {
         if let string = urlField.text {
