@@ -3,8 +3,34 @@ import Foundation
 class ParsingService {
     
     private var urlSession = URLSession.shared
+    private var queue = DispatchQueue(label: "ParsingServiceQueue", qos: .background)
+    private var semaphore = DispatchSemaphore(value: 0)
     
-    func getDataFromUrl(url: URL, receiveDataFromTask: @escaping (Data?) -> ()) {
+    func getDataFromUrl<T, U: Decodable>(
+        url: String,
+        codableStruct: U.Type,
+        decodeType: T.Type
+    ) -> T? {
+        var returnData: T?
+        var parsedData: Data?
+        
+        queue.sync {
+            self.getRawDataFromUrl(url: url) { data in
+                parsedData = data
+                self.semaphore.signal()
+            }
+        }
+        semaphore.wait()
+        queue.sync {
+            if let data = parsedData {
+                returnData = self.decodeJSON(data: data, codableStruct: codableStruct.self, decodeType: decodeType.self)
+            }
+        }
+        return returnData
+    }
+    
+    func getRawDataFromUrl(url: String, receiveDataFromTask: @escaping (Data?) -> ()) {
+        guard let url = URL(string: url) else { return }
         let request = URLRequest(url: url)
         
         let task = urlSession.dataTask(with: request) { data, response, error in
@@ -39,5 +65,5 @@ class ParsingService {
         } else {
             return nil
         }
-    }
+    }    
 }

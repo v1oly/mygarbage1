@@ -1,10 +1,10 @@
 import Foundation
 
-struct ParsingModel {
-    var data: Data?
+struct ParsingModel: ParsingData {
+    var data: ParsingDataStructure?
 }
 
-struct PeopleDescription: Codable, CustomStringConvertible {
+struct PeopleDescription: Codable, CustomStringConvertible, ParsingDataStructure {
     var description: String {
         return "\(name) \(mass) \(birth_year)"
     }
@@ -16,4 +16,12 @@ struct PeopleDescription: Codable, CustomStringConvertible {
 struct ParseConfiguration: Codable {
     let url: String
     let parsedData: String
+}
+
+protocol ParsingDataStructure {
+    var description: String { get }
+}
+
+protocol ParsingData {
+    var data: ParsingDataStructure? { get set }
 }

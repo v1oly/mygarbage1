@@ -11,15 +11,13 @@ class ParsingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = ParsingViewModel(parseDataClosure: { [weak self] in
-            if let parsedData = self?.viewModel.decodeData(convertedType: CustomStringConvertible.self) {
-                self?.parseView.setText(parsedData.description)
-            }
-        })
-    }
+            let parsedData = self?.viewModel.modelData
+            self?.parseView.setText(parsedData?.description ?? "nil")
+            })
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fileStorage.createDocumentDirectory()
         let cfg = fileStorage.retrieve("ParseConfiguration", from: .documents, as: ParseConfiguration.self)
         parseView.setText(cfg?.parsedData ?? "")
         parseView.setUrlFieldText(cfg?.url ?? "")

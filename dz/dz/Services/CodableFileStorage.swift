@@ -24,7 +24,7 @@ class CodableFileStorage {
     }
     
     func createDocumentDirectory() {
-        var documentDir: String! // swiftlint:disable:this implicitly_unwrapped_optional
+        var documentDir: String?
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         
         documentDir = dirPaths[0] as String
@@ -47,6 +47,7 @@ class CodableFileStorage {
     }
     
     func retrieve<T: Decodable>(_ filename: String, from dir: Directory, as type: T.Type) -> T? {
+        self.createDocumentDirectory()
         if let dir = getURL(for: dir) {
             let url = dir.appendingPathComponent(filename)
             

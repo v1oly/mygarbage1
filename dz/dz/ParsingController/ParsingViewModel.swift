@@ -8,6 +8,10 @@ class ParsingViewModel {
             self.parseDataClosure()
         }
     }
+    var modelData: ParsingDataStructure? {
+        return model.data
+    }
+    
     private var parsingService: ParsingService = ServiceLocator.shared.getService()
     private var parseDataClosure: () -> ()
     private var dispatchTimerSource: DispatchSourceTimer?
@@ -18,25 +22,11 @@ class ParsingViewModel {
     }
     
     func updateDataFromUrl(url: String) {
-        guard let url = URL(string: url) else { return }
-        parsingService.getDataFromUrl(url: url, receiveDataFromTask: { [weak self] data in
-            self?.model.data = data
-        })
-    }
-    
-    func decodeData<T>(convertedType: T.Type) -> T? {
-        
-        if let data = model.data {
-            let parsedData = parsingService.decodeJSON(
-                data: data,
-                codableStruct: PeopleDescription.self,
-                decodeType: convertedType.self
-            )
-            print("decoding")
-            return parsedData
-        } else {
-            return nil
-        }
+        model.data = parsingService.getDataFromUrl(
+            url: url,
+            codableStruct: PeopleDescription.self,
+            decodeType: PeopleDescription.self
+        )
     }
     
     func autocallToURLEvery15Min() {
