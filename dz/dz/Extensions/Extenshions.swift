@@ -43,7 +43,7 @@ extension CGRect {
 }
 
 extension String {
-    var isValidURL: Bool {
+    var isValidURL: Bool { // swiftlint:disable:next legacy_objc_type
         let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
         if let match = detector?.firstMatch(
             in: self,

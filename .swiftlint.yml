@@ -5,6 +5,11 @@ disabled_rules:
   - nesting
   - void_return
   - trailing_whitespace
+  
+excluded:
+  - Carthage
+  - Pods
+  - dz/Pods
 
 opt_in_rules:
   - attributes

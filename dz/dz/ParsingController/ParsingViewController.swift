@@ -41,9 +41,19 @@ class ParsingViewController: UIViewController {
     
     override func loadView() {
         
-        parseView = ParsingView(parseFromUrl: { [weak self] urlString in
-            self?.viewModel.updateDataFromUrl(url: urlString)
-        })
+        parseView = ParsingView(
+            parseFromUrl: { [weak self] urlString in
+                self?.viewModel.updateDataFromUrl(url: urlString)
+            },
+            getDataFromDataBase: { [weak self] in
+                print("clicked")
+                self?.viewModel.deleteDataFromDataBase(_where: "NewTest")
+                if let fetchedData = self?.viewModel.fetchDataFromDataBase() {
+                    let string = fetchedData.joined(separator: "\n")
+                    self?.parseView.setText(string)
+                }
+            }
+        )
         view = parseView
     }
 }

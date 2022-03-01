@@ -68,7 +68,7 @@ class ShareExtensionView: UIView {
         var isFormatAlreadyUsed = false
         let dateFormatter = DateFormatter()
         let types: NSTextCheckingResult.CheckingType = [.date]
-        
+        // swiftlint:disable:next legacy_objc_type
         guard let detector = try? NSDataDetector(types: types.rawValue) else {
             fatalError("detector not found")
         }

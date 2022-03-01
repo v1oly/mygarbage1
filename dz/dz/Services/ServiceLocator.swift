@@ -40,5 +40,7 @@ class ServiceLocatorInitialization {
         serviceLocator.addService(service: AccountsListService())
         serviceLocator.addService(service: ParsingService())
         serviceLocator.addService(service: CodableFileStorage())
+        serviceLocator.addService(service: CoreDataInstruments())
+        serviceLocator.addService(service: RealmDBService())
     }
 }
