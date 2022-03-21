@@ -53,7 +53,7 @@ UITabBarControllerDelegate {
     
     @objc
     func showSelectionViewController(_ sender: UIButton) {
-        let newSessionViewController = LoginViewController()
+        let newSessionViewController = ParsingViewControllerRealm()
         self.navigationController?.pushViewController(newSessionViewController, animated: false)
     }
 }
