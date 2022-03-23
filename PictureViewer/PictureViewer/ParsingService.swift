@@ -7,21 +7,23 @@ class ParsingService {
     func getDataFromUrl<T, U: Decodable>(
         url: String,
         codableStruct: U.Type,
-        decodeType: T.Type,
-        sendDecodedData: @escaping (Any) -> ()
+        toType: T.Type,
+        completion: @escaping (T?) -> ()
     ) {
         self.getRawDataFromUrl(url: url) { data in
-            if let data = data {
-                if let decodedData = self.decodeJSON(data: data,
-                                                     codableStruct: codableStruct.self,
-                                                     decodeType: decodeType.self) {
-                    sendDecodedData(decodedData)
-                }
+            guard let data = data else {
+                return completion(nil)
             }
+            
+            self.decodeResponse(
+                data: data,
+                codableStruct: codableStruct.self,
+                completion: completion
+            )
         }
     }
     
-    func getRawDataFromUrl(url: String, receiveDataFromTask: @escaping (Data?) -> ()) {
+    private func getRawDataFromUrl(url: String, completion: @escaping (Data?) -> ()) {
         guard let url = URL(string: url) else { return }
         let request = URLRequest(url: url)
         
@@ -45,17 +47,23 @@ class ParsingService {
                 print("Wrong mimeType")
                 return
             }
-            receiveDataFromTask(data)
+            
+            completion(data)
         }
+        
         task.resume()
     }
     
-    func decodeJSON<T, U: Decodable>(data: Data, codableStruct: U.Type, decodeType: T.Type) -> T? {
+    private func decodeResponse<T, U: Decodable>(
+        data: Data,
+        codableStruct: U.Type,
+        completion: (T?) -> ()
+    ) {
         let decoder = JSONDecoder()
         if let decodedText = try? decoder.decode(codableStruct.self, from: data) {
-            return decodedText as? T
+            return completion(decodedText as? T)
         } else {
-            return nil
+            return completion(nil)
         }
     }
 }

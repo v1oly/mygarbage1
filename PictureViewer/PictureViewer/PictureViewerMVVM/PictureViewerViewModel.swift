@@ -5,177 +5,199 @@ class PictureViewerViewModel {
     
     private let parsingService = ParsingService()
     private let dateFormatter = DateFormatter()
-    private let userDefaults = UserDefaults()
-    private var urlToDirectory: URL?
+    private var imageCacheUrl: URL
+    private let fileManager = FileManager.default
     private var model = PictureViewerModel()
+    private let syncQueue = DispatchQueue(label: "imageSyncQueue", attributes: .concurrent)
+    private let downloadingQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 10
+        queue.qualityOfService = .userInitiated
+        return queue
+    }()
+    private var downloadingOperations = [Int: Operation]()
     
-    var imageDictionary: [Int: UIImage] {
-        return model.imageDict
-    }
+    var images: [Int: UIImage] { model.images }
     
     init() {
-        setup()
+        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = .current
+        
+        imageCacheUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+            .first ?? URL(fileURLWithPath: "")
+            .appendingPathComponent("images")
     }
     
-    func setupForFileManager(fileName: String,
-                             indexPath: IndexPath,
-                             completion: @escaping (IndexPath) -> ()) {
-        let url = self.urlToDirectory
-        if let pathComponent = url?.appendingPathComponent(fileName) {
-            let filePath = pathComponent.path
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath) {
-                if let data = FileManager.default.contents(atPath: filePath) {
-                    if let image = UIImage(data: data) {
-                        self.model.imageDict[indexPath.row] = image
-                        completion(indexPath)
-                        print("FILE AVAILABLE")
+    func getImage(
+        fileName: String,
+        index: Int,
+        completion: @escaping (UIImage?, String) -> ()
+    ) -> String {
+        let downloadingId = UUID().uuidString
+        
+        let saveAndFinish: (UIImage?, Bool) -> () = { [weak self] image, toFile in
+            self?.saveImage(image: image, name: fileName, index: index, toFile: toFile) {
+                self?.decodeImage(image) { decodedImage in
+                    DispatchQueue.main.async {
+                        completion(decodedImage, downloadingId)
                     }
                 }
-            } else {
-                self.downloadCatImageFromAPI(indexPath: indexPath) {
-                    completion(indexPath)
-                }
-                print("FILE NOT AVAILABLE")
             }
         }
+        
+        syncQueue.async(flags: .barrier) { [weak self] in
+            self?.getLocalImage(fileName: fileName) { image in
+                if let image = image {
+                    saveAndFinish(image, false)
+                } else {
+                    self?.getImageFromNetwork(index: index) { image in
+                        saveAndFinish(image, true)
+                    }
+                }
+            }
+        }
+        
+        return downloadingId
     }
     
-    func getFileCreatedDate(fileName: String) -> String? {
-        let url = self.urlToDirectory
-        var creationDateString: String? 
-        if let pathComponent = url?.appendingPathComponent(fileName) {
-            let filePath = pathComponent.path
-            var theCreationDate = Date()
+    private func decodeImage(_ image: UIImage?, completion: @escaping (UIImage?) -> ()) {
+        DispatchQueue.global(qos: .userInitiated).async {
             
-            do {
-                let aFileAttributes = try FileManager.default.attributesOfItem(atPath: filePath)
-                as [FileAttributeKey: Any]
-                // swiftlint:disable:next force_cast
-                theCreationDate = aFileAttributes[FileAttributeKey.creationDate] as! Date
-                print(theCreationDate)
-                creationDateString = self.dateFormatter.string(from: theCreationDate)
-            } catch let err {
-                print(err)
+            guard
+                let image = image,
+                let cgImage = image.cgImage
+            else {
+                return completion(image)
             }
+            
+            let size = CGSize(width: cgImage.width, height: cgImage.height)
+            
+            guard let context = CGContext(
+                data: nil,
+                width: Int(size.width),
+                height: Int(size.height),
+                bitsPerComponent: 8,
+                bytesPerRow: 0,
+                space: CGColorSpaceCreateDeviceRGB(),
+                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue
+            ) else {
+                return completion(image)
+            }
+            
+            context.draw(cgImage, in: CGRect(origin: .zero, size: size))
+            
+            guard let decodedImage = context.makeImage() else {
+                return completion(image)
+            }
+            
+            let result = UIImage(
+                cgImage: decodedImage,
+                scale: image.scale,
+                orientation: image.imageOrientation
+            )
+            
+            completion(result)
         }
-        return creationDateString
     }
     
-    func clearDirectory(completion: @escaping () -> ()) {
-        var countOfFiles = 0
-        let fileManager = FileManager.default
-        let url = urlToDirectory
-        if let urlPath = url?.path {
-            let dirContents = try? fileManager.contentsOfDirectory(atPath: urlPath)
-            countOfFiles = dirContents?.count ?? 0
-        }
-        DispatchQueue.global(qos: .background).async {
-            while countOfFiles != 0 {
-                for num in 0...999 {
-                    if let pathComponent = url?.appendingPathComponent("CatImage \(num)") {
-                        let filePath = pathComponent.path
-                        if fileManager.fileExists(atPath: filePath) {
-                            do {
-                                try fileManager.removeItem(at: pathComponent)
-                                countOfFiles -= 1
-                            } catch let err {
-                                print(err)
-                            }
-                        }
-                    }
+    func getImageCreationDate(fileName: String, completion: @escaping (String?) -> ()) {
+        syncQueue.async {
+            let imagePath = self.imageCacheUrl.appendingPathComponent(fileName).path
+            
+            guard
+                let attributes = try? self.fileManager.attributesOfItem(atPath: imagePath) as [FileAttributeKey: Any],
+                let creationDate = attributes[.creationDate] as? Date
+            else {
+                return DispatchQueue.main.async {
+                    completion(nil)
                 }
             }
-            self.model.imageDict.removeAll()
+            
+            let date = self.dateFormatter.string(from: creationDate)
+            
+            DispatchQueue.main.async {
+                completion(date)
+            }
+        }
+    }
+    
+    func removeAllImages(completion: @escaping () -> ()) {
+        syncQueue.async(flags: .barrier) { [weak self] in
+            self?.downloadingQueue.cancelAllOperations()
+            self?.downloadingOperations.removeAll()
+            self?.model.images.removeAll()
+            
+            guard
+                let basePath = self?.imageCacheUrl.path,
+                let dirContents = try? self?.fileManager.contentsOfDirectory(atPath: basePath) else {
+                    return completion()
+                }
+            
+            for fileName in dirContents {
+                if let fileUrl = self?.imageCacheUrl.appendingPathComponent(fileName) {
+                    try? self?.fileManager.removeItem(at: fileUrl)
+                }
+            }
+            
             DispatchQueue.main.async {
                 completion()
             }
         }
     }
     
-    private func getURLOfDictionary(for dir: Directory) -> URL? {
-        var searchDir: FileManager.SearchPathDirectory
-        switch dir {
-        case .documents:
-            searchDir = .documentDirectory
-        case .caches:
-            searchDir = .cachesDirectory
-        }
+    private func getLocalImage(fileName: String, completion: (UIImage?) -> ()) {
+        let imagePath = self.imageCacheUrl.appendingPathComponent(fileName).path
         
-        guard let url = FileManager.default.urls(for: searchDir, in: .userDomainMask).first else {
-            print("Error BAD URL")
-            return nil
-        }
-        return url
-    }
-        
-    private func setup() {
-        self.dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
-        self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        self.dateFormatter.timeZone = .current
-        
-        urlToDirectory = self.getURLOfDictionary(for: .documents)
-        print(urlToDirectory!)
+        guard
+            let data = fileManager.contents(atPath: imagePath),
+            let image = UIImage(data: data)
+        else { return completion(nil) }
+
+        completion(image)
     }
     
-    func downloadCatImageFromAPI(indexPath: IndexPath, completion: @escaping () -> ()) {
-        let randomCatUrlToJSON = "https://api.thecatapi.com/v1/images/search"
-        self.parsingService.getDataFromUrl(
-            url: randomCatUrlToJSON,
-            codableStruct: [CatPictureUrl].self,
-            decodeType: [CatPictureUrl].self,
-            sendDecodedData: { decocedData in
-                let catPictureURL = [decocedData].description.stripped
-                self.loadImageFromUrl(url: catPictureURL) { image in
-                    self.model.imageDict[indexPath.row] = image
-                    completion()
-                }
-            }
-        )
+    private func getImageFromNetwork(index: Int, completion: @escaping (UIImage?) -> ()) {
+        let operation = ImageDownloadingOperation(completion: completion)
+        
+        downloadingOperations[index]?.cancel()
+        downloadingOperations[index] = operation
+        downloadingQueue.addOperation(operation)
     }
     
-    func saveImageToDict(image: UIImage, imageName: String) {
-        if let urlToDirectory = urlToDirectory {
-            image.saveToDocuments(filename: imageName, documentsDirectory: urlToDirectory) {
-            }
+    private func saveImage(image: UIImage?, name: String, index: Int, toFile: Bool, completion: @escaping () -> ()) {
+        guard let image = image else {
+            return completion()
         }
-    }
-    
-    private func loadImageFromUrl(url: String, completion: @escaping (UIImage) -> ()) {
-        guard let url = URL(string: url) else { return }
-        DispatchQueue.global(qos: .utility).async {
-            if let imageData = try? Data(contentsOf: url) {
-                if let image = UIImage(data: imageData) {
-                    completion(image)
-                }
-            }
+            
+        syncQueue.async(flags: .barrier) { [weak self] in
+            self?.model.images[index] = image
+            completion()
+        }
+        
+        if toFile {
+            image.saveToDocuments(filename: name, documentsDirectory: imageCacheUrl, completion: completion)
         }
     }
 }
 
-extension String {
-    var stripped: String {
-        let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-=().!_:/")
-        return self.filter { okayChars.contains($0) }
-    }
-}
-
-extension UIImage {
-    
-    func saveToDocuments(filename:String,
-                         documentsDirectory: URL,
-                         completion: @escaping () -> ()) {
+private extension UIImage {
+    func saveToDocuments(
+        filename: String,
+        documentsDirectory: URL,
+        completion: @escaping () -> ()
+    ) {
         let fileURL = documentsDirectory.appendingPathComponent(filename)
-        if let data = self.jpegData(compressionQuality: 1.0) {
-            do {
-                if FileManager.default.fileExists(atPath: fileURL.path) {
-                    try FileManager.default.removeItem(at: fileURL)
-                }
-                try data.write(to: fileURL)
-                completion()
-            } catch {
-                print("error saving file to documents:", error)
-            }
+        
+        guard let data = self.jpegData(compressionQuality: 1.0) else {
+            return completion()
         }
+        
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            try? FileManager.default.removeItem(at: fileURL)
+        }
+        
+        try? data.write(to: fileURL)
+        completion()
     }
 }
