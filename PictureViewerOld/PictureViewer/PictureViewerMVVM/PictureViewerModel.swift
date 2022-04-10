@@ -1,7 +1,7 @@
 import UIKit
 
 struct PictureViewerModel {
-    var imageDict: [Int: UIImage] = [:] 
+    var images: [Int: UIImage] = [:] 
 }
 
 struct CatPictureUrl: Codable, CustomStringConvertible {

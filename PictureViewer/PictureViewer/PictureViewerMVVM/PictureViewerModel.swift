@@ -10,8 +10,3 @@ struct CatPictureUrl: Codable, CustomStringConvertible {
     }
     let url: String
 }
-
-enum Directory {
-    case documents
-    case caches
-}

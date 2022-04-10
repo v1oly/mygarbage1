@@ -107,7 +107,7 @@ extension PictureViewerController: UICollectionViewDelegate {
         
         collectionView.performBatchUpdates {
             let indexes = (oldRowsCount - 1...oldRowsCount + 8)
-                .map { IndexPath(item: $0, section: 0) }
+            .map { IndexPath(item: $0, section: 0) }
             collectionView.insertItems(at: indexes)
         }
     }

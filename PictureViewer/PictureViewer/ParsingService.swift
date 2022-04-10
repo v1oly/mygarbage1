@@ -23,34 +23,35 @@ class ParsingService {
         }
     }
     
+ 
     private func getRawDataFromUrl(url: String, completion: @escaping (Data?) -> ()) {
         guard let url = URL(string: url) else { return }
         let request = URLRequest(url: url)
-        
+
         let task = urlSession.dataTask(with: request) { data, response, error in
             if let error = error {
                 print(error)
                 return
             }
-            
+
             guard data != nil else {
                 print("No Data")
                 return
             }
-            
+
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server Error")
                 return
             }
-            
+
             guard let mimeType = response.mimeType, mimeType == "application/json" else {
                 print("Wrong mimeType")
                 return
             }
-            
+
             completion(data)
         }
-        
+
         task.resume()
     }
     

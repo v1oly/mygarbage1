@@ -5,8 +5,8 @@ class PictureViewerViewModel {
     
     private let parsingService = ParsingService()
     private let dateFormatter = DateFormatter()
-    private var imageCacheUrl: URL
     private let fileManager = FileManager.default
+    private var imageCacheUrl: URL
     private var model = PictureViewerModel()
     private let syncQueue = DispatchQueue(label: "imageSyncQueue", attributes: .concurrent)
     private let downloadingQueue: OperationQueue = {
@@ -24,7 +24,8 @@ class PictureViewerViewModel {
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = .current
         
-        imageCacheUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        imageCacheUrl = fileManager
+            .urls(for: .documentDirectory, in: .userDomainMask)
             .first ?? URL(fileURLWithPath: "")
             .appendingPathComponent("images")
     }

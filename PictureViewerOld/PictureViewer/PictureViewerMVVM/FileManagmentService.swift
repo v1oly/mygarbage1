@@ -1,11 +1,8 @@
 import Foundation
 import UIKit
 
-class PictureViewerViewModel {
+class FileManagmentService {
     
-    private let parsingService = ParsingService()
-    private let imageDownloader = ImageDownloader()
-    private var model = PictureViewerModel()
     private var fileManagmentQueue = DispatchQueue(label: "FileManagmentQueue", qos: .utility, attributes: .concurrent)
     private let fileManager = FileManager.default
     private var url: URL = {
@@ -20,43 +17,7 @@ class PictureViewerViewModel {
         formatter.timeZone = .current
         return formatter
     }()
-    
-    var images: [Int: UIImage] { return model.images }
-    
-    func getImage(
-        fileName: String,
-        indexPath: IndexPath,
-        completion: @escaping (UIImage, String) -> ()
-    ) -> String? {
-        
-        let identifier = UUID().uuidString
-        
-        let filePath = url.appendingPathComponent(fileName).path
-        
-        if self.fileManager.fileExists(atPath: filePath) == true {
-            fileManagmentQueue.async {
-                if let image = filePath.loadImage(fileManager: FileManager.default) {
-                    //                    self.model.images[indexPath.row] = image
-                    // У меня почему то крашится прога с этой строкой при повторном запуске если картинки уже есть
-                    DispatchQueue.main.async {
-                        completion(image, identifier)
-                    }
-                }
-            }
-        } else {
-            fileManagmentQueue.async(flags: .barrier) { [weak self] in
-                self?.imageDownloader.downloadImage { [weak self] image in
-                    self?.model.images[indexPath.row] = image
-                    self?.saveImageToDict(image: image, imageName: fileName)
-                    DispatchQueue.main.async {
-                        completion(image, identifier)
-                    }
-                }
-            }
-        }
-        return identifier
-    }
-    
+
     func getFileCreatedDate(fileName: String, completion: @escaping (String) -> ()) {
         fileManagmentQueue.async {
             let pathComponent = self.url.appendingPathComponent(fileName)
@@ -94,8 +55,6 @@ class PictureViewerViewModel {
     }
     
     func saveImageToDict(image: UIImage, imageName: String) {
-        fileManagmentQueue.async {
-            image.saveToDocuments(filename: imageName, documentsDirectory: self.url) { }
-        }
+        image.saveToDocuments(filename: imageName, documentsDirectory: url) { }
     }
 }
