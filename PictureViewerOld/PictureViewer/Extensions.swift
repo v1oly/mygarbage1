@@ -12,12 +12,15 @@ extension Optional {
 }
 
 extension String {
-    func loadImage(fileManager: FileManager) -> UIImage? {
+    func loadImage(fileManager: FileManager, completion: @escaping (UIImage?) -> ()) {
         guard
             let data = fileManager.contents(atPath: self),
             let image = UIImage(data: data)
-        else { return nil }
-        return image
+        else {
+            completion(nil)
+            return
+        }
+        completion(image)
     }
 }
 

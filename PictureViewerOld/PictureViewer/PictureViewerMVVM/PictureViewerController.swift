@@ -88,6 +88,7 @@ extension PictureViewerController: UICollectionViewDelegate {
         viewModel.getFileCreatedDate(fileName: imageName) { creationDate in
             let photoVC = PhotoViewController(photoView: PhotoView(image: &image, date: creationDate))
             self.navigationController?.pushViewController(photoVC, animated: true)
+            print("clicked")
         }
     }
     

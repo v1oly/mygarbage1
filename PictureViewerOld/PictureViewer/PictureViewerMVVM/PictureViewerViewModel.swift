@@ -34,14 +34,16 @@ class PictureViewerViewModel {
         let filePath = url.appendingPathComponent(fileName).path
         
         if self.fileManager.fileExists(atPath: filePath) == true {
-            fileManagmentQueue.async {
-                if let image = filePath.loadImage(fileManager: FileManager.default) {
-                    //                    self.model.images[indexPath.row] = image
-                    // У меня почему то крашится прога с этой строкой при повторном запуске если картинки уже есть
-                    DispatchQueue.main.async {
-                        completion(image, identifier)
+            fileManagmentQueue.async { [weak self] in
+                filePath.loadImage(fileManager: FileManager.default, completion: { image in
+                    if let image = image {
+                        DispatchQueue.main.async {
+                            self?.model.images[indexPath.row] = image // пришлось эту строку добавить сюда тк иначе был краш почему то в потоке файлменедженткью
+                            completion(image, identifier)
+                        }
                     }
                 }
+                )
             }
         } else {
             fileManagmentQueue.async(flags: .barrier) { [weak self] in
