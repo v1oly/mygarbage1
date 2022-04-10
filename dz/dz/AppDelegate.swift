@@ -1,10 +1,24 @@
+import CoreData
+import RealmSwift
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
+    
     let shareExtensionViewController = ShareExtensionViewController()
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        
+        let container = NSPersistentContainer(name: "LocalDataBase")
+        container.loadPersistentStores(completionHandler: { _, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
 
     override init() {
         ServiceLocatorInitialization.registerServicesToServiceLocator()
@@ -14,9 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         // swiftlint:disable:next discouraged_optional_collection
         willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-        ) -> Bool {
-        print(#function)
-        print("didIt")
+    ) -> Bool {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print("Core Data location - \(urls[urls.count - 1] as URL)")
+        
+        var config = Realm.Configuration()
+        config.deleteRealmIfMigrationNeeded = true
+        Realm.Configuration.defaultConfiguration = config
+        if let realm = try? Realm() {
+            print("realm file location - \(realm.configuration.fileURL?.absoluteURL as Any)")
+        }
         return true
     }
 
@@ -28,7 +49,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(#function)
         return true
     }
-
+    
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         print(#function)
     }
@@ -55,5 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         print(#function)
+        self.saveContext()
     }
 }
